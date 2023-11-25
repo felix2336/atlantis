@@ -13,6 +13,16 @@ module.exports = {
      */
 
     async execute(interaction, client){
+        if (cooldowns.has(`${interaction.user.id}_work`)) {
+            const lastExecute = cooldowns.get(`${interaction.user.id}_work`)
+            const now = Date.now();
+            const cooldownTime = 3600000 //1 Stunde
+
+            if (now - lastExecute < cooldownTime) return;
+        }
+        cooldowns.set(`${interaction.user.id}_work`, Date.now())
+
+        
         const income = Math.floor(Math.random() * 100)
         const messages = [
             `Du hast im REWE um die Ecke geholfen, die Regale aufzufüllen und hast 💰${income} erhalten`,
