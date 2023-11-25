@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.12.1",
+    "glob": "^10.3.10",
     "mongoose": "^8.0.1"
   }
 }
