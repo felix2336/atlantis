@@ -19,11 +19,6 @@ module.exports = {
                         .setColor(Colors.Red)
                 ], ephemeral: true
             }) && client.commands.delete(interaction.commandName);
-            let maintenance;
-            const data = JSON.parse(fs.readFileSync('./maintenance.json', 'utf8'))
-            maintenance = data['maintenance']
-            if (maintenance == true && interaction.user.id == '773072144304963624') return command.execute(interaction, client);
-            if (maintenance == true) return interaction.reply({ content: 'Der Bot befindet sich gerade in Wartungsarbeiten. Daher können keine Commands verwendet werden.', ephemeral: true })
 
             if (command.dev && !command.permission && interaction.user.id != '773072144304963624') {
                 return interaction.reply({ content: 'Dieser befehl ist nur für den Dev des Bots gedacht!', ephemeral: true });
