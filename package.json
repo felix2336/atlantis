@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ascii-table": "^0.0.9",
     "discord.js": "^14.12.1",
     "glob": "^10.3.10",
     "mongoose": "^8.0.1"
