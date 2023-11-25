@@ -1,24 +1,24 @@
-const { Client } = require("discord.js");
+// const { Client } = require("discord.js");
 
-/**
- * @param { Client } client
- */
+// /**
+//  * @param { Client } client
+//  */
 
-module.exports = async (client, PG, Ascii) => {
+// module.exports = async (client, PG, Ascii) => {
     
-    const Table = new Ascii().setHeading("Button", "Status", "Reason");
+//     const Table = new Ascii().setHeading("Button", "Status", "Reason");
 
-    (await PG(`${process.cwd().replace(/\\/g,"/")}/Buttons/*/*.js`)).map(async (file) => {
-        const button = require(file);
+//     (await PG(`${process.cwd().replace(/\\/g,"/")}/Buttons/*/*.js`)).map(async (file) => {
+//         const button = require(file);
 
-        if(!button.id) {
-            Table.addRow(file, "⛔", "Missing CustomID!");
-            return;
-        }
+//         if(!button.id) {
+//             Table.addRow(file, "⛔", "Missing CustomID!");
+//             return;
+//         }
 
-        client.buttons.set(button.id, button);
+//         client.buttons.set(button.id, button);
     
-        await Table.addRow(`${button.id}`, "✅", "Loaded!")
-    });
-    console.log(Table.toString());
-}
+//         await Table.addRow(`${button.id}`, "✅", "Loaded!")
+//     });
+//     console.log(Table.toString());
+// }

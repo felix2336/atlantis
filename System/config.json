@@ -1,3 +1,4 @@
 {
-    "token": "MTE3NTQ3NDQ5ODE0NTg5MDMwNQ.GAZPTL.TKdWk7pmoTL69WnGLJUdOq9FT1Vqw54TwxZo-A"
+    "token": "MTE3NTQ3NDQ5ODE0NTg5MDMwNQ.GAZPTL.TKdWk7pmoTL69WnGLJUdOq9FT1Vqw54TwxZo-A",
+    "mongourl": "mongodb+srv://atlantis:hhOFBwPKx8DIjFXP@database.4gtqwql.mongodb.net/?retryWrites=true&w=majority"
 }
