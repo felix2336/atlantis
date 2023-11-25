@@ -50,7 +50,7 @@ module.exports = {
 
         const embed = new EmbedBuilder({
             title: 'Einzahlung erfolgreich',
-            description: `Du hast erfolgreich ${amount} auf dein Bankkonto eingezahlt`,
+            description: `Du hast erfolgreich 💰${amount} auf dein Bankkonto eingezahlt`,
             color: 0x77ff00
         })
         interaction.reply({embeds: [embed]})
