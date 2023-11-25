@@ -1,8 +1,10 @@
 const { Schema, model } = require('mongoose')
 
-const casino = new Schema({
+let Casino = new Schema({
     user: String,
     wallet: Number,
     bank: Number,
-    inventory: Object
+    inventory: {}
 })
+
+module.exports = model('casino', Casino)
