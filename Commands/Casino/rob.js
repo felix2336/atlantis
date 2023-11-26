@@ -17,9 +17,11 @@ module.exports = {
 
     /**
      * @param {CommandInteraction} interaction
-     */
-
-    async execute(interaction) {
+    */
+   
+   async execute(interaction) {
+        const target = interaction.options.getUser('target')
+        if(target.bot) return interaction.reply({content: 'Du kannst keine Bots beklauen', ephemeral: true})
         if (cooldowns.has(`${interaction.user.id}_rob`)) {
             const lastExecute = cooldowns.get(`${interaction.user.id}_work`)
             const now = Date.now()
@@ -36,7 +38,6 @@ module.exports = {
                 return;
             }
 
-            const target = interaction.options.getUser('target')
             if (target.id == interaction.user.id) {
                 const embed = new EmbedBuilder({
                     title: 'Plan gescheitert',
