@@ -31,7 +31,7 @@ module.exports = {
             if (now - lastExecute < cooldownTime) {
                 const embed = new EmbedBuilder({
                     title: 'Plan gescheitert',
-                    description: `Du musst dich erstmal versteckt halten, bevor du den nächsten um sein Geld erleichterst.\n<t:${timestamp}:R> kannst du dem nächsten sein Geld entwenden.`,
+                    description: `Du musst dich erstmal versteckt halten, bevor du den nächsten um sein Geld erleichterst.\nVerbleibende Zeit: <t:${timestamp}:T>`,
                     color: 0xff1414
                 })
                 interaction.reply({ embeds: [embed] })
