@@ -8,7 +8,7 @@ module.exports = {
     options: [
         {
             name: 'amount',
-            description: 'Wie viel willst du einzahlen? (-1 für alles)',
+            description: 'Wie viel möchtest du einzahlen? (-1 für alles)',
             type: ApplicationCommandOptionType.Number,
             required: true
         }
@@ -50,7 +50,7 @@ module.exports = {
 
         const embed = new EmbedBuilder({
             title: 'Einzahlung erfolgreich',
-            description: `Du hast erfolgreich 💰${amount} auf dein Bankkonto eingezahlt`,
+            description: `Du hast erfolgreich 💰${amount} auf dein Bankkonto eingezahlt.`,
             color: 0x77ff00
         })
         interaction.reply({embeds: [embed]})
