@@ -23,7 +23,7 @@ module.exports = {
         const target = interaction.options.getUser('target')
         if (target.bot) return interaction.reply({ content: 'Du kannst keine Bots beklauen', ephemeral: true })
         if (cooldowns.has(`${interaction.user.id}_rob`)) {
-            const lastExecute = cooldowns.get(`${interaction.user.id}_work`)
+            const lastExecute = cooldowns.get(`${interaction.user.id}_rob`)
             const now = Date.now()
             const cooldownTime = 10800000 //3 Stunden
 
