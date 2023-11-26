@@ -18,7 +18,16 @@ module.exports = {
             const now = Date.now();
             const cooldownTime = 3600000 //1 Stunde
 
-            if (now - lastExecute < cooldownTime) return;
+            const timestamp = lastExecute + cooldownTime
+            if (now - lastExecute < cooldownTime){
+                const embed = new EmbedBuilder({
+                    title: 'Arbeit fehlgeschlagen',
+                    description: `Du kannst erneut arbeiten <t:${timestamp}:R>`,
+                    color: 0xff1414
+                })
+                interaction.reply({embeds: [embed]})
+                return;
+            };
         }
         cooldowns.set(`${interaction.user.id}_work`, Date.now())
 
