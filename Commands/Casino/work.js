@@ -18,7 +18,7 @@ module.exports = {
             const now = Date.now();
             const cooldownTime = 3600000 //1 Stunde
 
-            const timestamp = lastExecute + cooldownTime
+            const timestamp = (lastExecute + cooldownTime) / 1000
             if (now - lastExecute < cooldownTime){
                 const embed = new EmbedBuilder({
                     title: 'Arbeit fehlgeschlagen',
