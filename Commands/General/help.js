@@ -26,7 +26,7 @@ module.exports = {
                 let fieldArray = [];
                 const folder = fs.readdirSync('./Commands/Casino')
                 for(const file of folder){
-                    const module = require(file)
+                    const module = require(`./Commands/Casino/${file}`)
                     const name = module.name
                     const value = module.description
                     fields.push({name, value})
