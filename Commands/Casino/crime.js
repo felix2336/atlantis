@@ -28,7 +28,7 @@ module.exports = {
                 return;
             }
         }
-        cooldowns.set(`${interaction.user.id}_crime`)
+        cooldowns.set(`${interaction.user.id}_crime`, Date.now())
 
         let User;
         User = await Casino.findOne({ user: interaction.user.id })
