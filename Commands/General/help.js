@@ -24,7 +24,7 @@ module.exports = {
         switch(subcommand){
             case 'casino': {
                 let fieldArray = [];
-                const folder = fs.readdirSync('../../Commands/Casino')
+                const folder = fs.readdirSync('./Commands/Casino')
                 for(const file of folder){
                     const module = require(file)
                     const name = module.name
