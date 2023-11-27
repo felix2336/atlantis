@@ -29,7 +29,7 @@ module.exports = {
                     const module = require(`../../Commands/Casino/${file}`)
                     const name = module.name
                     const value = module.description
-                    fieldArray.push({name, value})
+                    fieldArray.push({name: `/${name}`, value})
                 }
                 const embed = new EmbedBuilder({
                     title: '**Casino Hilfe**',
