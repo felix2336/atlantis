@@ -36,6 +36,13 @@ module.exports = {
         await CD.save()
 
         const dailyIncome = 750
+
+        const embed = new EmbedBuilder({
+            title: 'Tägliches Einkommen erhalten',
+            description: `Du hast erfolgreich dein tägliches Einkommen in Höhe von 💰${dailyIncome} erhalten`,
+            color: 0x77ff00 
+        })
+        interaction.reply({embefds: [embed]})
         let User;
         User = await Casino.findOne({user: interaction.user.id})
         if(!User){
