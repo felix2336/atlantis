@@ -17,7 +17,7 @@ module.exports = {
         CD = await Cooldowns.findOne({user: interaction.user.id})
         if(CD && CD.crime){
             const now = Date.now()
-            const lastExecute = CD.crime
+            const lastExecute = parseInt(CD.crime)
             const cooldownTime = 10800000 //3 Stunden
 
             const timestamp = Math.floor((lastExecute + cooldownTime) / 1000)

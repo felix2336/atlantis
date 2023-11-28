@@ -16,7 +16,7 @@ module.exports = {
         CD = await Cooldowns.findOne({ user: interaction.user.id })
         if (CD && CD.daily) {
             const now = Date.now()
-            const lastExecute = CD.daily
+            const lastExecute = parseInt(CD.daily)
             const cooldownTime = 86400000 //1 Tag, logisch bei daily reward ig XD
             const timestamp = Math.floor((lastExecute + cooldownTime) / 1000)
             if (now - lastExecute < cooldownTime) {

@@ -16,7 +16,7 @@ module.exports = {
         let CD;
         CD = await Cooldowns.findOne({user: interaction.user.id})
         if (CD && CD.work) {
-            const lastExecute = CD.work
+            const lastExecute = parseInt(CD.work)
             const now = Date.now();
             const cooldownTime = 3600000 //1 Stunde
 
