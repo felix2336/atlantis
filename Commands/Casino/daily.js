@@ -22,7 +22,7 @@ module.exports = {
             if(now - lastExecute < cooldownTime){
                 const embed = new EmbedBuilder({
                     title: 'Fehlgeschlagen',
-                    description: `Du kannst erst wieder <t:${timestamp}> deine tägliche Belohnung abholen`,
+                    description: `Du kannst erst wieder <t:${timestamp}:R> deine tägliche Belohnung abholen`,
                     color: 0xff1414
                 })
                 interaction.reply({embeds: [embed]})
