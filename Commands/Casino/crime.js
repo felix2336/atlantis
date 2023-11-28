@@ -1,5 +1,6 @@
 const { CommandInteraction, EmbedBuilder } = require('discord.js')
 const Casino = require('../../Schemas/casino')
+const Cooldowns = require('../../Schemas/cooldowns')
 const cooldowns = new Map()
 
 module.exports = {
@@ -12,9 +13,11 @@ module.exports = {
      */
 
     async execute(interaction) {
-        if(cooldowns.has(`${interaction.user.id}_crime`)){
+        let CD
+        CD = await Cooldowns.findOne({user: interaction.user.id})
+        if(CD && CD.crime){
             const now = Date.now()
-            const lastExecute = cooldowns.get(`${interaction.user.id}_crime`)
+            const lastExecute = CD.crime
             const cooldownTime = 10800000 //3 Stunden
 
             const timestamp = Math.floor((lastExecute + cooldownTime) / 1000)
@@ -28,7 +31,13 @@ module.exports = {
                 return;
             }
         }
-        cooldowns.set(`${interaction.user.id}_crime`, Date.now())
+        if(!CD){
+            CD = await Cooldowns.create({
+                user: interaction.user.id
+            })
+        }
+        CD.crime = Date.now()
+        await CD.save()
 
         let User;
         User = await Casino.findOne({ user: interaction.user.id })

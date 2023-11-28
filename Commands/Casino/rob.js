@@ -1,5 +1,6 @@
 const { CommandInteraction, EmbedBuilder, ApplicationCommandOptionType } = require('discord.js')
 const Casino = require('../../Schemas/casino')
+const Cooldowns = require('../../Schemas/cooldowns')
 const cooldowns = new Map()
 
 module.exports = {
@@ -22,8 +23,11 @@ module.exports = {
     async execute(interaction) {
         const target = interaction.options.getUser('target')
         if (target.bot) return interaction.reply({ content: 'Du kannst keine Bots beklauen', ephemeral: true })
-        if (cooldowns.has(`${interaction.user.id}_rob`)) {
-            const lastExecute = cooldowns.get(`${interaction.user.id}_rob`)
+
+        let CD
+        CD = await Cooldowns.findOne({user: interaction.user.id})
+        if (CD && CD.rob) {
+            const lastExecute = CD.rob
             const now = Date.now()
             const cooldownTime = 10800000 //3 Stunden
 
@@ -38,6 +42,13 @@ module.exports = {
                 return;
             }
         }
+        if(!CD){
+            CD = await Cooldowns.create({
+                user: interaction.user.id
+            })
+        }
+        CD.rob = Date.now()
+        await CD.save()
         if (target.id == interaction.user.id) {
             const embed = new EmbedBuilder({
                 title: 'Plan gescheitert',
