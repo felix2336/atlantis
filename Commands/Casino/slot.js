@@ -32,7 +32,7 @@ module.exports = {
             return;
         }
 
-        const symbols = ['💰', '🤑', '💸', '💯', '🪙', '🎉'];
+        const symbols = ['💰'/*, '🤑', '💸', '💯', '🪙', '🎉'*/];
         const result = []
         for (let i = 0; i < 3; i++) {
             const randomIndex = Math.floor(Math.random() * symbols.length)
