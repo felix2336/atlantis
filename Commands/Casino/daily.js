@@ -42,7 +42,7 @@ module.exports = {
             description: `Du hast erfolgreich dein tägliches Einkommen in Höhe von 💰${dailyIncome} erhalten`,
             color: 0x77ff00 
         })
-        interaction.reply({embefds: [embed]})
+        interaction.reply({embeds: [embed]})
         let User;
         User = await Casino.findOne({user: interaction.user.id})
         if(!User){
