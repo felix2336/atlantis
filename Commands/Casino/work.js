@@ -34,10 +34,10 @@ module.exports = {
         if(!CD){
             CD = await Cooldowns.create({
                 user: interaction.user.id,
-                crime: Number,
-                work: Number,
-                rob: Number,
-                daily: Number
+                crime: String,
+                work: String,
+                rob: String,
+                daily: String
             })
         }
         CD.work = Date.now()

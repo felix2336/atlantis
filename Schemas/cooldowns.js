@@ -2,10 +2,10 @@ const { Schema, model } = require('mongoose')
 
 let cooldowns = new Schema({
     user: String,
-    work: Number,
-    crime: Number,
-    rob: Number,
-    daily: Number
+    work: String,
+    crime: String,
+    rob: String,
+    daily: String
 })
 
 module.exports = model('cooldowns', cooldowns)
