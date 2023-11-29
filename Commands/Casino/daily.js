@@ -5,6 +5,7 @@ const Cooldowns = require('../../Schemas/cooldowns')
 module.exports = {
     name: 'daily',
     description: 'Hole dir deine tägliche Belohnung ab',
+    permission: 'SendMessages',
     dev: true,
 
     /**

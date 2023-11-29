@@ -4,6 +4,7 @@ const Casino = require('../../Schemas/casino')
 module.exports = {
     name: 'deposit',
     description: 'Zahle Geld auf dein Bankkonto ein',
+    permission: 'SendMessages',
     dev: true,
     options: [
         {

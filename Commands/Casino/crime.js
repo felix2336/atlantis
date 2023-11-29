@@ -6,6 +6,7 @@ const cooldowns = new Map()
 module.exports = {
     name: 'crime',
     description: 'Begehe ein Verbrechen für etwas Geld',
+    permission: 'SendMessages',
     dev: true,
 
     /**

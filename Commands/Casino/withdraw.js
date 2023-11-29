@@ -4,6 +4,7 @@ const Casino = require('../../Schemas/casino')
 module.exports = {
     name: 'withdraw',
     description: 'Hebe Geld von deinem Bankkonto ab',
+    permission: 'SendMessages',
     dev: true,
     options: [
         {

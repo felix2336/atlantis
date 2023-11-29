@@ -4,6 +4,7 @@ const Casino = require('../../Schemas/casino')
 module.exports = {
     name: 'slot',
     description: 'Spiele an einem Spielautomaten, um mit etwas Glück etwas Geld zu gewinnen',
+    permission: 'SendMessages',
     dev: true,
     options: [
         {

@@ -6,6 +6,7 @@ const cooldowns = new Map()
 module.exports = {
     name: 'rob',
     description: 'Versuche einem User etwas Geld zu stehlen (MAX 40%)',
+    permission: 'SendMessages',
     dev: true,
     options: [
         {

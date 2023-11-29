@@ -5,6 +5,7 @@ const Cooldowns = require('../../Schemas/cooldowns')
 module.exports = {
     name: 'work',
     description: 'Gehe arbeiten für ein Wenig Geld',
+    permission: 'SendMessages',
     dev: true,
 
     /**

@@ -4,6 +4,7 @@ const Casino = require('../../Schemas/casino')
 module.exports = {
     name: 'balance',
     description: 'Lasse dir deinen Kontostand anzeigen',
+    permission: 'SendMessages',
     dev: true,
 
     /**
