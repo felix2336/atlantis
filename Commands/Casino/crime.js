@@ -70,8 +70,7 @@ module.exports = {
             User.wallet += income
             await User.save()
         }else{
-            const percentage = ((Math.random() * 75) / 100).toFixed(2)
-            const fined = Math.floor(User.wallet * percentage)
+            const fined = Math.floor(Math.random() * 1000)
             const fineMessages = [
                 `Du wurdest bei dem Versuch erwischt, ein Handy zu klauen und musstest 💰${fined} Strafe bezahlen.`
             ]
