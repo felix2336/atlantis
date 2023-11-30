@@ -69,6 +69,7 @@ module.exports = {
             interaction.reply({embeds: [embed]})
             User.wallet += income
             await User.save()
+            return
         }else{
             const fined = Math.floor(Math.random() * 500)
             const fineMessages = [
@@ -83,6 +84,7 @@ module.exports = {
             interaction.reply({embeds: [embed]})
             User.wallet -= fined
             await User.save()
+            return
         }
     }
 }
