@@ -32,7 +32,7 @@ module.exports = {
             case 'save': {
                 const backup = await Backup.create({ categories: {}, roles: {} })
                 interaction.deferReply({ ephemeral: true })
-                const categories = guild.channels.cache.filter(channel => channel.type == ChannelType.GuildCategory)
+                const categories = {}
 
                 // for(const [_, category] of categories){
                 //     backup.categories[category.name] = {}
@@ -57,14 +57,14 @@ module.exports = {
 
 
                 guild.channels.cache.filter(channel => channel.type === ChannelType.GuildCategory).forEach(category => {
-                    backup.categories[category.name] = {};
+                    categories[category.name] = {};
 
                     // Iteriere durch die Kanäle in der aktuellen Kategorie
                     guild.channels.cache.filter(channel => channel.parentId === category.id).forEach(channel => {
-                        backup.categories[category.name][channel.name] = channel.type;
+                        categories[category.name][channel.name] = channel.type;
                     });
                 });
-
+                backup.categories = categories
                 setTimeout(async () => {
                     await backup.save()
                         .catch(err => console.error(err))
@@ -72,7 +72,7 @@ module.exports = {
                         interaction.editReply({ content: 'Ein Backup wurde erstellt', ephemeral: true })
                 }, 10000);
 
-                console.log(backup)
+                console.log(categories)
                 
             }
         }
