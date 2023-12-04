@@ -47,15 +47,15 @@ module.exports = {
                     await backup.save()
                         .catch(err => console.error(err))
                         .then(() => console.log('Gesichert'))
-                        interaction.editReply({ content: 'Ein Backup wurde erstellt', ephemeral: true })
+                    interaction.editReply({ content: 'Ein Backup wurde erstellt', ephemeral: true })
                 }, 10000);
                 break
             }
             case 'load': {
-                const Backup = await backup.findOne()
-                await interaction.deferReply({ephemeral: true})
+                const Backup = await backup.findOne().sort({ createdAt: -1 })
+                await interaction.deferReply({ ephemeral: true })
 
-                for(const category in Backup.categories){
+                for (const category in Backup.categories) {
                     const cat = await guild.channels.create({
                         name: category,
                         type: ChannelType.GuildCategory,
@@ -68,7 +68,7 @@ module.exports = {
                     })
                     const channelData = Backup.categories[cat.name]
 
-                    for(const channel in channelData){
+                    for (const channel in channelData) {
                         const channelType = channelData[channel]
 
                         await interaction.guild.channels.create({
@@ -78,7 +78,7 @@ module.exports = {
                         })
                     }
                 }
-                interaction.editReply({content: 'Kategorien und Channels wurden vom backup geladen', ephemeral: true})
+                interaction.editReply({ content: 'Kategorien und Channels wurden vom backup geladen', ephemeral: true })
             }
         }
     }
