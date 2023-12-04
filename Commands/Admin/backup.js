@@ -1,5 +1,5 @@
 const { CommandInteraction, Client, ApplicationCommandOptionType, ChannelType } = require('discord.js')
-const Backup = require('../../Schemas/backup')
+const backup = require('../../Schemas/backup')
 
 module.exports = {
     name: 'backup',
@@ -31,30 +31,8 @@ module.exports = {
         switch (subcommand) {
             case 'save': {
                 const backup = await Backup.create({ categories: {}, roles: {} })
-                interaction.deferReply({ ephemeral: true })
+                interaction.deferReply({ content: 'Backup wird erstellt', ephemeral: true })
                 const categories = {}
-
-                // for(const [_, category] of categories){
-                //     backup.categories[category.name] = {}
-
-                //     const channelsInCategory = guild.channels.cache.filter(channel => channel.parentId == category.id)
-
-                //     for(const [_, channel] of channelsInCategory){
-                //         backup.categories[category.name][channel.name] = channel.type
-                //     }
-                // }
-
-
-                // categories.forEach(category => {
-                //     backup.categories[category.name] = {}
-
-                //     const channelsInCategory = guild.channels.cache.filter(channel => channel.parentId == category.id)
-
-                //     channelsInCategory.forEach(channel => {
-                //         backup.categories[category.name][channel.name] = channel.type
-                //     })
-                // })
-
 
                 guild.channels.cache.filter(channel => channel.type === ChannelType.GuildCategory).forEach(category => {
                     categories[category.name] = {};
@@ -71,9 +49,36 @@ module.exports = {
                         .then(() => console.log('Gesichert'))
                         interaction.editReply({ content: 'Ein Backup wurde erstellt', ephemeral: true })
                 }, 10000);
+                break
+            }
+            case 'load': {
+                const Backup = await backup.findOne()
+                await interaction.deferReply({ephemeral: true})
 
-                console.log(categories)
-                
+                for(const category in Backup.categories){
+                    const cat = await guild.channels.create({
+                        name: category,
+                        type: ChannelType.GuildCategory,
+                        permissionOverwrites: [
+                            {
+                                id: guild.roles.everyone,
+                                deny: ['ViewChannel']
+                            }
+                        ]
+                    })
+                    const channelData = Backup.categories[cat.name]
+
+                    for(const channel in channelData){
+                        const channelType = channelData[channel]
+
+                        await interaction.guild.channels.create({
+                            name: channel,
+                            type: channelType,
+                            parent: cat
+                        })
+                    }
+                }
+                interaction.editReply({content: 'Kategorien und Channels wurden vom backup geladen', ephemeral: true})
             }
         }
     }
