@@ -4,7 +4,7 @@ const Casino = require('../../Schemas/casino')
 module.exports = {
     name: 'coinflip',
     description: 'Wirf eine Münze und erhalte mit etwas Glück ein wenig Geld',
-    dev: true,
+    permission: 'SendMessages',
     options: [
         {
             name: 'heads',
