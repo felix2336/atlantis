@@ -53,10 +53,10 @@ module.exports = {
                 break
             }
             case 'load': {
-                const Backup = await backup.findOne().sort({ createdAt: -1 })
+                const backup = await Backup.findOne().sort({ createdAt: -1 })
                 await interaction.deferReply({ ephemeral: true })
 
-                for (const category in Backup.categories) {
+                for (const category in backup.categories) {
                     const cat = await guild.channels.create({
                         name: category,
                         type: ChannelType.GuildCategory,
@@ -67,7 +67,7 @@ module.exports = {
                             }
                         ]
                     })
-                    const channelData = Backup.categories[cat.name]
+                    const channelData = backup.categories[cat.name]
 
                     for (const channel in channelData) {
                         const channelType = channelData[channel]
