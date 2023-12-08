@@ -5,6 +5,7 @@ module.exports = {
     name: 'slot',
     description: 'Spiele an einem Spielautomaten, um mit etwas Glück etwas Geld zu gewinnen',
     permission: 'SendMessages',
+    cmdid: '1181332198016688185',
     dev: true,
     options: [
         {

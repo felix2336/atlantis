@@ -4,7 +4,7 @@ const Backup = require('../../Schemas/backup')
 module.exports = {
     name: 'backup',
     description: 'Erstelle oder lade ein Backup',
-    //permission: 'Administrator',
+    permission: 'Administrator',
     dev: true,
     options: [
         {

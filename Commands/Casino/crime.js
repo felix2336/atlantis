@@ -7,6 +7,7 @@ module.exports = {
     name: 'crime',
     description: 'Begehe ein Verbrechen für etwas Geld',
     permission: 'SendMessages',
+    cmdid: '1181332198016688181',
     dev: true,
 
     /**

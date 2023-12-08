@@ -5,6 +5,7 @@ module.exports = {
     name: 'help',
     description: 'Führe diesen Befehl aus, wenn du Hilfe brauchst',
     permission: 'SendMessages',
+    cmdid: '',
     options: [
         {
             name: 'casino',
@@ -23,13 +24,13 @@ module.exports = {
 
         switch(subcommand){
             case 'casino': {
-                let fieldArray = [];
-                const folder = fs.readdirSync('./Commands/Casino')
-                for(const file of folder){
+                const fieldArray = [];
+                const dir = fs.readdirSync('./Commands/Casino')
+                for(const file of dir){
                     const module = require(`../../Commands/Casino/${file}`)
                     const name = module.name
                     const value = module.description
-                    fieldArray.push({name: `/${name}`, value})
+                    fieldArray.push({name: `</${name}:${module.cmdid}>`, value})
                 }
                 const embed = new EmbedBuilder({
                     title: '**Casino Hilfe**',
@@ -37,7 +38,6 @@ module.exports = {
                     fields: fieldArray,
                     color: 0xffc400
                 })
-
                 interaction.reply({embeds: [embed]})
             }
         }

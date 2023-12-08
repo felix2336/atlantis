@@ -5,6 +5,7 @@ module.exports = {
     name: 'withdraw',
     description: 'Hebe Geld von deinem Bankkonto ab',
     permission: 'SendMessages',
+    cmdid: '1181332198016688186',
     dev: true,
     options: [
         {

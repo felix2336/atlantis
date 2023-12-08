@@ -6,6 +6,7 @@ module.exports = {
     name: 'daily',
     description: 'Hole dir deine tägliche Belohnung ab',
     permission: 'SendMessages',
+    cmdid: '1181332198016688182',
     dev: true,
 
     /**

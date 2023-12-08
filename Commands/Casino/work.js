@@ -6,6 +6,7 @@ module.exports = {
     name: 'work',
     description: 'Gehe arbeiten für ein Wenig Geld',
     permission: 'SendMessages',
+    cmdid: '1181332198016688187',
     dev: true,
 
     /**

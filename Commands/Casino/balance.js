@@ -5,6 +5,7 @@ module.exports = {
     name: 'balance',
     description: 'Lasse dir deinen Kontostand anzeigen',
     permission: 'SendMessages',
+    cmdid: '1181332198016688180',
     dev: true,
 
     /**

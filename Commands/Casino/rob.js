@@ -7,6 +7,7 @@ module.exports = {
     name: 'rob',
     description: 'Versuche einem User etwas Geld zu stehlen (MAX 40%)',
     permission: 'SendMessages',
+    cmdid: '1181332198016688184',
     dev: true,
     options: [
         {

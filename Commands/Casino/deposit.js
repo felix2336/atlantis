@@ -5,6 +5,7 @@ module.exports = {
     name: 'deposit',
     description: 'Zahle Geld auf dein Bankkonto ein',
     permission: 'SendMessages',
+    cmdid: '1181332198016688183',
     dev: true,
     options: [
         {
