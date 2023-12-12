@@ -12,10 +12,14 @@ module.exports = async (client, PG, Ascii) => {
             await Table.addRow(file, `⛔`, `Missing name!`);
             return;
         }
+        else if(event.disabled){
+            await Table.addRow(file, `❌`, `Disabled!`)
+        }
 
         if(event.once) {
             client.once(event.name, (...args) => event.execute(...args, client))
-        } else {
+        } 
+        else {
             client.on(event.name, (...args) => event.execute(...args, client))
         }
         

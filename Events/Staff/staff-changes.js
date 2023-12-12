@@ -2,6 +2,7 @@ const { GuildMember, EmbedBuilder, Client } = require('discord.js')
 
 module.exports = {
     name: 'guildMemberUpdate',
+    disabled: true,
 
     /**
      * @param {GuildMember} oldMember
