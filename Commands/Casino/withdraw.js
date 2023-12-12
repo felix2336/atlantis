@@ -10,7 +10,7 @@ module.exports = {
     options: [
         {
             name: 'amount',
-            description: 'Wie viel möchtest du abheben? (-1 für alles)',
+            description: 'Wie viel möchtest du abheben? (all für alles)',
             type: ApplicationCommandOptionType.Number,
             choices: [
                 {
