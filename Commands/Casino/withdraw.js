@@ -12,6 +12,12 @@ module.exports = {
             name: 'amount',
             description: 'Wie viel möchtest du abheben? (-1 für alles)',
             type: ApplicationCommandOptionType.Number,
+            choices: [
+                {
+                    name: 'all',
+                    value: -1
+                },
+            ],
             required: true,
         },
     ],
