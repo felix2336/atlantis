@@ -10,14 +10,8 @@ module.exports = {
     options: [
         {
             name: 'amount',
-            description: 'Wie viel möchtest du einzahlen? (all für alles)',
+            description: 'Wie viel möchtest du einzahlen? (-1 für alles)',
             type: ApplicationCommandOptionType.Number,
-            choices: [
-                {
-                    name: 'all',
-                    value: -1
-                },
-            ],
             required: true
         }
     ],
