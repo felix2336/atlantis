@@ -10,7 +10,7 @@ module.exports = {
      */
 
     async execute(interaction) {
-        const role = ''
+        const role = '1185306509853339698'
 
         if (interaction.member.roles.cache.has(role)) return interaction.reply({ content: `Du hast die <@&${role}> Rolle bereits`, ephemeral: true })
         await interaction.member.roles.add(role)
