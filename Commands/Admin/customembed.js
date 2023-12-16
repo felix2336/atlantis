@@ -207,10 +207,11 @@ module.exports = {
                     }
                     case 'description': {
                         const description = interaction.options.getString('string')
+                        const newDescription = description.replace(/\\n/g, '\n');
                         const msgid = ce[interaction.guild.id][interaction.user.id]
                         const msg = await interaction.channel.messages.fetch(msgid)
                         let embed = msg.embeds.at(0)
-                        embed.data.description = description
+                        embed.data.description = newDescription
                         msg.edit({ embeds: [embed] })
                         interaction.reply({ content: 'Erledigt', ephemeral: true })
                         break
