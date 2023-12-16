@@ -3,7 +3,7 @@ const { CommandInteraction } = require('discord.js')
 module.exports = {
     name: 'weihnachtsrolle',
     description: 'Erhalte die Weihnachtsrolle für das Jahr 2023',
-    dev: true,
+    permission: 'SendMessages',
 
     /**
      * @param {CommandInteraction} interaction
