@@ -348,7 +348,7 @@ module.exports = {
 
     async execute(interaction, client) {
         const channel = interaction.guild.channels.cache.get('1178073046444163102')
-        const ping = '<@&1148638515840700497>'
+        const ping = 'PING'
         const subcommand = interaction.options.getSubcommand()
         switch (subcommand) {
             case 'add': {
