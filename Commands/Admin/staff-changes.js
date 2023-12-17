@@ -100,7 +100,7 @@ module.exports = {
                             value: '1174018914448064552'
                         }
                     ],
-                    requried: true
+                    required: true
                 },
                 {
                     name: 'next',
