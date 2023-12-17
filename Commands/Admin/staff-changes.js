@@ -213,6 +213,7 @@ module.exports = {
                             value: '1174018914448064552'
                         }
                     ],
+                    required: true
                 }
             ]
         },
