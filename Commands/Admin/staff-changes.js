@@ -363,7 +363,7 @@ module.exports = {
                     color: 0x00d12a
                 })
                 channel.send({ content: ping, embeds: [embed] })
-                interaction.reply({ content: `${user} wurde als <@${role}> aufgenommen`, ephemeral: true })
+                interaction.reply({ content: `${user} wurde als <@&${role}> aufgenommen`, ephemeral: true })
                 break;
             }
             case 'uprank': {
