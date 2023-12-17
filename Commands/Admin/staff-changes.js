@@ -141,7 +141,7 @@ module.exports = {
                     name: 'user',
                     description: 'Welcher User erhält ein Downrank?',
                     type: ApplicationCommandOptionType.User,
-                    requried: true
+                    required: true
                 },
                 {
                     name: 'previous',
