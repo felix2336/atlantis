@@ -363,6 +363,7 @@ module.exports = {
                     color: 0x00d12a
                 })
                 channel.send({ content: ping, embeds: [embed] })
+                interaction.reply({ content: `${user} wurde als <@${role}> aufgenommen`, ephemeral: true })
                 break;
             }
             case 'uprank': {
@@ -380,6 +381,7 @@ module.exports = {
                     color: 0x00d12a
                 })
                 channel.send({ content: ping, embeds: [embed] })
+                interaction.reply({ content: `${user} wurde von <@&${previous}> zu <@&${next}> befördert`, ephemeral: true })
                 break;
             }
             case 'downrank': {
@@ -397,6 +399,7 @@ module.exports = {
                     color: 0xc92816
                 })
                 channel.send({ content: ping, embeds: [embed] })
+                interaction.reply({ content: `${user} wurde von <@&${previous}> zu <@&${next}> degradiert`, ephemeral: true })
                 break;
             }
             case 'kick': {
@@ -412,6 +415,7 @@ module.exports = {
                     color: 0xc92816
                 })
                 channel.send({ content: ping, embeds: [embed] })
+                interaction.reply({ content: `${user} wurde als <@&${role}> aus dem Team geworfen`, ephemeral: true })
                 break;
             }
             case 'leave': {
@@ -427,6 +431,7 @@ module.exports = {
                     color: 0xc92816
                 })
                 channel.send({ content: ping, embeds: [embed] })
+                interaction.reply({content: `${user} hat das Team als <@&${role}> verlassen`, ephemeral: true})
                 break;
             }
         }
