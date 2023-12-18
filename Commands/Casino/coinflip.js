@@ -5,6 +5,7 @@ module.exports = {
     name: 'coinflip',
     description: 'Wirf eine Münze und erhalte mit etwas Glück ein wenig Geld',
     permission: 'SendMessages',
+    cmdid: '1182816658872598638',
     options: [
         {
             name: 'heads',
