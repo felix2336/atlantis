@@ -1,4 +1,4 @@
-const { CommandInteraction, EmbedBuilder, Client } = require('discord.js')
+const { CommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType } = require('discord.js')
 const Casino = require('../../Schemas/casino')
 
 module.exports = {
@@ -6,13 +6,19 @@ module.exports = {
     description: 'Lasse dir deinen Kontostand anzeigen',
     permission: 'SendMessages',
     cmdid: '1181332198016688180',
-    dev: true,
-
+    options: [
+        {
+            name: 'user',
+            description: 'Gib den User an, von dem du den KOntostand wissen möchtest',
+            type: ApplicationCommandOptionType.User
+        },
+    ],
     /**
      * @param {CommandInteraction} interaction 
      */
 
     async execute(interaction) {
+        const target = interaction.options.getUser('user');
         let User;
 
         User = await Casino.findOne({ user: interaction.user.id })
@@ -28,6 +34,21 @@ module.exports = {
             })
             interaction.reply({ embeds: [embed] })
             return;
+        }
+        if(target){
+            const User = await Casino.findOne({user: target.id})
+            if(!User) return interaction.reply({content: 'Dieser User hat momentan noch kein Geld', ephemeral: true})
+            const embed = new EmbedBuilder({
+                title: `Kontostand von ${target.username}`,
+                fields: [
+                    { name: 'Bargeld', value: `💰${User.wallet}` },
+                    { name: 'Bankguthaben', value: `💰${User.bank}` },
+                    { name: 'Gesamt', value: `💰${User.wallet + User.bank}` }
+                ],
+                color: 0xfca903
+            })
+            interaction.reply({embeds: [embed]})
+            return
         }
 
         const embed = new EmbedBuilder({
