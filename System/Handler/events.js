@@ -13,7 +13,7 @@ module.exports = async (client, PG, Ascii) => {
             return;
         }
         else if(event.disabled){
-            await Table.addRow(file, `❌`, `Disabled!`)
+            await Table.addRow(event.cname || event.name, `❌`, `Disabled!`)
         }
 
         if(event.once) {
@@ -24,7 +24,7 @@ module.exports = async (client, PG, Ascii) => {
             client.on(event.name, (...args) => event.execute(...args, client))
         }
         
-        await Table.addRow(`${event.name}`, "✅", "Loaded!")
+        await Table.addRow(`${event.cname || event.name}`, "✅", "Loaded!")
     });
 
     console.log(Table.toString());
