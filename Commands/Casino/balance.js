@@ -24,7 +24,7 @@ module.exports = {
         User = await Casino.findOne({ user: interaction.user.id })
         if (!User) {
             const embed = new EmbedBuilder({
-                title: 'Kontostand',
+                title: 'Dein Kontostand',
                 fields: [
                     { name: 'Bargeld', value: '💰0' },
                     { name: 'Bankguthaben', value: '💰0' },
