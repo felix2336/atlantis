@@ -8,30 +8,20 @@ module.exports = {
     cmdid: '1182816658872598638',
     options: [
         {
-            name: 'heads',
+            name: 'symbol',
             description: 'Setze darauf, dass die Münze Kopf zeigt',
-            type: ApplicationCommandOptionType.Subcommand,
-            options: [
-                {
-                    name: 'amount',
-                    description: 'Wie viel Geld möchtest du setzen?',
-                    type: ApplicationCommandOptionType.Number,
-                    required: true
-                }
-            ]
+            type: ApplicationCommandOptionType.String,
+            required: true,
+            choices: [
+                {name: 'Kopf', value: 'heads'},
+                {name: 'Zahl', value: 'tails'}
+            ],
         },
         {
-            name: 'tails',
-            description: 'Setze darauf, dass die Münze zahl zeigt',
-            type: ApplicationCommandOptionType.Subcommand,
-            options: [
-                {
-                    name: 'amount',
-                    description: 'Wie viel Geld möchtest du setzen?',
-                    type: ApplicationCommandOptionType.Number,
-                    required: true
-                }
-            ]
+            name: 'amount',
+            description: 'Wie viel Geld möchtest du setzen?',
+            type: ApplicationCommandOptionType.Number,
+            required: true
         }
     ],
 
@@ -42,8 +32,8 @@ module.exports = {
     async execute(interaction) {
         let User = await Casino.findOne({ user: interaction.user.id })
 
-        const subcommand = interaction.options.getSubcommand()
-        switch (subcommand) {
+        const symbol = interaction.options.getString('symbol')
+        switch (symbol) {
             case 'heads': {
                 const bid = parseInt(interaction.options.getNumber('amount'))
                 if (bid <= 0) return interaction.reply({ embeds: [new EmbedBuilder({ title: 'Münzwurf fehlgeschlagen', description: 'Du musst mindestens 💰1 bieten', color: 0xff1414 })] })
