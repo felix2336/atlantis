@@ -52,7 +52,7 @@ module.exports = {
         }
 
         const embed = new EmbedBuilder({
-            title: 'Kontostand',
+            title: 'Dein Kontostand',
             fields: [
                 { name: 'Bargeld', value: `💰${User.wallet}` },
                 { name: 'Bankguthaben', value: `💰${User.bank}` },
