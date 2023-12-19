@@ -5,6 +5,7 @@ module.exports = {
 	name: 'pay',
 	description: 'Gib etwas von deinem Geld an einen anderen Spieler',
 	permission: 'SendMessages',
+	cmdid: '1186597312655536200',
 	options: [
 		{
 			name: 'user',
@@ -25,15 +26,16 @@ module.exports = {
 	  */
 
 	async execute(interaction){
+		const User = await Casino.findOne({user: interaction.user.id})
+		if(!User) return interaction.reply({content: 'Du hast kein Geld, das du vergeben kannst', ephemeral: true})
 		const target = interaction.options.getUser('user')
 		const amount = interaction.options.getNumber('amount')
-		if(ammount < 1) return interaction.reply({content: 'Du kannst einem User nicht weniger als 1 geben, du Genie', ephemeral: true})
-		else if(amount < User.wallet) return interaction.reply({content: 'Du kannst einem User nicht mehr Geld geben, als du hast', ephemeral: true})
+		if(amount < 1) return interaction.reply({content: 'Du kannst einem User nicht weniger als 1 geben, du Genie', ephemeral: true})
+		else if(amount > User.wallet) return interaction.reply({content: 'Du kannst einem User nicht mehr Geld geben, als du hast', ephemeral: true})
 		
-		const User = Casino.findOne({user: interaction.user.id})
-		let Target = Casino.findOne({user: target.id})
+		let Target = await Casino.findOne({user: target.id})
 		if(!Target){
-			Target = Casino.createOne({
+			Target = await Casino.create({
 				user: target.id,
 				wallet: 0,
 				bank: 0,
@@ -47,7 +49,7 @@ module.exports = {
 		
 		const embed = new EmbedBuilder({
 			title: 'Überweisung',
-			description: `Du hast erfolgreich ${amount} an ${target} gegeben`,
+			description: `Du hast erfolgreich 💰${amount} an ${target} gegeben`,
 			color: 0x0af248
 		})
 		
