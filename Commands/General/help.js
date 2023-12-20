@@ -19,26 +19,29 @@ module.exports = {
      * @param {Client} client 
      */
 
-    async execute(interaction, client){
+    async execute(interaction, client) {
         const subcommand = interaction.options.getSubcommand()
 
-        switch(subcommand){
+        switch (subcommand) {
             case 'casino': {
                 const fieldArray = [];
                 const dir = fs.readdirSync('./Commands/Casino')
-                for(const file of dir){
+                dir.forEach(file => {
                     const module = require(`../../Commands/Casino/${file}`)
+                    if (!module.cmdid) return;
                     const name = module.name
                     const value = module.description
-                    fieldArray.push({name: `</${name}:${module.cmdid}>`, value})
-                }
+                    fieldArray.push({ name: `</${name}:${module.cmdid}>`, value })
+                })
+
+
                 const embed = new EmbedBuilder({
                     title: '**Casino Hilfe**',
                     description: 'Hier findest du alle Befehle des Casino Systems',
                     fields: fieldArray,
                     color: 0xffc400
                 })
-                interaction.reply({embeds: [embed]})
+                interaction.reply({ embeds: [embed] })
             }
         }
     }
