@@ -29,7 +29,7 @@ module.exports = {
     async execute(interaction, client) {
         const target = interaction.options.getUser("user"),
             reason = interaction.options.getString('reason'),
-            channel = interaction.guild.channels.cache.get('1178073046444163102');
+            channel = interaction.guild.channels.cache.get('1160607902210470009');
 
         let Warn = await Warns.findOne({ user: target.id })
         if (!Warn) {
