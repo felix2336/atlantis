@@ -239,7 +239,7 @@ module.exports = {
                         if (fieldnr >= embed.fields.length) {
                             let fields = embed.fields
                             embed.fields = undefined
-                            fields.push({ name: name, value: value })
+                            fields.push({ name: name, value: newValue })
                             msg.edit({ embeds: [embed] })
                             const emb = new EmbedBuilder(embed)
                                 .setFields(fields)
@@ -247,7 +247,7 @@ module.exports = {
 
                         } else {
                             embed.fields[fieldnr].name = name
-                            embed.fields[fieldnr].value = value
+                            embed.fields[fieldnr].value = newValue
                             msg.edit({ embeds: [embed] })
                         }
 
