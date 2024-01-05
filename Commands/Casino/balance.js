@@ -36,10 +36,11 @@ module.exports = {
             return;
         }
         if(target){
+            const targetMember = interaction.guild.members.cache.get(target.id)
             const User = await Casino.findOne({user: target.id})
             if(!User) return interaction.reply({content: 'Dieser User hat momentan noch kein Geld', ephemeral: true})
             const embed = new EmbedBuilder({
-                title: `Kontostand von ${target.displayName}`,
+                title: `Kontostand von ${targetMember.nickname || targetMember.displayName}`,
                 fields: [
                     { name: 'Bargeld', value: `💰${User.wallet}` },
                     { name: 'Bankguthaben', value: `💰${User.bank}` },
