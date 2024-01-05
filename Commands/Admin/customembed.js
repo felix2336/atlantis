@@ -232,6 +232,7 @@ module.exports = {
                         const fieldnr = parseInt(interaction.options.getNumber('feldnr') - 1)
                         const name = interaction.options.getString('name')
                         const value = interaction.options.getString('value')
+                        const newValue = value.replace(/\\n/g, '\n');
                         const msgid = ce[interaction.guild.id][interaction.user.id]
                         let msg = await interaction.channel.messages.fetch(msgid)
                         let embed = msg.embeds[0]
