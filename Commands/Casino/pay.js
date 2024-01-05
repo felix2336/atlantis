@@ -39,6 +39,7 @@ module.exports = {
 				user: target.id,
 				wallet: 0,
 				bank: 0,
+				inventory: {}
 			})
 		}
 		

@@ -43,7 +43,7 @@ module.exports = {
         CD.daily = Date.now()
         await CD.save()
 
-        const dailyIncome = 750
+        const dailyIncome = parseInt(750)
 
         const embed = new EmbedBuilder({
             title: 'Tägliches Einkommen erhalten',
@@ -55,7 +55,10 @@ module.exports = {
         User = await Casino.findOne({ user: interaction.user.id })
         if (!User) {
             User = await Casino.create({
-                user: interaction.user.id
+                user: interaction.user.id,
+                wallet: 0,
+                bank: 0,
+                inventory: {}
             })
         }
         User.wallet += dailyIncome
