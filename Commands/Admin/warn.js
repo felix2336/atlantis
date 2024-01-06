@@ -58,6 +58,7 @@ module.exports = {
             "1146113684570124343", //Test Moderator
             "1147206142548787372", //Moderator
             "1174018919175041135", //Testphase im Team
+            "1146117778483450048", //Dev
             "1174018688383463515", //MC Server Team
             "1174016316059959326", //MC Supporter
             "1174018914448064552", //MC Builder
