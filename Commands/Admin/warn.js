@@ -69,6 +69,8 @@ module.exports = {
             "1159470517070348343", //MC Admin
         ]
         if (Warn.warns.length == 3) {
+            Warn.warns = Array
+            await Warn.save()
             const member = interaction.guild.members.cache.get(target.id)
             await member.roles.remove(staffRoles).catch(err => console.error(err))
             interaction.reply({ content: `${target} wurde erfolgreich gewarnt mit dem Grund **${reason}**\n${target} hat jetzt den dritten Warn erhalten. Die Team Rollen wurden ihm entfernt!`, ephemeral: true })
