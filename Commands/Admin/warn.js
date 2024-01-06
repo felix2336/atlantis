@@ -40,25 +40,39 @@ module.exports = {
         }
         Warn.warns.push(reason)
         await Warn.save()
-        
+
         const embed = new EmbedBuilder({
             title: 'Warn',
             fields: [
-                {name: '**User**', value: `${target}`},
-                {name: '**Grund**', value: reason}
+                { name: '**User**', value: `${target}` },
+                { name: '**Grund**', value: reason }
             ],
             timestamp: Date.now(),
             color: 0xff9900
         })
-
-        if(Warn.warns.length == 3){
+        const staffRoles = [
+            "1156298949301379212", //Atlantis Team
+            "1146113684570124342", //Test Supporter
+            "1146116364243832963", //Teammitglied
+            "1148217519631499384", //Supporter
+            "1146113684570124343", //Test Moderator
+            "1147206142548787372", //Moderator
+            "1174018919175041135", //Testphase im Team
+            "1174018688383463515", //MC Server Team
+            "1174016316059959326", //MC Supporter
+            "1174018914448064552", //MC Builder
+            "1179113823232331786", //MC Moderator
+            "1180774062285394033", //MC Dev
+            "1159470517070348343", //MC Admin
+        ]
+        if (Warn.warns.length == 3) {
             const member = interaction.guild.members.cache.get(target.id)
-            await member.roles.remove(["1156298949301379212", "1146113684570124342", "1146116364243832963", "1148217519631499384", "1146113684570124343", "1147206142548787372", ]).catch(err => console.error(err))
-            interaction.reply({ content: `${target} wurde erfolgreich gewarnt mit dem Grund **${reason}**\n${target} hat jetzt den dritten Warn erhalten. Die Team Rollen wurden ihm entfernt!`, ephemeral: true})
+            await member.roles.remove(staffRoles).catch(err => console.error(err))
+            interaction.reply({ content: `${target} wurde erfolgreich gewarnt mit dem Grund **${reason}**\n${target} hat jetzt den dritten Warn erhalten. Die Team Rollen wurden ihm entfernt!`, ephemeral: true })
             return
         }
 
-        await interaction.reply({content: `${target} wurde erfolgreich gewarnt mit dem Grund **${reason}**`, ephemeral: true})
-        await channel.send({embeds: [embed]})
+        await interaction.reply({ content: `${target} wurde erfolgreich gewarnt mit dem Grund **${reason}**`, ephemeral: true })
+        await channel.send({ embeds: [embed] })
     }
 }
