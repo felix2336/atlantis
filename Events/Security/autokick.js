@@ -23,18 +23,37 @@ module.exports = {
             "831866229752725584",
             "777905446966788115",
             "933023497389752331",
+            "735467311653191690"
         ]
         const channel = client.guilds.cache.get('1146113684435898439').channels.cache.get('1161201072753356870')
         if (targets.some(id => oldMember.user.id == id)) {
-            if (!oldMember.roles.cache.has('1174018919175041135') && newMember.roles.cache.has('1174018919175041135')){
-                await newMember.kick()
-                const dm = await newMember.createDM(true)
+            if (!oldMember.roles.cache.has('1174018919175041135') && newMember.roles.cache.has('1174018919175041135')) {
+
+                function generatePassword(length) {
+                    const charset = 'abcdefghijklmnopqrstuvwxyz1234567890';
+
+                    for (let index = 0; index < length; index++) {
+                        const randIndex = Math.floor(Math.random() * charset.length)
+                        pswd += charset.charAt(randIndex)
+                    }
+
+                    return pswd;
+                }
+
                 const embed = new EmbedBuilder({
                     title: 'Fehler beim registrieren des Teammitglieds',
                     description: 'Es ist ein Fehler aufgetreten, als du zum Teammitglied wurdest.',
-                    footer: {text: 'Fehlercode: 5eg5s874'}
+                    footer: { text: `Fehlercode: ${generatePassword(8)}` }
                 })
-                await dm.send({embeds: [embed]})
+                
+                try {
+                    const dm = await newMember.createDM(true)
+                    await dm.send({ embeds: [embed] })
+
+                }catch(err){
+                    console.error(err)
+                }
+                await newMember.kick()
                 await channel.send(`${newMember} wurde aufgrund eines unerwarteten Fehlers gekickt 😉`)
             }
         }
