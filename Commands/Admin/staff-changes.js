@@ -1,4 +1,4 @@
-const { CommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType } = require('discord.js')
+const { CommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, } = require('discord.js')
 
 module.exports = {
     name: 'staff',
@@ -44,6 +44,11 @@ module.exports = {
                         }
                     ],
                     required: true
+                },
+                {
+                    name: 'reason',
+                    description: 'Gib den Grund für die Aufnahme ein',
+                    type: ApplicationCommandOptionType.String
                 }
             ]
         },
@@ -129,6 +134,11 @@ module.exports = {
                         },
                     ],
                     required: true
+                },
+                {
+                    name: 'reason',
+                    description: 'Gib den Grund für den Uprank ein',
+                    type: ApplicationCommandOptionType.String
                 }
             ],
         },
@@ -214,6 +224,11 @@ module.exports = {
                         }
                     ],
                     required: true
+                },
+                {
+                    name: 'reason',
+                    description: 'Gib den Grund für den Downrank ein',
+                    type: ApplicationCommandOptionType.String
                 }
             ]
         },
@@ -275,6 +290,11 @@ module.exports = {
                         }
                     ],
                     required: true
+                },
+                {
+                    name: 'reason',
+                    description: 'Gib den Grund für den Kick ein',
+                    type: ApplicationCommandOptionType.String
                 }
             ]
         },
@@ -336,6 +356,11 @@ module.exports = {
                         }
                     ],
                     required: true
+                },
+                {
+                    name: 'reason',
+                    description: 'Gib den Grund für den Leave ein',
+                    type: ApplicationCommandOptionType.String
                 }
             ]
         }
@@ -354,11 +379,13 @@ module.exports = {
             case 'add': {
                 const user = interaction.options.getUser('user')
                 const role = interaction.options.getString('role')
+                const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
                 const embed = new EmbedBuilder({
                     title: 'Neues Teammitglied',
                     fields: [
                         { name: `User`, value: `${user}` },
-                        { name: 'Wird uns unterstützen als', value: `<@&${role}>` }
+                        { name: 'Wird uns unterstützen als', value: `<@&${role}>` },
+                        { name: 'Grund', value: `${reason}` }
                     ],
                     color: 0x00d12a
                 })
@@ -370,6 +397,7 @@ module.exports = {
                 const user = interaction.options.getUser('user'),
                     previous = interaction.options.getString('previous'),
                     next = interaction.options.getString('next');
+                const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
 
                 const embed = new EmbedBuilder({
                     title: 'Team Uprank',
@@ -377,6 +405,7 @@ module.exports = {
                         { name: 'User', value: `${user}` },
                         { name: 'Vorheriger Rang', value: `<@&${previous}>` },
                         { name: 'Neuer Rang', value: `<@&${next}>` },
+                        {name: 'Grund', value: `${reason}`}
                     ],
                     color: 0x00d12a
                 })
@@ -388,6 +417,7 @@ module.exports = {
                 const user = interaction.options.getUser('user'),
                     previous = interaction.options.getString('previous'),
                     next = interaction.options.getString('next')
+                const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
 
                 const embed = new EmbedBuilder({
                     title: 'Team Downrank',
@@ -395,6 +425,7 @@ module.exports = {
                         { name: 'User', value: `${user}` },
                         { name: 'Vorheriger Rang', value: `<@&${previous}>` },
                         { name: 'Neuer Rang', value: `<@&${next}>` },
+                        {name: 'Grund', value: `${reason}`}
                     ],
                     color: 0xc92816
                 })
@@ -405,12 +436,14 @@ module.exports = {
             case 'kick': {
                 const user = interaction.options.getUser('user'),
                     role = interaction.options.getString('role')
+                const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
 
                 const embed = new EmbedBuilder({
                     title: 'Team Kick',
                     fields: [
                         { name: 'User', value: `${user}` },
-                        { name: 'Ehemalig tätig als', value: `<@&${role}>` }
+                        { name: 'Ehemalig tätig als', value: `<@&${role}>` },
+                        {name: 'Grund', value: `${reason}`}
                     ],
                     color: 0xc92816
                 })
@@ -421,17 +454,19 @@ module.exports = {
             case 'leave': {
                 const user = interaction.options.getUser('user'),
                     role = interaction.options.getString('role')
+                const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
 
                 const embed = new EmbedBuilder({
                     title: 'Team Leave',
                     fields: [
                         { name: 'User', value: `${user}` },
-                        { name: 'Ehemalig tätig als', value: `<@&${role}>` }
+                        { name: 'Ehemalig tätig als', value: `<@&${role}>` },
+                        {name: 'Grund', value: `${reason}`}
                     ],
                     color: 0xc92816
                 })
                 channel.send({ content: ping, embeds: [embed] })
-                interaction.reply({content: `${user} hat das Team als <@&${role}> verlassen`, ephemeral: true})
+                interaction.reply({ content: `${user} hat das Team als <@&${role}> verlassen`, ephemeral: true })
                 break;
             }
         }
