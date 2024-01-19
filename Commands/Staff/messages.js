@@ -9,6 +9,7 @@ function getDay(dayNumber) {
 module.exports = {
     name: 'messages',
     description: 'Lasse dir Nachrichten anzeigen von dir, einem anderen User oder das Leaderboard',
+    permission: 'SendMessages',
     dev: true,
     options: [
         {
@@ -36,6 +37,7 @@ module.exports = {
      */
 
     async execute(interaction, client) {
+        if (!interaction.member.roles.cache.has('1156298949301379212')) return interaction.reply({ content: 'Du musst im Team sein, um diesen Befehl nutzen zu können', ephemeral: true })
         const subcommand = interaction.options.getSubcommand()
         const day = new Date().getDay()
 
@@ -69,8 +71,8 @@ module.exports = {
                         const Users = await DB.find({})
                         const leaderboard = []
 
-                        for(const User of Users){
-                            leaderboard.push({user: User.user, count: User.total})
+                        for (const User of Users) {
+                            leaderboard.push({ user: User.user, count: User.total })
                         }
 
                         const sorted = leaderboard.sort((a, b) => b.count - a.count)
@@ -84,7 +86,7 @@ module.exports = {
                             description: message,
                             color: Colors.Aqua
                         })
-                        interaction.reply({embeds: [embed]})
+                        interaction.reply({ embeds: [embed] })
                     }
                 }
                 break;
