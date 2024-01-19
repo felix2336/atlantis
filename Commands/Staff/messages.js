@@ -57,7 +57,7 @@ module.exports = {
                         const sortedLeaderboard = leaderboard.sort((a, b) => b.count - a.count)
                         let message = ''
                         sortedLeaderboard.forEach((user, index) => {
-                            message += `\`\`${index + 1}. \`\` <@${user.user}> **• ${user.count}** Nachrichten gesendet.`
+                            message += `\`\`${index + 1}. \`\` <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
                         })
                         const embed = new EmbedBuilder({
                             title: 'Daily Messages Leaderboard',
@@ -79,7 +79,7 @@ module.exports = {
                         let message = ''
 
                         sorted.forEach((user, index) => {
-                            message += `\`\`${index + 1}. \`\` <@${user.user}> **• ${user.count}** Nachrichten gesendet.`
+                            message += `\`\`${index + 1}. \`\` <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
                         })
                         const embed = new EmbedBuilder({
                             title: 'Weekly Messages Leaderboard',
