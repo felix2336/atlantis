@@ -1,4 +1,4 @@
-const { Message, Client, Events } = require('discord.js')
+const { Message, EmbedBuilder, Client, Events } = require('discord.js')
 const DB = require('../../Schemas/messages')
 
 function getDay(dayNumber) {
