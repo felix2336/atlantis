@@ -19,6 +19,8 @@ module.exports = async (client, PG, Ascii) => {
             return;
         }
 
+        if(command.disabled) return Table.addRow(command.name, '❌', 'Disabled!')
+
         if (!command.context && !command.description) {
             Table.addRow(file, "⛔", "Missing description!");
             return;

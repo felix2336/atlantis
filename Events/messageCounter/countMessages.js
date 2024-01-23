@@ -1,4 +1,4 @@
-const { Message, EmbedBuilder, Client, Events } = require('discord.js')
+const { Message, Client, Events } = require('discord.js')
 const DB = require('../../Schemas/messages')
 
 function getDay(dayNumber) {
@@ -17,7 +17,8 @@ module.exports = {
     async execute(message, client) {
         if (message.author.bot) return;
         if (!message.member.roles.cache.has('1156298949301379212')) return;
-        let User = await DB.findOne({ user: message.author.id })
+        if (message.channel.parentId == '1156996872657977394') return;
+            let User = await DB.findOne({ user: message.author.id })
         if (!User) {
             User = await DB.create({
                 user: message.author.id,
