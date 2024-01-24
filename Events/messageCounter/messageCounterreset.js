@@ -5,11 +5,10 @@ module.exports = {
     name: Events.ClientReady,
 
     /**
-     * @param {Message} message
      * @param {Client} client
      */
 
-    async execute(message, client) {
+    async execute(client) {
         const channel = client.channels.cache.get('1196886539637112923')
         const checkAndDelete = async () => {
             const date = new Date()
@@ -47,8 +46,6 @@ module.exports = {
                 }
             }
         }
-        if (message.author.id == '773072144304963624' && message.content == 'emulateCounterReset') return await checkAndDelete()
-
 
         await checkAndDelete()
         setInterval(checkAndDelete, 60000)

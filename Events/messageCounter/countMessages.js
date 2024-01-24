@@ -18,7 +18,9 @@ module.exports = {
         if (message.author.bot) return;
         if (!message.member.roles.cache.has('1156298949301379212')) return;
         if (message.channel.parentId == '1156996872657977394') return;
-            let User = await DB.findOne({ user: message.author.id })
+        if (message.channel.parentId == '1180678820085370940') return;
+
+        let User = await DB.findOne({ user: message.author.id })
         if (!User) {
             User = await DB.create({
                 user: message.author.id,
