@@ -11,7 +11,7 @@ module.exports = {
             name: 'amount',
             description: 'Wie viel möchtest du verschieben?',
             type: ApplicationCommandOptionType.Number,
-            requried: true
+            required: true
         },
         {
             name: 'user1',
