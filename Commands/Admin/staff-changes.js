@@ -262,8 +262,8 @@ module.exports = {
      */
 
     async execute(interaction, client) {
-        const channel = interaction.guild.channels.cache.get('1178073046444163102'/*'1182852409198903316'*/)
-        const ping = 'Hier kommt der Ping'//'<@&1148638515840700497>'
+        const channel = interaction.guild.channels.cache.get('1182852409198903316')
+        const ping = '<@&1148638515840700497>'
         const subcommand = interaction.options.getSubcommand()
         switch (subcommand) {
             case 'add': {
