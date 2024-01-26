@@ -1,9 +1,26 @@
-const { CommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, } = require('discord.js')
+const { CommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, SlashCommandBuilder, PermissionFlagsBits, } = require('discord.js')
+const assistent = '1196522075691679754',
+    dev = '1146117778483450048',
+    admin = '1146113684570124344',
+    tadmin = '1190695364584538122',
+    mod = '1147206142548787372',
+    tmod = '1146113684570124343',
+    sup = '1148217519631499384',
+    tsup = '1146113684570124342',
+    teammitglied = '1146116364243832963',
+    mcadmin = '1159470517070348343',
+    testphase = '1174018919175041135',
+    mcdev = '1180774062285394033',
+    mcmod = '1179113823232331786',
+    mcbuilder = '1174018914448064552',
+    mcsup = '1174016316059959326',
+    staff = '1156298949301379212'
 
 module.exports = {
     name: 'staff',
     description: 'Gib eine Teamänderung preis',
     dev: true,
+    disabled: true,
     permission: 'Administrator',
     options: [
         {
@@ -22,26 +39,16 @@ module.exports = {
                     description: 'Als was wird uns dieser User unterstützen?',
                     type: ApplicationCommandOptionType.String,
                     choices: [
-                        {
-                            name: 'Test Supporter',
-                            value: '1146113684570124342'
-                        },
-                        {
-                            name: 'Test Moderator',
-                            value: '1146113684570124343'
-                        },
-                        {
-                            name: 'Test Eventler',
-                            value: '1174018919175041135'
-                        },
-                        {
-                            name: 'Test Marketing',
-                            value: '1174018688383463515'
-                        },
-                        {
-                            name: 'Teammitglied',
-                            value: '1146116364243832963'
-                        }
+                        { name: 'Test Supporter', value: tsup },
+                        { name: 'Test Moderator', value: tmod },
+                        { name: 'Developer', value: dev },
+                        { name: 'Teammitglied', value: teammitglied },
+                        { name: 'Testphase im Team', value: testphase },
+                        { name: 'Minecraft Server Developer', value: mcdev },
+                        { name: 'Minecraft Server Moderator', value: mcmod },
+                        { name: 'Minecraft Server Builder', value: mcbuilder },
+                        { name: 'Minecraft Server Supporter', value: mcsup },
+                        { name: 'Minecraft Server Admin', value: mcadmin }
                     ],
                     required: true
                 },
@@ -68,42 +75,18 @@ module.exports = {
                     description: 'Welchen Rang hatte der User vor der Beförderung?',
                     type: ApplicationCommandOptionType.String,
                     choices: [
-                        {
-                            name: 'Test Supporter',
-                            value: '1146113684570124342'
-                        },
-                        {
-                            name: 'Test Moderator',
-                            value: '1146113684570124343'
-                        },
-                        {
-                            name: 'Test Eventler',
-                            value: '1174018919175041135'
-                        },
-                        {
-                            name: 'Test Marketing',
-                            value: '1174018688383463515'
-                        },
-                        {
-                            name: 'Teammitglied',
-                            value: '1146116364243832963'
-                        },
-                        {
-                            name: 'Supporter',
-                            value: '1148217519631499384'
-                        },
-                        {
-                            name: 'Moderator',
-                            value: '1147206142548787372'
-                        },
-                        {
-                            name: 'Marketing',
-                            value: '1174016316059959326'
-                        },
-                        {
-                            name: 'Eventler',
-                            value: '1174018914448064552'
-                        }
+                        { name: 'Test Supporter', value: tsup },
+                        { name: 'Test Moderator', value: tmod },
+                        { name: 'Teammitglied', value: teammitglied },
+                        { name: 'Test Admin', value: tadmin },
+                        { name: 'Admin', value: admin },
+                        { name: 'Developer', value: dev },
+                        { name: 'Supporter', value: sup },
+                        { name: 'Moderator', value: mod },
+                        { name: 'Minecraft Server Developer', value: mcdev },
+                        { name: 'Minecraft Server Supporter', value: mcsup },
+                        { name: 'Minecraft Server Moderator', value: mcmod },
+                        { name: 'Minecraft Server Admin', value: mcadmin }
                     ],
                     required: true
                 },
@@ -112,26 +95,20 @@ module.exports = {
                     description: 'Zu welchem Rang wurde der User befördert?',
                     type: ApplicationCommandOptionType.String,
                     choices: [
-                        {
-                            name: 'Supporter',
-                            value: '1148217519631499384'
-                        },
-                        {
-                            name: 'Moderator',
-                            value: '1147206142548787372'
-                        },
-                        {
-                            name: 'Marketing',
-                            value: '1174016316059959326'
-                        },
-                        {
-                            name: 'Eventler',
-                            value: '1174018914448064552'
-                        },
-                        {
-                            name: 'Admin',
-                            value: '1146113684570124344'
-                        },
+                        { name: 'Test Supporter', value: tsup },
+                        { name: 'Test Moderator', value: tmod },
+                        { name: 'Teammitglied', value: teammitglied },
+                        { name: 'Test Admin', value: tadmin },
+                        { name: 'Admin', value: admin },
+                        { name: 'Assistent', value: assistent },
+                        { name: 'Developer', value: dev },
+                        { name: 'Supporter', value: sup },
+                        { name: 'Moderator', value: mod },
+                        { name: 'Minecraft Server Developer', value: mcdev },
+                        { name: 'Minecraft Server Supporter', value: mcsup },
+                        { name: 'Minecraft Server Moderator', value: mcmod },
+                        { name: 'Minecraft Server Admin', value: mcadmin },
+                        { name: 'Minecraft Server Builder', value: mcbuilder }
                     ],
                     required: true
                 },
@@ -158,26 +135,20 @@ module.exports = {
                     description: 'Welchen Rang hatte der User vor der Degradierung?',
                     type: ApplicationCommandOptionType.String,
                     choices: [
-                        {
-                            name: 'Supporter',
-                            value: '1148217519631499384'
-                        },
-                        {
-                            name: 'Moderator',
-                            value: '1147206142548787372'
-                        },
-                        {
-                            name: 'Marketing',
-                            value: '1174016316059959326'
-                        },
-                        {
-                            name: 'Eventler',
-                            value: '1174018914448064552'
-                        },
-                        {
-                            name: 'Admin',
-                            value: '1146113684570124344'
-                        },
+                        { name: 'Test Supporter', value: tsup },
+                        { name: 'Test Moderator', value: tmod },
+                        { name: 'Teammitglied', value: teammitglied },
+                        { name: 'Test Admin', value: tadmin },
+                        { name: 'Admin', value: admin },
+                        { name: 'Assistent', value: assistent },
+                        { name: 'Developer', value: dev },
+                        { name: 'Supporter', value: sup },
+                        { name: 'Moderator', value: mod },
+                        { name: 'Minecraft Server Developer', value: mcdev },
+                        { name: 'Minecraft Server Supporter', value: mcsup },
+                        { name: 'Minecraft Server Moderator', value: mcmod },
+                        { name: 'Minecraft Server Admin', value: mcadmin },
+                        { name: 'Minecraft Server Builder', value: mcbuilder }
                     ],
                     required: true,
                 },
@@ -186,42 +157,20 @@ module.exports = {
                     description: 'Zu welchem Rang wurde der User degradiert?',
                     type: ApplicationCommandOptionType.String,
                     choices: [
-                        {
-                            name: 'Test Supporter',
-                            value: '1146113684570124342'
-                        },
-                        {
-                            name: 'Test Moderator',
-                            value: '1146113684570124343'
-                        },
-                        {
-                            name: 'Test Eventler',
-                            value: '1174018919175041135'
-                        },
-                        {
-                            name: 'Test Marketing',
-                            value: '1174018688383463515'
-                        },
-                        {
-                            name: 'Teammitglied',
-                            value: '1146116364243832963'
-                        },
-                        {
-                            name: 'Supporter',
-                            value: '1148217519631499384'
-                        },
-                        {
-                            name: 'Moderator',
-                            value: '1147206142548787372'
-                        },
-                        {
-                            name: 'Marketing',
-                            value: '1174016316059959326'
-                        },
-                        {
-                            name: 'Eventler',
-                            value: '1174018914448064552'
-                        }
+                        { name: 'Test Supporter', value: tsup },
+                        { name: 'Test Moderator', value: tmod },
+                        { name: 'Teammitglied', value: teammitglied },
+                        { name: 'Test Admin', value: tadmin },
+                        { name: 'Admin', value: admin },
+                        { name: 'Assistent', value: assistent },
+                        { name: 'Developer', value: dev },
+                        { name: 'Supporter', value: sup },
+                        { name: 'Moderator', value: mod },
+                        { name: 'Minecraft Server Developer', value: mcdev },
+                        { name: 'Minecraft Server Supporter', value: mcsup },
+                        { name: 'Minecraft Server Moderator', value: mcmod },
+                        { name: 'Minecraft Server Admin', value: mcadmin },
+                        { name: 'Minecraft Server Builder', value: mcbuilder }
                     ],
                     required: true
                 },
@@ -248,46 +197,20 @@ module.exports = {
                     description: 'Als was war der User im Team tätig?',
                     type: ApplicationCommandOptionType.String,
                     choices: [
-                        {
-                            name: 'Test Supporter',
-                            value: '1146113684570124342'
-                        },
-                        {
-                            name: 'Test Moderator',
-                            value: '1146113684570124343'
-                        },
-                        {
-                            name: 'Test Eventler',
-                            value: '1174018919175041135'
-                        },
-                        {
-                            name: 'Test Marketing',
-                            value: '1174018688383463515'
-                        },
-                        {
-                            name: 'Teammitglied',
-                            value: '1146116364243832963'
-                        },
-                        {
-                            name: 'Supporter',
-                            value: '1148217519631499384'
-                        },
-                        {
-                            name: 'Moderator',
-                            value: '1147206142548787372'
-                        },
-                        {
-                            name: 'Marketing',
-                            value: '1174016316059959326'
-                        },
-                        {
-                            name: 'Eventler',
-                            value: '1174018914448064552'
-                        },
-                        {
-                            name: 'Admin',
-                            value: '1146113684570124344'
-                        }
+                        { name: 'Test Supporter', value: tsup },
+                        { name: 'Test Moderator', value: tmod },
+                        { name: 'Teammitglied', value: teammitglied },
+                        { name: 'Test Admin', value: tadmin },
+                        { name: 'Admin', value: admin },
+                        { name: 'Assistent', value: assistent },
+                        { name: 'Developer', value: dev },
+                        { name: 'Supporter', value: sup },
+                        { name: 'Moderator', value: mod },
+                        { name: 'Minecraft Server Developer', value: mcdev },
+                        { name: 'Minecraft Server Supporter', value: mcsup },
+                        { name: 'Minecraft Server Moderator', value: mcmod },
+                        { name: 'Minecraft Server Admin', value: mcadmin },
+                        { name: 'Minecraft Server Builder', value: mcbuilder }
                     ],
                     required: true
                 },
@@ -314,46 +237,20 @@ module.exports = {
                     description: 'Als was war der User im Team tätig?',
                     type: ApplicationCommandOptionType.String,
                     choices: [
-                        {
-                            name: 'Test Supporter',
-                            value: '1146113684570124342'
-                        },
-                        {
-                            name: 'Test Moderator',
-                            value: '1146113684570124343'
-                        },
-                        {
-                            name: 'Test Eventler',
-                            value: '1174018919175041135'
-                        },
-                        {
-                            name: 'Test Marketing',
-                            value: '1174018688383463515'
-                        },
-                        {
-                            name: 'Teammitglied',
-                            value: '1146116364243832963'
-                        },
-                        {
-                            name: 'Supporter',
-                            value: '1148217519631499384'
-                        },
-                        {
-                            name: 'Moderator',
-                            value: '1147206142548787372'
-                        },
-                        {
-                            name: 'Marketing',
-                            value: '1174016316059959326'
-                        },
-                        {
-                            name: 'Eventler',
-                            value: '1174018914448064552'
-                        },
-                        {
-                            name: 'Admin',
-                            value: '1146113684570124344'
-                        }
+                        { name: 'Test Supporter', value: tsup },
+                        { name: 'Test Moderator', value: tmod },
+                        { name: 'Teammitglied', value: teammitglied },
+                        { name: 'Test Admin', value: tadmin },
+                        { name: 'Admin', value: admin },
+                        { name: 'Assistent', value: assistent },
+                        { name: 'Developer', value: dev },
+                        { name: 'Supporter', value: sup },
+                        { name: 'Moderator', value: mod },
+                        { name: 'Minecraft Server Developer', value: mcdev },
+                        { name: 'Minecraft Server Supporter', value: mcsup },
+                        { name: 'Minecraft Server Moderator', value: mcmod },
+                        { name: 'Minecraft Server Admin', value: mcadmin },
+                        { name: 'Minecraft Server Builder', value: mcbuilder }
                     ],
                     required: true
                 },
@@ -372,12 +269,13 @@ module.exports = {
      */
 
     async execute(interaction, client) {
-        const channel = interaction.guild.channels.cache.get('1182852409198903316')
-        const ping = '<@&1148638515840700497>'
+        const channel = interaction.guild.channels.cache.get('1178073046444163102'/*'1182852409198903316'*/)
+        const ping = 'Hier kommt der Ping'//'<@&1148638515840700497>'
         const subcommand = interaction.options.getSubcommand()
         switch (subcommand) {
             case 'add': {
                 const user = interaction.options.getUser('user')
+                const member = interaction.options.getMember('user')
                 const role = interaction.options.getString('role')
                 const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
                 const embed = new EmbedBuilder({
@@ -389,12 +287,14 @@ module.exports = {
                     ],
                     color: 0x00d12a
                 })
+                member.roles.add([staff, role])
                 channel.send({ content: ping, embeds: [embed] })
                 interaction.reply({ content: `${user} wurde als <@&${role}> aufgenommen`, ephemeral: true })
                 break;
             }
             case 'uprank': {
                 const user = interaction.options.getUser('user'),
+                    member = interaction.options.getMember('user'),
                     previous = interaction.options.getString('previous'),
                     next = interaction.options.getString('next');
                 const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
@@ -405,16 +305,19 @@ module.exports = {
                         { name: 'User', value: `${user}` },
                         { name: 'Vorheriger Rang', value: `<@&${previous}>` },
                         { name: 'Neuer Rang', value: `<@&${next}>` },
-                        {name: 'Grund', value: `${reason}`}
+                        { name: 'Grund', value: `${reason}` }
                     ],
                     color: 0x00d12a
                 })
+                member.roles.remove([previous])
+                member.roles.add([next])
                 channel.send({ content: ping, embeds: [embed] })
                 interaction.reply({ content: `${user} wurde von <@&${previous}> zu <@&${next}> befördert`, ephemeral: true })
                 break;
             }
             case 'downrank': {
                 const user = interaction.options.getUser('user'),
+                    member = interaction.options.getMember('user'),
                     previous = interaction.options.getString('previous'),
                     next = interaction.options.getString('next')
                 const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
@@ -425,16 +328,19 @@ module.exports = {
                         { name: 'User', value: `${user}` },
                         { name: 'Vorheriger Rang', value: `<@&${previous}>` },
                         { name: 'Neuer Rang', value: `<@&${next}>` },
-                        {name: 'Grund', value: `${reason}`}
+                        { name: 'Grund', value: `${reason}` }
                     ],
                     color: 0xc92816
                 })
+                member.roles.remove([previous])
+                member.roles.add([next])
                 channel.send({ content: ping, embeds: [embed] })
                 interaction.reply({ content: `${user} wurde von <@&${previous}> zu <@&${next}> degradiert`, ephemeral: true })
                 break;
             }
             case 'kick': {
                 const user = interaction.options.getUser('user'),
+                    member = interaction.options.getMember('user'),
                     role = interaction.options.getString('role')
                 const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
 
@@ -443,17 +349,19 @@ module.exports = {
                     fields: [
                         { name: 'User', value: `${user}` },
                         { name: 'Ehemalig tätig als', value: `<@&${role}>` },
-                        {name: 'Grund', value: `${reason}`}
+                        { name: 'Grund', value: `${reason}` }
                     ],
                     color: 0xc92816
                 })
+                member.roles.remove([role, staff])
                 channel.send({ content: ping, embeds: [embed] })
                 interaction.reply({ content: `${user} wurde als <@&${role}> aus dem Team geworfen`, ephemeral: true })
                 break;
             }
             case 'leave': {
                 const user = interaction.options.getUser('user'),
-                    role = interaction.options.getString('role')
+                    member = interaction.options.getMember('user'),
+                    role = interaction.options.getString('role');
                 const reason = interaction.options.getString('reason') || '*Nicht angegeben*'
 
                 const embed = new EmbedBuilder({
@@ -461,10 +369,11 @@ module.exports = {
                     fields: [
                         { name: 'User', value: `${user}` },
                         { name: 'Ehemalig tätig als', value: `<@&${role}>` },
-                        {name: 'Grund', value: `${reason}`}
+                        { name: 'Grund', value: `${reason}` }
                     ],
                     color: 0xc92816
                 })
+                member.roles.remove([role, staff])
                 channel.send({ content: ping, embeds: [embed] })
                 interaction.reply({ content: `${user} hat das Team als <@&${role}> verlassen`, ephemeral: true })
                 break;
