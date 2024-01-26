@@ -1,24 +1,24 @@
-// const { Client } = require("discord.js");
+ const { Client } = require("discord.js");
 
-// /**
-//  * @param { Client } client
-//  */
+ /**
+  * @param { Client } client
+  */
 
-// module.exports = async (client, PG, Ascii) => {
+ module.exports = async (client, PG, Ascii) => {
 
-//     const Table = new Ascii().setHeading("Modal", "Status", "Reason");
+     const Table = new Ascii().setHeading("Modal", "Status", "Reason");
 
-//     (await PG(`${process.cwd().replace(/\\/g, "/")}/Modals/*/*.js`)).map(async (file) => {
-//         const modal = require(file);
+     (await PG(`${process.cwd().replace(/\\/g, "/")}/Modals/*/*.js`)).map(async (file) => {
+         const modal = require(file);
 
-//         if (!modal.id) {
-//             Table.addRow(file, "⛔", "Missing CustomID!");
-//             return;
-//         }
+         if (!modal.id) {
+             Table.addRow(file, "⛔", "Missing CustomID!");
+             return;
+         }
 
-//         client.modals.set(modal.id, modal);
+         client.modals.set(modal.id, modal);
 
-//         await Table.addRow(`${modal.id}`, "✅", "Loaded!")
-//     });
-//     console.log(Table.toString());
-// }
+         await Table.addRow(`${modal.id}`, "✅", "Loaded!")
+     });
+     console.log(Table.toString());
+ }
