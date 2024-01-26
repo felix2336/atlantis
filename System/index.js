@@ -26,12 +26,13 @@ const { glob } = require('glob');
 const PG = promisify(glob);
 const Ascii = require('ascii-table');
 
-["events", "commands"/*, "buttons"*/].forEach(handler => {
+["events", "commands", "modals", "buttons"].forEach(handler => {
     require(`./Handler/${handler}`)(client, PG, Ascii);
 });
 
 client.commands = new Collection();
-// client.buttons = new Collection();
+client.buttons = new Collection();
+client.modals = new Collection()
 
 client.setMaxListeners(0)
 client.login(config.token)
