@@ -10,9 +10,6 @@ module.exports = {
 	  */
 
 	async execute(interaction){
-		const channelid = '1200374840696246302'
-		const channel = interaction.guild.channels.cache.get(channelid)
-
 		const modal = new ModalBuilder()
 			.setCustomId('taskmodal')
 			.setTitle('Neue Task')
@@ -35,7 +32,6 @@ module.exports = {
 		const row2 = new ActionRowBuilder().addComponents(description)
 		
 		modal.addComponents(row, row2)
-		await channel.send('<@1146117778483450048>')
         await interaction.showModal(modal)
 	}
 }
