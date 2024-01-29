@@ -91,8 +91,7 @@ module.exports = {
             await Target.save()
             await User.save()
         } else {
-            const percentage = ((Math.random() * 40) / 100).toFixed(2)
-            const fined = Math.floor(User.wallet * percentage)
+            const fined = Math.floor(Math.random() * 2000)
             const embed = new EmbedBuilder({
                 title: 'Diebstahl fehlgeschlagen',
                 description: `Du wurdest bei dem Versuch <@${target.id}> Geld zu stehlen erwischt und musstest 💰${fined} Strafe an ihn zahlen`,
