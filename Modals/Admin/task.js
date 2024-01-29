@@ -28,11 +28,8 @@ module.exports = {
         const row = new ActionRowBuilder().addComponents([finishButton, claimButton])
 
         const embed = new EmbedBuilder({
-            title: 'TASK',
-            fields: [
-                { name: 'Titel', value: title },
-                { name: 'Beschreibung', value: description },
-            ],
+            title: title,
+            description: description,
             timestamp: new Date(),
             color: Colors.DarkPurple
         })
