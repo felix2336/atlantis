@@ -37,7 +37,7 @@ module.exports = {
             color: Colors.DarkPurple
         })
 
-        const message = await channel.send({ embeds: [embed], components: [row] })
+        const message = await channel.send({ content: '<@&1146117778483450048>', embeds: [embed], components: [row] })
         await message.pin()
         interaction.reply({ content: 'Die Aufgabe wurde erfolgreich übermittelt', ephemeral: true })
     }
