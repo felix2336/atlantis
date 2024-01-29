@@ -79,7 +79,11 @@ module.exports = {
                         let message = ''
 
                         sorted.forEach((user, index) => {
-                            message += `\`\`${index + 1}. \`\` <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
+                            if(user.count < 100){
+                                message += `\`\`${index + 1}. \`\`<:AL_RedCross:1173483861959770184> <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
+                            }else {
+                                message += `\`\`${index + 1}. \`\`<:AL_GreenHook:1173483826920574986> <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
+                            }
                         })
                         const embed = new EmbedBuilder({
                             title: 'Weekly Messages Leaderboard',
