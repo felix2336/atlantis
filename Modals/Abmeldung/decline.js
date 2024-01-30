@@ -1,4 +1,4 @@
-const { ModalSubmitInteraction, EmbedBuilder, Colors } = require('discord.js')
+const { ModalSubmitInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Colors } = require('discord.js')
 
 module.exports = {
     id: 'decline',
@@ -32,6 +32,7 @@ module.exports = {
         })
         await dm.send({ embeds: [embed] })
         interaction.editReply({ content: 'Die Abmeldung wurde erfolgreich abgelehnt' })
-        await interaction.message.delete()
+        await interaction.message.edit({ components: [new ActionRowBuilder().addComponents([new ButtonBuilder({ label: 'Nicht genehmigt', style: 4, customId: '1', disabled: true })])] })
+
     }
 }
