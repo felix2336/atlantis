@@ -79,14 +79,20 @@ module.exports = {
                         let message = ''
 
                         sorted.forEach(async (user, index) => {
-                            const member = await interaction.guild.members.cache.get(user.user)
+                            const id = user.user.toString()
+                            
+                            const member = await interaction.guild.members.fetch(id)
+                            console.log(member.user.username)
                             if (member.roles.cache.has('1201848061819891774')) {
                                 message += `\`\`${index + 1}. \`\`⏱️ <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
-                            } else if (user.count < 100) {
-                                message += `\`\`${index + 1}. \`\`<:AL_RedCross:1173483861959770184> <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
                             } else {
-                                message += `\`\`${index + 1}. \`\`<:AL_GreenHook:1173483826920574986> <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
+                                if (user.count < 100) {
+                                    message += `\`\`${index + 1}. \`\`<:AL_RedCross:1173483861959770184> <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
+                                } else {
+                                    message += `\`\`${index + 1}. \`\`<:AL_GreenHook:1173483826920574986> <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
+                                }
                             }
+
                         })
                         const embed = new EmbedBuilder({
                             title: 'Weekly Messages Leaderboard',

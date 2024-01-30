@@ -40,8 +40,8 @@ module.exports = {
                 emoji: '📛'
             })
         ])
-        const ping = 'PINGS'
-        // const ping = '<@&1170957646942191688> <@&1181259236408311828>'
+        // const ping = 'PINGS'
+        const ping = '<@&1170957646942191688> <@&1181259236408311828>'
         await channel.send({ content: ping, embeds: [embed], components: [row] })
         await interaction.reply({ content: 'Dein Antrag auf Abmeldung wurde übermittelt!', ephemeral: true })
     }
