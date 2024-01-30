@@ -1,5 +1,5 @@
-const { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, Colors } = require('discord.js')
-const DB = require('../../Schemas/messages')
+const { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, Colors, GuildMember, Collection } = require('discord.js')
+const DB = require('../../Schemas/messages');
 
 function getDay(dayNumber) {
     const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
@@ -78,22 +78,27 @@ module.exports = {
                         const sorted = leaderboard.sort((a, b) => b.count - a.count)
                         let message = ''
 
-                        sorted.forEach(async (user, index) => {
-                            const id = user.user.toString()
-                            
-                            const member = await interaction.guild.members.fetch(id)
-                            console.log(member.user.username)
-                            if (member.roles.cache.has('1201848061819891774')) {
-                                message += `\`\`${index + 1}. \`\`⏱️ <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
-                            } else {
-                                if (user.count < 100) {
-                                    message += `\`\`${index + 1}. \`\`<:AL_RedCross:1173483861959770184> <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
-                                } else {
-                                    message += `\`\`${index + 1}. \`\`<:AL_GreenHook:1173483826920574986> <@${user.user}> **• ${user.count}** Nachrichten gesendet.\n`
-                                }
+                        for (let i = 0; i < leaderboard.length; i++) {
+                            const entry = leaderboard[i]
+                            const tmp = await interaction.guild.members.fetch(entry.user)
+                            let member;
+                            if(tmp instanceof GuildMember){
+                                member = tmp
+                            }else if (tmp instanceof Collection){
+                                member = tmp.first()
                             }
 
-                        })
+                            if(!member) return interaction.reply({content: 'Etwas ist schiefgelaufen', ephemeral: true})
+                            if (member.roles.cache.has('1201848061819891774')) {
+                                message += `\`\`${i + 1}. \`\`⏱️ <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
+                            } else {
+                                if (entry.count < 100) {
+                                    message += `\`\`${i + 1}. \`\`<:AL_RedCross:1173483861959770184> <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
+                                } else {
+                                    message += `\`\`${i + 1}. \`\`<:AL_GreenHook:1173483826920574986> <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
+                                }
+                            }
+                        }
                         const embed = new EmbedBuilder({
                             title: 'Weekly Messages Leaderboard',
                             description: message,
