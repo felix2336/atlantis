@@ -32,7 +32,7 @@ module.exports = {
         })
         await dm.send({ embeds: [embed] })
         interaction.editReply({ content: 'Die Abmeldung wurde erfolgreich abgelehnt' })
-        await interaction.message.edit({ components: [new ActionRowBuilder().addComponents([new ButtonBuilder({ label: 'Nicht genehmigt', style: 4, customId: '1', disabled: true })])] })
+        await interaction.message.edit({ components: [new ActionRowBuilder().addComponents([new ButtonBuilder({ label: 'Abgelehnt', style: 4, customId: '1', disabled: true })])] })
 
     }
 }
