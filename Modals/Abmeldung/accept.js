@@ -25,6 +25,8 @@ module.exports = {
             timestamp: new Date()
         })
 
+        member.roles.add('1201848061819891774')
+
         const dm = await member.createDM(true).catch(err => {
             console.error(err)
             interaction.editReply({content: 'Etwas ist schiefgelaufen'})
