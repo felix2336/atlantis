@@ -32,7 +32,17 @@ module.exports = {
         })
         await dm.send({ embeds: [embed] })
         interaction.editReply({ content: 'Die Abmeldung wurde erfolgreich abgelehnt' })
-        await interaction.message.edit({ components: [new ActionRowBuilder().addComponents([new ButtonBuilder({ label: 'Abgelehnt', style: 4, customId: '1', disabled: true })])] })
+        const button = new ActionRowBuilder().addComponents([
+            new ButtonBuilder({
+                label: 'Abgelehnt',
+                style: 4,
+                customId: '1',
+                disabled: true
+            })])
+
+        const emb = interaction.message.embeds[0]
+        emb.fields.push({ name: 'Abgelehnt - Grund:', value: reason })
+        await interaction.message.edit({ embeds: [emb], components: [button] })
 
     }
 }
