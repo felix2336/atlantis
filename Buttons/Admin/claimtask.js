@@ -1,4 +1,4 @@
-const { ButtonInteraction } = require('discord.js')
+const { ButtonInteraction, EmbedBuilder } = require('discord.js')
 
 module.exports = {
     id: 'taskclaim',
@@ -15,8 +15,8 @@ module.exports = {
 
         message.components[0].components.pop()
 
-        const embed = message.embeds[0]
-        embed.fields = [{name: 'Wird bearbeitet von', value: `${interaction.user}`}]
+        const embed = new EmbedBuilder(message.embeds[0])
+        embed.setFields([{name: 'Wird bearbeitet von', value: `${interaction.user}`}])
         await message.edit({embeds: [embed], components: message.components})
         interaction.reply({content: 'Du hast diese Aufgabe erfolgreich geclaimt', ephemeral: true})
     }
