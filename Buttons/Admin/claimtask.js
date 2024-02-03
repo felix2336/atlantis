@@ -16,8 +16,7 @@ module.exports = {
         message.components[0].components.pop()
 
         const embed = message.embeds[0]
-        embed.fields.push({name: 'Wird bearbeitet von', value: `${interaction.user}`})
-
+        embed.fields = [{name: 'Wird bearbeitet von', value: `${interaction.user}`}]
         await message.edit({embeds: [embed], components: message.components})
         interaction.reply({content: 'Du hast diese Aufgabe erfolgreich geclaimt', ephemeral: true})
     }
