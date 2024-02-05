@@ -1,15 +1,20 @@
-const { Events, Client, EmbedBuilder, Message, Colors } = require('discord.js')
+const { Events, Client, EmbedBuilder, Message, GuildMember, Colors } = require('discord.js')
 const DB = require('../../Schemas/messages')
 
 module.exports = {
     name: Events.ClientReady,
+    // name: Events.MessageCreate,
 
     /**
      * @param {Client} client
      */
 
-    async execute(client) {
+    async execute( client) {
+        // if (message.author.id != '773072144304963624') return;
+        // if(message.content != 'messageCounterReset') return;
+        // await message.react('✅')
         const channel = client.channels.cache.get('1196886539637112923')
+        const guild = client.guilds.cache.get('1146113684435898439')
         const checkAndDelete = async () => {
             const date = new Date()
             if (date.getDay() == 0 && date.getHours() == 23 && date.getMinutes() == 59) {
@@ -25,7 +30,7 @@ module.exports = {
 
                 for (let i = 0; i < leaderboard.length; i++) {
                     const entry = leaderboard[i]
-                    const tmp = await interaction.guild.members.fetch(entry.user)
+                    const tmp = await guild.members.fetch(entry.user)
                     let member;
                     if(tmp instanceof GuildMember){
                         member = tmp
@@ -33,7 +38,6 @@ module.exports = {
                         member = tmp.first()
                     }
 
-                    if(!member) return interaction.reply({content: 'Etwas ist schiefgelaufen', ephemeral: true})
                     if (member.roles.cache.has('1201848061819891774')) {
                         message += `\`\`${i + 1}. \`\`⏱️ <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
                     } else {
