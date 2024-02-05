@@ -31,6 +31,10 @@ module.exports = {
                 for (let i = 0; i < leaderboard.length; i++) {
                     const entry = leaderboard[i]
                     const tmp = await guild.members.fetch(entry.user)
+                    if(tmp){
+                        await DB.deleteOne({user: entry.user})
+                        continue;
+                    }
                     let member;
                     if(tmp instanceof GuildMember){
                         member = tmp
