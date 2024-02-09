@@ -1,5 +1,9 @@
 const { Client, CommandInteraction, EmbedBuilder, InteractionType, Colors, Collection } = require("discord.js");
 const fs = require('fs')
+const devs = [
+    '773072144304963624',
+    '731990066158895175'
+]
 module.exports = {
     name: "interactionCreate",
     /**
@@ -20,9 +24,9 @@ module.exports = {
                 ], ephemeral: true
             }) && client.commands.delete(interaction.commandName);
 
-            if (command.dev && !command.permission && interaction.user.id != '773072144304963624') {
+            if (command.dev && !command.permission && !devs.some(dev => interaction.user.id == dev)) {
                 return interaction.reply({ content: 'Dieser befehl ist nur für den Dev des Bots gedacht!', ephemeral: true });
-            } else if (command.dev && interaction.user.id == '773072144304963624') {
+            } else if (command.dev && devs.some(dev => interaction.user.id == dev)) {
                 command.execute(interaction, client)
                 return
             }
