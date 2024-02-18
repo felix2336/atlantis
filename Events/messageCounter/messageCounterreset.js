@@ -9,7 +9,7 @@ module.exports = {
      * @param {Client} client
      */
 
-    async execute( client) {
+    async execute(client) {
         // if (message.author.id != '773072144304963624') return;
         // if(message.content != 'messageCounterReset') return;
         // await message.react('✅')
@@ -31,14 +31,22 @@ module.exports = {
                 for (let i = 0; i < leaderboard.length; i++) {
                     const entry = leaderboard[i]
                     const tmp = await guild.members.fetch(entry.user)
-                    if(tmp){
-                        await DB.deleteOne({user: entry.user})
-                        continue;
+                    if (tmp) {
+                        const DBentry = await DB.findOne({ user: entry.user })
+                        DBentry.messagesSent.monday = 0
+                        DBentry.messagesSent.tuesday = 0
+                        DBentry.messagesSent.wednesday = 0
+                        DBentry.messagesSent.thursday = 0
+                        DBentry.messagesSent.friday = 0
+                        DBentry.messagesSent.saturday = 0
+                        DBentry.messagesSent.sunday = 0
+                        DBentry.total = 0
+                        await DBentry.save()
                     }
                     let member;
-                    if(tmp instanceof GuildMember){
+                    if (tmp instanceof GuildMember) {
                         member = tmp
-                    }else if (tmp instanceof Collection){
+                    } else if (tmp instanceof Collection) {
                         member = tmp.first()
                     }
 
