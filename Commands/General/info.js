@@ -15,6 +15,7 @@ module.exports = {
             title: `${client.user.username} Infos`,
             description: `${client.user} wurde von <@773072144304963624> und <@731990066158895175> mit der discord.js Library programmiert.
             
+            <:ActiveDev_Badge:1211374507873406996> Befehle: \`${client.commands.size}\`
             <:discordjs:1208835491101802576> Discord.js \`v14.12.1\`
             <:nodejs:1208835656835407902> NodeJS \`v21.6.1\`
             
