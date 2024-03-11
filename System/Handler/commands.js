@@ -39,16 +39,8 @@ module.exports = async (client, PG, Ascii) => {
 
         client.commands.set(command.name, command);
 
-        CommandsArray.push(command);
-
+        client.apps.push(command)
         await Table.addRow(`${command.name}`, "✅", "Loaded!")
     });
     console.log(Table.toString());
-
-    client.on("ready", client => {
-        client.guilds.cache.forEach(g => {
-            g.commands.set(CommandsArray);
-        })
-    })
-
 }

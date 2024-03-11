@@ -12,7 +12,7 @@ module.exports = {
      * @param {Client} client
      */
     async execute(interaction, client) {
-        if (interaction.type === InteractionType.ApplicationCommand) {
+        if (interaction.isCommand() && !interaction.isContextMenuCommand()) {
             const command = client.commands.get(interaction.commandName);
 
             if (!command) return interaction.reply({
