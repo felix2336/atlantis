@@ -14,7 +14,7 @@ export default {
         const bool = interaction.options.get('mehrfachauswahl', true).value as boolean
         const topic = interaction.options.get('topic', true).value as string
 
-        const channel = client.channels.cache.get('1178073046444163102') as TextChannel
+        const channel = client.channels.cache.get('1208549139126812702') as TextChannel
         const polls = JSON.parse(readFileSync('./JSON/polls.json', 'utf8')) as StaffPoll[]
 
         const modal = new ModalBuilder({

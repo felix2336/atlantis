@@ -7,7 +7,7 @@ export default {
     id: 'modal_staffpoll',
 
     async execute(interaction: ModalSubmitInteraction, client: Client) {
-        const channel = client.channels.cache.get('1178073046444163102') as TextChannel;
+        const channel = client.channels.cache.get('1208549139126812702') as TextChannel;
         const messages = await channel.messages.fetch();
         const message = messages.first()
         if (!message) return interaction.reply({ content: 'Die Umfrage wurde nicht gefunden. Bitte erstelle eine neue', ephemeral: true })
