@@ -21,6 +21,7 @@ export default {
             '1180773957708820551', //Server-Management
             '1148217519631499384', //sup
             '1146113684570124342', //test sup
+            '1216758777290690710', //Event Team
         ]
         const message = await channel.messages.fetch('1227354357452898377')
         async function check() {
