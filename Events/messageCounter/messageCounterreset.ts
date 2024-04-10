@@ -1,5 +1,6 @@
 import { Events, Client, EmbedBuilder, Message, GuildMember, Colors, Guild, TextChannel } from 'discord.js'
-import DB from '../../Schemas/messages'
+import MessageUser from '../../Classes/staff-messages'
+import {readFileSync, writeFileSync} from 'fs'
 
 export default {
     name: Events.ClientReady,
@@ -14,11 +15,16 @@ export default {
         const checkAndDelete = async () => {
             const date = new Date()
             if (date.getDay() == 0 && date.getHours() == 23 && date.getMinutes() == 59) {
-                const Users = await DB.find({})
-                const leaderboard: any[] = []
+                let DB = JSON.parse(readFileSync('../JSON/messages.json', 'utf8')) as MessageUser[]
+                const leaderboard: {user: string, count: number}[] = []
 
-                for (const User of Users) {
-                    leaderboard.push({ user: User.user, count: User.total })
+                for (const UserData of DB) {
+                    const User = new MessageUser().assignData(UserData)
+                    leaderboard.push({ user: User.userid!, count: User.getTotalMessages() })
+                    User.resetMessages()
+                    DB = DB.filter(u => u.userid != User.userid)
+                    DB.push(User)
+                    writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2), 'utf8')
                 }
 
                 const sorted = leaderboard.sort((a, b) => b.count - a.count)
@@ -26,20 +32,7 @@ export default {
 
                 for (let i = 0; i < leaderboard.length; i++) {
                     const entry = leaderboard[i]
-                    const tmp = await guild.members.fetch(entry.user)
-                    if (tmp) {
-                        const DBentry = await DB.findOne({ user: entry.user }).catch(err => console.log(err))
-                        DBentry!.messagesSent!.monday = 0
-                        DBentry!.messagesSent!.tuesday = 0
-                        DBentry!.messagesSent!.wednesday = 0
-                        DBentry!.messagesSent!.thursday = 0
-                        DBentry!.messagesSent!.friday = 0
-                        DBentry!.messagesSent!.saturday = 0
-                        DBentry!.messagesSent!.sunday = 0
-                        DBentry!.total = 0
-                        await DBentry!.save()
-                    }
-                    let member = tmp
+                    const member = await guild.members.fetch(entry.user)
 
                     if (member.roles.cache.has('1201848061819891774')) {
                         message += `\`\`${i + 1}. \`\`⏱️ <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
@@ -58,17 +51,6 @@ export default {
                 })
 
                 channel.send({ embeds: [embed] })
-                for (const User of Users) {
-                    User.total = 0
-                    User.messagesSent!.sunday = 0
-                    User.messagesSent!.monday = 0
-                    User.messagesSent!.tuesday = 0
-                    User.messagesSent!.wednesday = 0
-                    User.messagesSent!.thursday = 0
-                    User.messagesSent!.friday = 0
-                    User.messagesSent!.saturday = 0
-                    await User.save()
-                }
             }
         }
 

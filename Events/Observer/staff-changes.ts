@@ -24,7 +24,7 @@ export default {
             '1216758777290690710', //Event Team
         ]
         const message = await channel.messages.fetch('1227354357452898377')
-        async function check() {
+        const check = async () => {
             const mainEmbed = new EmbedBuilder({
                 title: 'Teamliste',
                 description: ''
@@ -42,10 +42,11 @@ export default {
                     mainEmbed.data.description += `${members.join(', ')}\n\n`
                 }
             }
-            await message.edit({ embeds: [mainEmbed] })
+            console.log('Teamliste aktualisiert')
+            return await message.edit({ embeds: [mainEmbed] })
             // await channel.send({embeds: [mainEmbed]})
         }
         await check();
-        setInterval(check, 3_600_000)
+        setInterval(check, 3600000)
     }
 }

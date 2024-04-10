@@ -1,5 +1,7 @@
 import { Message, Client, Events, DMChannel, ChannelType } from 'discord.js';
-import DB from '../../Schemas/messages';
+import MessageUser from '../../Classes/staff-messages';
+import { Roles } from '../../config';
+import {readFileSync, writeFileSync} from 'fs'
 
 export default {
     name: Events.MessageCreate,
@@ -7,36 +9,23 @@ export default {
     async execute(message: Message, client: Client) {
         if (message.author.bot) return;
         if (message.channel.type == ChannelType.DM) return;
-        if (!message.member!.roles.cache.has('1156298949301379212')) return;
+        if (!message.member!.roles.cache.has((Roles.staff))) return;
         if (message.channel.parentId == '1156996872657977394') return;
         if (message.channel.parentId == '1180678820085370940') return;
 
-        let User = await DB.findOne({ user: message.author.id })
-        if (!User) {
-            User = await DB.create({
-                user: message.author.id,
-                messagesSent: {
-                    monday: 0,
-                    tuesday: 0,
-                    wednesday: 0,
-                    thursday: 0,
-                    friday: 0,
-                    saturday: 0,
-                    sunday: 0
-                },
-                total: 0
-            })
+        let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
+
+        const UserData = DB.find(u => u.userid == message.author.id)
+        let User: MessageUser;
+        if (!UserData) {
+            User = new MessageUser(message.author.id, message.author.username)
+        } else {
+            User = new MessageUser().assignData(UserData)
         }
         const day = new Date().getDay()
-        //@ts-ignore
-        User.messagesSent[getDay(day)]++;
-        //@ts-ignore
-        User.total++;
-        await User.save();
+        User.addMessage(day)
+        DB = DB.filter(u => u.userid != message.author.id)
+        DB.push(User)
+        writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2))
     }
-}
-
-function getDay(dayNumber: number) {
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    return days[dayNumber];
 }

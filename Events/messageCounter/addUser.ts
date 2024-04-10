@@ -1,30 +1,22 @@
-import { GuildMember, Events } from 'discord.js';
-import DB from '../../Schemas/messages';
+import { GuildMember, Events, Message } from 'discord.js';
+import { readFileSync, writeFileSync } from 'fs'
+import { Roles } from '../../config'
+import MessageUser from '../../Classes/staff-messages';
 
 export default {
     name: Events.GuildMemberUpdate,
 
     async execute(oldMember: GuildMember, newMember: GuildMember) {
         if (oldMember.user.bot) return;
-        const staffrole = '1156298949301379212'
-        if (!oldMember.roles.cache.has(staffrole) && newMember.roles.cache.has(staffrole)) {
-            await DB.create({
-                user: newMember.user.id,
-                messagesSent: {
-                    monday: 0,
-                    tuesday: 0,
-                    wednesday: 0,
-                    thursday: 0,
-                    friday: 0,
-                    saturday: 0,
-                    sunday: 0
-                },
-                total: 0
-            })
+        let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
+        if (!oldMember.roles.cache.has(Roles.staff) && newMember.roles.cache.has(Roles.staff)) {
+            const user = new MessageUser(newMember.user.id, newMember.user.username);
+            DB.push(user)
+            writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2), 'utf8')
         }
-        if (oldMember.roles.cache.has(staffrole) && !newMember.roles.cache.has(staffrole)) {
-            const User = await DB.findOne({ user: newMember.user.id })
-            await DB.deleteOne({user: User?.user}).catch(err => console.log(err))
+        if (oldMember.roles.cache.has(Roles.staff) && !newMember.roles.cache.has(Roles.staff)) {
+            DB = DB.filter(user => user.userid != newMember.user.id)
+            writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2), 'utf8')
         }
     }
 }

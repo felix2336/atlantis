@@ -1,5 +1,6 @@
 import { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, Colors, GuildMember, Collection, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
-import DB from '../../Schemas/messages';
+import MessageUser from '../../Classes/staff-messages';
+import {readFileSync} from 'fs'
 
 export default {
     data: new SlashCommandBuilder()
@@ -13,6 +14,7 @@ export default {
         ),
 
     async execute(interaction: CommandInteraction, client: Client) {
+        const DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
         const member = interaction.member as GuildMember
         if (!member.roles.cache.has('1156298949301379212')) return interaction.reply({ content: 'Du musst im Team sein, um diesen Befehl nutzen zu können', ephemeral: true })
         //@ts-ignore
@@ -25,12 +27,12 @@ export default {
                 const type = interaction.options.getString('type')
                 switch (type) {
                     case 'daily': {
-                        const Users = await DB.find({})
-                        const leaderboard: any[] = []
+                        const leaderboard: {user: string, count: number}[] = []
 
-                        for (const User of Users) {
-                            const messages = User.messagesSent![getDay(day)]
-                            leaderboard.push({ user: User.user, count: messages })
+                        for (const UserData of DB) {
+                            const User = new MessageUser().assignData(UserData)
+                            const messages = User.getMessagedOfDay(day)
+                            leaderboard.push({ user: User.userid!, count: messages })
                         }
 
                         const sortedLeaderboard = leaderboard.sort((a, b) => b.count - a.count)
@@ -47,11 +49,11 @@ export default {
                         break;
                     }
                     case 'weekly': {
-                        const Users = await DB.find({})
                         const leaderboard: any[] = []
 
-                        for (const User of Users) {
-                            leaderboard.push({ user: User.user, count: User.total })
+                        for (const UserData of DB) {
+                            const User = new MessageUser().assignData(UserData)
+                            leaderboard.push({ user: User.userid, count: User.getTotalMessages() })
                         }
 
                         const sorted = leaderboard.sort((a, b) => b.count - a.count)
@@ -59,8 +61,7 @@ export default {
 
                         for (let i = 0; i < leaderboard.length; i++) {
                             const entry = leaderboard[i]
-                            const tmp = await interaction.guild!.members.fetch(entry.user)
-                            let member = tmp
+                            const member = await interaction.guild!.members.fetch(entry.user)
 
                             if (!member) return interaction.reply({ content: 'Etwas ist schiefgelaufen', ephemeral: true })
                             if (member.roles.cache.has('1201848061819891774')) {
