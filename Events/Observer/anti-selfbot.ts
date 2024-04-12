@@ -5,6 +5,7 @@ export default {
     name: Events.MessageCreate,
 
     async execute(message: Message) {
+        if(message.member?.roles.cache.has(Roles.staff)) return;
         const { member, content } = message
         if(!member!.roles.cache.has(Roles.staff) && content.includes('@everyone') && content.includes('discord.gg/')){
             await message.delete()
