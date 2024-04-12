@@ -1,4 +1,4 @@
-import { CommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
+import { CommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits, mergeDefault } from 'discord.js'
 
 export default {
 	data: new SlashCommandBuilder()

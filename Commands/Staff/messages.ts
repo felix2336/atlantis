@@ -31,7 +31,7 @@ export default {
 
                         for (const UserData of DB) {
                             const User = new MessageUser().assignData(UserData)
-                            const messages = User.getMessagedOfDay(day)
+                            const messages = User.getMessagesOfDay(day)
                             leaderboard.push({ user: User.userid!, count: messages })
                         }
 

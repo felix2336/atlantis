@@ -33,7 +33,7 @@ class MessageUser {
         this.messages[day]++
     }
 
-    public getMessagedOfDay(dayNumber: number): number {
+    public getMessagesOfDay(dayNumber: number): number {
         const day = this.getDayByIndex(dayNumber)
         return this.messages[day];
     }
