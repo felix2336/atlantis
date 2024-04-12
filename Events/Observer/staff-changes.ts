@@ -13,14 +13,15 @@ export default {
             '1146117778483450048', //Dev
             '1146113684570124344', //Admin
             '1190695364584538122', //Test Admin
-            '1201591226143608912', //Marketing
-            '1201591186272555150', //Test marketing
             '1147206142548787372', //mod
             '1146113684570124343', //test mod
-            '1212844614382264320', //content
-            '1180773957708820551', //Server-Management
             '1148217519631499384', //sup
             '1146113684570124342', //test sup
+            '1201591226143608912', //Marketing
+            '1201591186272555150', //Test marketing
+            '1228063213288161340', //marketing content creator
+            '1228063079774949406', //test marketing content creator
+            '1180773957708820551', //Server-Management
             '1216758777290690710', //Event Team
         ]
         const message = await channel.messages.fetch('1227354357452898377')
