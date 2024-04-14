@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember, TextChannel } from 'discord.js'
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 import { Channels } from '../../config'
 import Warn from '../../Classes/warn'
@@ -22,7 +22,8 @@ export default {
         writeFileSync('./JSON/warns.json', JSON.stringify(warns, null, 2), 'utf8')
         const embed = new EmbedBuilder({
             title: 'User gewarnt',
-            description: `${member} wurde von ${interaction.user.username} wegen **${reason}** gewarnt! Warn-ID: \`${warn.id}\``,
+            description: `<:check:1229021540956504105> ${member} wurde von ${interaction.user.username} gewarnt\nGrund: **${reason}**\nWarn-ID: \`${warn.id}\``,
+            color: Colors.Red
         })
         await channel.send({ embeds: [embed] })
         interaction.reply({ content: `Du hast ${member} wegen **${reason}** gewarnt!`, ephemeral: true })
