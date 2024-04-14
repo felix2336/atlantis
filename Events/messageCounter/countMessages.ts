@@ -1,7 +1,7 @@
 import { Message, Client, Events, DMChannel, ChannelType } from 'discord.js';
 import MessageUser from '../../Classes/staff-messages';
 import { Roles } from '../../config';
-import {readFileSync, writeFileSync} from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 
 export default {
     name: Events.MessageCreate,
