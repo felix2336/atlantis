@@ -43,7 +43,6 @@ export default {
                     mainEmbed.data.description += `${members.join(', ')}\n\n`
                 }
             }
-            console.log('Teamliste aktualisiert')
             return await message.edit({ embeds: [mainEmbed] })
             // await channel.send({embeds: [mainEmbed]})
         }
