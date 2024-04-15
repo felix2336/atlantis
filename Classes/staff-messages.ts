@@ -44,13 +44,16 @@ class MessageUser {
 
     public resetMessages() {
         this.totalMessages = 0;
-        this.messages.monday = 0;
-        this.messages.tuesday = 0
-        this.messages.wednesday = 0
-        this.messages.thursday = 0
-        this.messages.friday = 0
-        this.messages.saturday = 0
-        this.messages.sunday = 0
+        this.totalMessages = 0;
+        this.messages = {
+            monday: 0,
+            tuesday: 0,
+            wednesday: 0,
+            thursday: 0,
+            friday: 0,
+            saturday: 0,
+            sunday: 0
+        };
     }
 
     public assignData(data: MessageUser): MessageUser {

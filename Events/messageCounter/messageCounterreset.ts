@@ -6,7 +6,7 @@ export default {
     name: Events.ClientReady,
     // name: Events.MessageCreate,
 
-    async execute(client: Client) {
+    async execute(/*message: Message,*/ client: Client) {
         // if (message.author.id != '773072144304963624') return;
         // if(message.content != 'messageCounterReset') return;
         // await message.react('✅')
@@ -15,7 +15,7 @@ export default {
         const checkAndDelete = async () => {
             const date = new Date()
             if (date.getDay() == 0 && date.getHours() == 23 && date.getMinutes() == 59) {
-                let DB = JSON.parse(readFileSync('../JSON/messages.json', 'utf8')) as MessageUser[]
+                let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
                 const leaderboard: {user: string, count: number}[] = []
 
                 for (const UserData of DB) {
