@@ -177,3 +177,5 @@ async function importEvents() {
         }
     }
 }
+
+export default client;
