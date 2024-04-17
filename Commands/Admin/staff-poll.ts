@@ -1,6 +1,6 @@
 import { CommandInteraction, ActionRowBuilder, TextInputBuilder, Client, TextInputStyle, ModalBuilder, PermissionFlagsBits, ApplicationCommandOptionType, SlashCommandBuilder, TextChannel, EmbedBuilder, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import StaffPoll from '../../Classes/staff-poll'
+import { StaffPoll } from '../../contents'
 
 export default {
     data: new SlashCommandBuilder()
@@ -60,9 +60,9 @@ export default {
             timestamp: new Date(),
             color: Colors.DarkPurple
         })
-        const message = await channel.send({content: '*Abstimmungsmöglichkeiten werden erstellt. Bitte warte einen Moment...*', embeds: [embed]})
+        const message = await channel.send({ content: '*Abstimmungsmöglichkeiten werden erstellt. Bitte warte einen Moment...*', embeds: [embed] })
 
-        const poll = new StaffPoll(message.id, topic, bool)
+        const poll = new StaffPoll({ id: message.id, question: topic, multiple: bool })
         polls.push(poll)
 
         writeFileSync('./JSON/polls.json', JSON.stringify(polls, null, 2), 'utf8')

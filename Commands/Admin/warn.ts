@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 import { Channels } from '../../config'
-import Warn from '../../Classes/warn'
+import { Warn } from '../../contents'
 
 export default {
     data: new SlashCommandBuilder()
@@ -17,7 +17,7 @@ export default {
         const member = interaction.options.getMember('user') as GuildMember
         const channel = interaction.guild!.channels.cache.get(Channels.warn) as TextChannel
 
-        const warn = new Warn(member.user.id, reason)
+        const warn = new Warn({userid: member.user.id, reason: reason})
         warns.push(warn)
         writeFileSync('./JSON/warns.json', JSON.stringify(warns, null, 2), 'utf8')
         const embed = new EmbedBuilder({

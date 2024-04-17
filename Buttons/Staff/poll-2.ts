@@ -1,6 +1,6 @@
 import { ButtonInteraction } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import StaffPoll from '../../Classes/staff-poll'
+import {StaffPoll} from '../../contents'
 
 export default {
     id: 'poll-2',

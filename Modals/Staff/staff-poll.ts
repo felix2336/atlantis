@@ -1,7 +1,8 @@
 
 import { ModalSubmitInteraction, EmbedBuilder, Colors, Client, ButtonBuilder, ActionRowBuilder, TextChannel, Message, EmbedData } from 'discord.js';
 import { readFileSync, writeFileSync } from 'fs'
-import StaffPoll from '../../Classes/staff-poll';
+import { StaffPoll } from '../../contents'
+
 
 export default {
     id: 'modal_staffpoll',

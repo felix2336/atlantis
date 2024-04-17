@@ -1,6 +1,6 @@
 import { Events, Client, EmbedBuilder, Message, GuildMember, Colors, Guild, TextChannel } from 'discord.js'
-import MessageUser from '../../Classes/staff-messages'
-import {readFileSync, writeFileSync} from 'fs'
+import { MessageUser } from '../../contents'
+import { readFileSync, writeFileSync } from 'fs'
 
 export default {
     name: Events.ClientReady,
@@ -16,7 +16,7 @@ export default {
             const date = new Date()
             if (date.getDay() == 0 && date.getHours() == 23 && date.getMinutes() == 59) {
                 let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
-                const leaderboard: {user: string, count: number}[] = []
+                const leaderboard: { user: string, count: number }[] = []
 
                 for (const UserData of DB) {
                     const User = new MessageUser().assignData(UserData)

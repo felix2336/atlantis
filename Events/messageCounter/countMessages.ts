@@ -1,5 +1,5 @@
 import { Message, Client, Events, DMChannel, ChannelType } from 'discord.js';
-import MessageUser from '../../Classes/staff-messages';
+import { MessageUser } from '../../contents';
 import { Roles } from '../../config';
 import { readFileSync, writeFileSync } from 'fs'
 
@@ -18,7 +18,7 @@ export default {
         const UserData = DB.find(u => u.userid == message.author.id)
         let User: MessageUser;
         if (!UserData) {
-            User = new MessageUser(message.author.id, message.author.username)
+            User = new MessageUser({userid: message.author.id, username: message.author.username})
         } else {
             User = new MessageUser().assignData(UserData)
         }

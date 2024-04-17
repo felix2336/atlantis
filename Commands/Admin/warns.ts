@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import Warn from '../../Classes/warn'
+import { Warn } from '../../contents'
 
 export default {
     data: new SlashCommandBuilder()

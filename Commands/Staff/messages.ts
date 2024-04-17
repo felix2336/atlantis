@@ -1,6 +1,6 @@
-import { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, Colors, GuildMember, Collection, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
-import MessageUser from '../../Classes/staff-messages';
-import {readFileSync} from 'fs'
+import { CommandInteraction, Client, EmbedBuilder, Colors, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import { MessageUser } from '../../contents';
+import { readFileSync } from 'fs'
 
 export default {
     data: new SlashCommandBuilder()
@@ -27,7 +27,7 @@ export default {
                 const type = interaction.options.getString('type')
                 switch (type) {
                     case 'daily': {
-                        const leaderboard: {user: string, count: number}[] = []
+                        const leaderboard: { user: string, count: number }[] = []
 
                         for (const UserData of DB) {
                             const User = new MessageUser().assignData(UserData)
