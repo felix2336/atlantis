@@ -1,5 +1,6 @@
 import { Channels } from './config'
 import { Colors, EmbedBuilder, TextChannel, Client } from 'discord.js'
+import { readFileSync, writeFileSync } from 'fs'
 
 
 //suggestion
