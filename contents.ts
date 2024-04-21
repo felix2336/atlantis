@@ -1,5 +1,5 @@
 import { Channels } from './config'
-import { Colors, EmbedBuilder, TextChannel, Client } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 
 
@@ -218,7 +218,53 @@ class MessageUser implements MessageUserData {
     }
 }
 
+//backup system
+class Backup {
+    categories?: {}
 
+    constructor(data?: Backup){
+        this.categories = data?.categories
+    }
+
+    public save(guild: Guild) {
+        const categories = {}
+        guild.channels.cache.filter(channel => channel.type === ChannelType.GuildCategory).forEach(category => {
+            categories[category.name] = {};
+
+            guild.channels.cache.filter(channel => channel.parentId === category.id).forEach(channel => {
+                categories[category.name][channel.name] = channel.type;
+            });
+        });
+        this.categories = categories
+        writeFileSync('./JSON/backup.json', JSON.stringify(this, null, 2), 'utf8')
+    }
+
+    public async load(guild: Guild) {
+        for (const category in this.categories) {
+            const cat = await guild.channels.create({
+                name: category,
+                type: ChannelType.GuildCategory,
+                permissionOverwrites: [
+                    {
+                        id: guild.roles.everyone,
+                        deny: ['ViewChannel']
+                    }
+                ]
+            })
+
+            const channelData = this.categories[category]
+            for (const channel in channelData) {
+                const channelType = channelData[channel]
+
+                await guild.channels.create({
+                    name: channel,
+                    type: channelType,
+                    parent: cat
+                })
+            }
+        }
+    }
+}
 
 
 //exports
@@ -227,5 +273,6 @@ export {
     SuggestionType,
     Warn,
     StaffPoll,
-    MessageUser
+    MessageUser,
+    Backup
 }
