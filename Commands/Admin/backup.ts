@@ -26,7 +26,7 @@ export default {
             case 'save': {
                 new Backup().save(guild)
                 interaction.reply({ content: 'Backup erstellt', ephemeral: true })
-
+                console.log(`${interaction.user.username} (${interaction.user.id}) hat ein Backup gespeichert!`)
                 break
             }
             case 'load': {
@@ -34,6 +34,7 @@ export default {
                 await interaction.deferReply({ ephemeral: true })
                 await new Backup(backupData).load(guild)
                 await interaction.editReply('Backup geladen')
+                console.log(`${interaction.user.username} (${interaction.user.id}) hat ein Backup geladen!`)
                 break;
             }
         }
