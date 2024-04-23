@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import { Channels } from '../../config'
+import { Channels } from '../../contents'
 import { Warn } from '../../contents'
 
 export default {

@@ -1,6 +1,20 @@
-import { Channels } from './config'
 import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
+
+//general enums
+enum Channels {
+    teamliste = "1173357582933573722",
+    warn = "1160607902210470009",
+    suggestion = "1230234007854120960",
+    message_leaderboard = "1196886539637112923",
+    clan_ticket = "1203371307811471451"
+}
+enum Categories {
+    ticket = "1173314530521129042"
+}
+enum Roles {
+    staff = '1156298949301379212'
+}
 
 
 //suggestion
@@ -222,7 +236,7 @@ class MessageUser implements MessageUserData {
 class Backup {
     categories?: {}
 
-    constructor(data?: Backup){
+    constructor(data?: Backup) {
         this.categories = data?.categories
     }
 
@@ -274,5 +288,8 @@ export {
     Warn,
     StaffPoll,
     MessageUser,
-    Backup
+    Backup,
+    Channels,
+    Roles,
+    Categories
 }

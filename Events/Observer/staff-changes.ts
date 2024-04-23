@@ -1,5 +1,5 @@
 import { Events, Role, GuildMember, Client, EmbedBuilder, TextChannel, RoleMention } from 'discord.js'
-import { Channels } from '../../config'
+import { Channels } from '../../contents'
 export default {
     name: Events.ClientReady,
 

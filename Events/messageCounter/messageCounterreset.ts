@@ -1,5 +1,5 @@
 import { Events, Client, EmbedBuilder, Message, GuildMember, Colors, Guild, TextChannel } from 'discord.js'
-import { MessageUser } from '../../contents'
+import { MessageUser, Channels } from '../../contents'
 import { readFileSync, writeFileSync } from 'fs'
 
 export default {
@@ -10,7 +10,7 @@ export default {
         // if (message.author.id != '773072144304963624') return;
         // if(message.content != 'messageCounterReset') return;
         // await message.react('✅')
-        const channel = client.channels.cache.get('1196886539637112923') as TextChannel
+        const channel = client.channels.cache.get(Channels.message_leaderboard) as TextChannel
         const guild = client.guilds.cache.get('1146113684435898439') as Guild
         const checkAndDelete = async () => {
             const date = new Date()

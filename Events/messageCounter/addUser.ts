@@ -1,7 +1,6 @@
 import { GuildMember, Events, Message } from 'discord.js';
 import { readFileSync, writeFileSync } from 'fs'
-import { Roles } from '../../config'
-import { MessageUser } from '../../contents';
+import { MessageUser, Roles } from '../../contents';
 
 export default {
     name: Events.GuildMemberUpdate,

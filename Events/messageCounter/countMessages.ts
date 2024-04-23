@@ -1,6 +1,5 @@
 import { Message, Client, Events, DMChannel, ChannelType } from 'discord.js';
-import { MessageUser } from '../../contents';
-import { Roles } from '../../config';
+import { MessageUser, Roles } from '../../contents';
 import { readFileSync, writeFileSync } from 'fs'
 
 export default {
