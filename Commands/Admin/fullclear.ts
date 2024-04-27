@@ -22,6 +22,6 @@ export default {
             messagesToDelete = await channel.messages.fetch({ limit: 100 })
         }
 
-        interaction.editReply('Channel cleared!')
+        interaction.editReply('Channel cleared!').catch(err => console.log(err))
     }
 };
