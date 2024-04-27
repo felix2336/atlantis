@@ -29,7 +29,7 @@ declare interface SuggestionData {
     type: SuggestionType
 }
 
-class Suggestion implements SuggestionData {
+class Suggestion {
 
     user: string
     suggestion: string
@@ -63,7 +63,7 @@ declare interface WarnData {
     reason: string,
 }
 
-class Warn implements WarnData {
+class Warn {
     readonly userid: string
     readonly reason: string
     readonly id: string
