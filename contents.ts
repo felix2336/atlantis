@@ -9,13 +9,15 @@ enum Channels {
     suggestion = "1230234007854120960",
     message_leaderboard = "1196886539637112923",
     clan_ticket = "1203371307811471451",
-    welcome = "1146113685962625127"
+    welcome = "1146113685962625127",
+    rules = "1146113685962625128"
 }
 enum Categories {
     ticket = "1173314530521129042"
 }
 enum Roles {
-    staff = '1156298949301379212'
+    staff = '1156298949301379212',
+    community = "1149971550578147378"
 }
 
 
@@ -66,9 +68,9 @@ interface WarnData {
 }
 
 class Warn {
-    readonly userid: string
-    readonly reason: string
-    readonly id: string
+    userid: string
+    reason: string
+    id: string
 
 
     constructor(data: WarnData) {

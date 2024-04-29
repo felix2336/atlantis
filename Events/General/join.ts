@@ -4,7 +4,6 @@ export default {
     name: 'guildMemberAdd',
 
     async execute(member: GuildMember) {
-        member.roles.add('1149971550578147378')
         const channel = member.guild.channels.cache.get(Channels.welcome) as TextChannel
         const embed = new EmbedBuilder({
             title: "Willkommen",
