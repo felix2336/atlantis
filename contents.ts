@@ -1,5 +1,6 @@
 import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
+import chalk from 'chalk'
 
 //general enums
 enum Channels {
@@ -18,12 +19,12 @@ enum Roles {
 
 
 //suggestion
-declare enum SuggestionType {
+enum SuggestionType {
     Server = 1,
     Bot = 2
 }
 
-declare interface SuggestionData {
+interface SuggestionData {
     user: string,
     suggestion: string,
     type: SuggestionType
@@ -58,7 +59,7 @@ class Suggestion {
 }
 
 //warn
-declare interface WarnData {
+interface WarnData {
     userid: string,
     reason: string,
 }
@@ -95,13 +96,13 @@ class Warn {
 }
 
 //staff-poll
-declare interface StaffPollOptions {
+interface StaffPollOptions {
     id: string | undefined,
     question: string | undefined,
     multiple: boolean | undefined,
 }
 
-class StaffPoll implements StaffPollOptions {
+class StaffPoll {
     id: string | undefined
     question: string | undefined
     multiple: boolean | undefined
@@ -150,11 +151,11 @@ class StaffPoll implements StaffPollOptions {
 }
 
 //staff-messages
-declare interface MessageUserData {
+interface MessageUserData {
     userid?: string,
     username?: string,
 }
-class MessageUser implements MessageUserData {
+class MessageUser {
     userid?: string
     username?: string
     private totalMessages: number
@@ -280,6 +281,17 @@ class Backup {
     }
 }
 
+class ConsoleInfo {
+    public show(message: string): void {
+        console.log(chalk.greenBright(`[${new Date().toLocaleTimeString()} INFO]`), chalk.whiteBright(message))
+    }
+}
+
+class ConsoleWarning {
+    public show(message: string): void {
+        console.log(chalk.yellowBright(`[${new Date().toLocaleTimeString()} WARNING]`), chalk.whiteBright(message))
+    }
+}
 
 //exports
 export {
@@ -291,5 +303,7 @@ export {
     Backup,
     Channels,
     Roles,
-    Categories
+    Categories,
+    ConsoleInfo,
+    ConsoleWarning
 }
