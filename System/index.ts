@@ -1,6 +1,7 @@
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
 import chalk from 'chalk'
+import { ConsoleInfo, ConsoleWarning } from '../contents';
 
 const client = new Client({
     intents: [
@@ -38,12 +39,12 @@ await importMenus()
 await importEvents()
 
 client.on("interactionCreate", async interaction => {
-    switch(true){
+    switch (true) {
         case interaction.isContextMenuCommand():
             const menu = menus.get(interaction.commandName);
             menu.execute(interaction, client)
             break;
-        
+
         case interaction.isChatInputCommand():
             const command = commands.get(interaction.commandName)
             command.execute(interaction, client)
@@ -71,98 +72,87 @@ client.setMaxListeners(0)
 client.login(config.token)
 
 async function importCommands() {
-    console.log(chalk.yellowBright('Slash Commands:'))
     const subDirs = fs.readdirSync('./Commands')
     for (const dir of subDirs) {
-        console.log(chalk.cyanBright(`${dir}`))
         const files = fs.readdirSync(`./Commands/${dir}`)
         for (const file of files) {
             const module = await import(`../Commands/${dir}/${file}`)
             const command = module.default
             if (!command || !command.data || !command.data.name || !command.data.description) {
-                console.log(chalk.redBright(file), chalk.yellowBright('(Fehler beim Command)'))
+                new ConsoleWarning().show(`Befehl in Commands/${dir}/${file} ist ungültig`)
                 continue
             }
 
             commands.set(command.data.name, command)
             apps.push(command)
-            console.log('  ', chalk.greenBright(command.data.name))
+            new ConsoleInfo().show(`Befehl "/${command.data.name}" geladen`)
         }
     }
 }
 
 async function importButtons() {
-    console.log(chalk.yellowBright('Buttons:'))
     const subDirs = fs.readdirSync('./Buttons')
     for (const dir of subDirs) {
-        console.log(chalk.cyanBright(`${dir}`))
         const files = fs.readdirSync(`./Buttons/${dir}`)
         for (const file of files) {
             const module = await import(`../Buttons/${dir}/${file}`)
             const button = module.default
             if (!button || !button.id) {
-                console.log(chalk.redBright(file), chalk.yellowBright('(Fehler beim Button)'))
+                new ConsoleWarning().show(`Fehler bei Button in Buttons/${dir}/${file}`)
                 continue
             }
 
             buttons.set(button.id, button)
-            console.log('  ', chalk.greenBright(button.id))
+            new ConsoleInfo().show(`Button "${button.id}" geladen`)
         }
     }
 }
 
 async function importModals() {
-    console.log(chalk.yellowBright('Modals:'))
     const subDirs = fs.readdirSync('./Modals')
     for (const dir of subDirs) {
-        console.log(chalk.cyanBright(`${dir}`))
         const files = fs.readdirSync(`./Modals/${dir}`)
         for (const file of files) {
             const module = await import(`../Modals/${dir}/${file}`)
             const modal = module.default
             if (!modal || !modal.id) {
-                console.log(chalk.redBright(file), chalk.yellowBright('(Fehler beim Button)'))
+                new ConsoleWarning().show(`Fehler bei Modal in Modals/${dir}/${file}`)
                 continue
             }
 
-            modals.set(modal.id, modal)
-            console.log('  ', chalk.greenBright(modal.id))
+            new ConsoleInfo().show(`Modal "${modal.id}" geladen`)
         }
     }
 }
 
 async function importMenus() {
-    console.log(chalk.yellowBright('Context Menus:'))
     const subDirs = fs.readdirSync('./ContextMenus')
     for (const dir of subDirs) {
-        console.log(chalk.cyanBright(`${dir}`))
         const files = fs.readdirSync(`./ContextMenus/${dir}`)
         for (const file of files) {
             const module = await import(`../ContextMenus/${dir}/${file}`)
             const menu = module.default
             if (!menu || !menu.data.name || !menu.data.type) {
-                console.log(chalk.redBright(file), chalk.yellowBright('(Fehler beim Menu)'))
+                new ConsoleWarning().show(`Fehler bei Context Menu in ContextMenus/${dir}/${file}`)
                 continue
             }
 
             menus.set(menu.data.name, menu)
             apps.push(menu)
-            console.log('  ', chalk.greenBright(menu.data.name))
+            new ConsoleInfo().show(`ContextMenu "${menu.data.name}" geladen`)
         }
     }
 }
 
 async function importEvents() {
-    console.log(chalk.yellowBright('Events:'))
     const subDirs = fs.readdirSync('./Events')
     for (const dir of subDirs) {
-        console.log(chalk.cyanBright(`${dir}`))
         const files = fs.readdirSync(`./Events/${dir}`)
         for (const file of files) {
             const module = await import(`../Events/${dir}/${file}`)
             const event = module.default
             if (!event || !event.name) {
-                console.log(chalk.redBright(file), chalk.yellowBright('(Fehler beim Command)'))
+                new ConsoleWarning().show(`Fehler bei Event in Events/${dir}/${file}`)
                 continue
             }
 
@@ -173,7 +163,7 @@ async function importEvents() {
             }
 
 
-            console.log('  ', chalk.greenBright(file.split('.').shift()))
+            new ConsoleInfo().show(`${event.name}-Event "${file.split('.')[0]}" geladen`)
         }
     }
 }

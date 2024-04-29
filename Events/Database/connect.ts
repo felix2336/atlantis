@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import cfg from '../../System/config.json'
+import { ConsoleInfo } from '../../contents'
 
 export default {
     name: 'ready',
@@ -7,7 +8,7 @@ export default {
 
     async execute(){
         await mongoose.connect(cfg.mongourl)
-        .then(() => console.log('Connected to Database'))
+        .then(() => new ConsoleInfo().show(`Datenbankverbindung hergestellt`))
         .catch(err => console.error(err))
     }
 }
