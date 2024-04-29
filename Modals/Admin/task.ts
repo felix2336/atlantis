@@ -21,7 +21,7 @@ export default {
             style: 1
         })
 
-        const row = new ActionRowBuilder().addComponents([finishButton, claimButton])
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents([finishButton, claimButton])
 
         const embed = new EmbedBuilder({
             title: title,
@@ -30,7 +30,6 @@ export default {
             color: Colors.DarkPurple
         })
 
-        //@ts-ignore
         const message = await channel.send({ content: '<@&1146117778483450048>', embeds: [embed], components: [row] })
         await message.pin()
         interaction.reply({ content: 'Die Aufgabe wurde erfolgreich übermittelt', ephemeral: true })

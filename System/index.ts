@@ -120,6 +120,7 @@ async function importModals() {
                 continue
             }
 
+            modals.set(modal.id, modal)
             new ConsoleInfo().show(`Modal "${modal.id}" geladen`)
         }
     }

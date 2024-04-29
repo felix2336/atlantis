@@ -8,7 +8,8 @@ enum Channels {
     warn = "1160607902210470009",
     suggestion = "1230234007854120960",
     message_leaderboard = "1196886539637112923",
-    clan_ticket = "1203371307811471451"
+    clan_ticket = "1203371307811471451",
+    welcome = "1146113685962625127"
 }
 enum Categories {
     ticket = "1173314530521129042"
