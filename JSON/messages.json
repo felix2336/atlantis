@@ -30,6 +30,62 @@
   {
     "userid": "1097094060071718973",
     "username": "shadoww.com_",
+    "totalMessages": 0,
+    "messages": {
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "1039581530416234667",
+    "username": "ruffi101yt",
+    "totalMessages": 0,
+    "messages": {
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "1035799257409667102",
+    "username": "felix.4099",
+    "totalMessages": 0,
+    "messages": {
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "847164343602774097",
+    "username": "magnificentsimon",
+    "totalMessages": 0,
+    "messages": {
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "1038399133192560711",
+    "username": "yt_apored_b",
     "totalMessages": 1,
     "messages": {
       "monday": 1,
@@ -42,86 +98,30 @@
     }
   },
   {
-    "userid": "1039581530416234667",
-    "username": "ruffi101yt",
-    "totalMessages": 8,
+    "userid": "773072144304963624",
+    "username": "felix2336",
+    "totalMessages": 5,
     "messages": {
-      "monday": 7,
+      "monday": 5,
       "tuesday": 0,
       "wednesday": 0,
       "thursday": 0,
-      "friday": 1,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "1038399133192560711",
-    "username": "yt_apored_b",
-    "totalMessages": 8,
-    "messages": {
-      "monday": 0,
-      "tuesday": 0,
-      "wednesday": 0,
-      "thursday": 4,
-      "friday": 1,
-      "saturday": 3,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "847164343602774097",
-    "username": "magnificentsimon",
-    "totalMessages": 19,
-    "messages": {
-      "monday": 4,
-      "tuesday": 2,
-      "wednesday": 0,
-      "thursday": 5,
-      "friday": 5,
-      "saturday": 3,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "1035799257409667102",
-    "username": "felix.4099",
-    "totalMessages": 15,
-    "messages": {
-      "monday": 0,
-      "tuesday": 2,
-      "wednesday": 7,
-      "thursday": 1,
-      "friday": 4,
-      "saturday": 1,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "773072144304963624",
-    "username": "felix2336",
-    "totalMessages": 78,
-    "messages": {
-      "monday": 17,
-      "tuesday": 10,
-      "wednesday": 13,
-      "thursday": 22,
       "friday": 0,
-      "saturday": 16,
+      "saturday": 0,
       "sunday": 0
     }
   },
   {
     "userid": "1196808890227118201",
     "username": "hxpershadow",
-    "totalMessages": 41,
+    "totalMessages": 4,
     "messages": {
-      "monday": 9,
-      "tuesday": 1,
-      "wednesday": 5,
-      "thursday": 8,
-      "friday": 2,
-      "saturday": 16,
+      "monday": 4,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
       "sunday": 0
     }
   }

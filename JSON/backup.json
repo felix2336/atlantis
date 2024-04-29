@@ -1,10 +1,10 @@
 {
   "categories": {
     "dlc stats": {
-      "Mitglieder: 121": 2,
-      "Bots: 18": 2,
+      "Mitglieder: 120": 2,
+      "Bots: 15": 2,
       "Anzahl der Boosts: 2": 2,
-      "alle Mitglieder: 139": 2
+      "alle Mitglieder: 135": 2
     },
     "willkommen": {
       "👋│willkommen": 0,
@@ -81,7 +81,6 @@
     "Dev Area": {
       "dev besprechung": 2,
       "bot-tests": 0,
-      "web-form-tests": 0,
       "dev-tasks": 0,
       "dev-chat": 0
     },
@@ -130,9 +129,9 @@
     "offene Tickets": {
       "ticket-wannabefanboy": 0,
       "ticket-nicouschulas": 0,
-      "ticket-shadowwcom_": 0,
       "ticket-ruffi101yt": 0,
-      "ticket-einsnullsieben": 0
+      "ticket-einsnullsieben": 0,
+      "ticket-nxah2257": 0
     },
     "Partner": {
       "team1712": 0,
