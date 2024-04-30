@@ -5,7 +5,7 @@ export default {
     data: new SlashCommandBuilder()
         .setName('rules')
         .setDescription('Sende das aktualisierte Regelwerk')
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(0),
 
     async execute(interaction: CommandInteraction) {
         const channel = interaction.guild!.channels.cache.get(Channels.rules) as TextChannel
