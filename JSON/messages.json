@@ -44,38 +44,10 @@
   {
     "userid": "1039581530416234667",
     "username": "ruffi101yt",
-    "totalMessages": 0,
+    "totalMessages": 1,
     "messages": {
       "monday": 0,
-      "tuesday": 0,
-      "wednesday": 0,
-      "thursday": 0,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "1196808890227118201",
-    "username": "hxpershadow",
-    "totalMessages": 4,
-    "messages": {
-      "monday": 4,
-      "tuesday": 0,
-      "wednesday": 0,
-      "thursday": 0,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "847164343602774097",
-    "username": "magnificentsimon",
-    "totalMessages": 2,
-    "messages": {
-      "monday": 2,
-      "tuesday": 0,
+      "tuesday": 1,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
@@ -86,10 +58,10 @@
   {
     "userid": "1035799257409667102",
     "username": "felix.4099",
-    "totalMessages": 1,
+    "totalMessages": 5,
     "messages": {
       "monday": 1,
-      "tuesday": 0,
+      "tuesday": 4,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
@@ -100,10 +72,38 @@
   {
     "userid": "773072144304963624",
     "username": "felix2336",
-    "totalMessages": 10,
+    "totalMessages": 17,
     "messages": {
       "monday": 10,
-      "tuesday": 0,
+      "tuesday": 7,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "1196808890227118201",
+    "username": "hxpershadow",
+    "totalMessages": 20,
+    "messages": {
+      "monday": 4,
+      "tuesday": 16,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "847164343602774097",
+    "username": "magnificentsimon",
+    "totalMessages": 6,
+    "messages": {
+      "monday": 2,
+      "tuesday": 4,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
@@ -114,10 +114,10 @@
   {
     "userid": "1038399133192560711",
     "username": "yt_apored_b",
-    "totalMessages": 2,
+    "totalMessages": 4,
     "messages": {
       "monday": 2,
-      "tuesday": 0,
+      "tuesday": 2,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
