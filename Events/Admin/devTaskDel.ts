@@ -12,7 +12,6 @@ export default {
             else if (msg && !msg.pinned && msg.deletable) {
                 await msg.delete().catch(err => {
 					console.log(err)
-					interaction.reply({content: 'etwas ist schiefgelaufen', ephemeral: true})
 				})
             } else return await msg.react(':name_badge:')
         }, 5000)
