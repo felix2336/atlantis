@@ -6,7 +6,11 @@ export default {
     async execute(interaction: ButtonInteraction) {
         const member = interaction.member as GuildMember
         if (!member.roles.cache.has('1146117778483450048')) return interaction.reply({ content: 'Dazu bist du nicht berechtigt', ephemeral: true })
-        await interaction.message.delete()
+        await interaction.message.delete().catch(err => {
+			console.log(err)
+			interaction.reply({content: 'Etwas ist schiefgelaufen', ephemeral: true})
+			return
+		}
 
         interaction.reply({ content: 'Nice Nice, wieder eine Task weniger C:', ephemeral: true })
     }
