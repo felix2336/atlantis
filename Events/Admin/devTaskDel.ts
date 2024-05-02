@@ -5,7 +5,7 @@ export default {
 
     async execute(message: Message) {
         if (message.channelId != '1200374840696246302') return
-        if (message.author.bot) return;
+        if (message.embeds.length != 0) return
         setTimeout(async () => {
             const msg = await message.channel.messages.fetch(message.id);
             if (!msg) return;
