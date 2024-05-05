@@ -56,20 +56,6 @@
     }
   },
   {
-    "userid": "773072144304963624",
-    "username": "felix2336",
-    "totalMessages": 147,
-    "messages": {
-      "monday": 10,
-      "tuesday": 7,
-      "wednesday": 1,
-      "thursday": 50,
-      "friday": 2,
-      "saturday": 77,
-      "sunday": 0
-    }
-  },
-  {
     "userid": "1097094060071718973",
     "username": "shadoww.com_",
     "totalMessages": 16,
@@ -123,6 +109,20 @@
       "friday": 0,
       "saturday": 7,
       "sunday": 1
+    }
+  },
+  {
+    "userid": "773072144304963624",
+    "username": "felix2336",
+    "totalMessages": 156,
+    "messages": {
+      "monday": 10,
+      "tuesday": 7,
+      "wednesday": 1,
+      "thursday": 50,
+      "friday": 2,
+      "saturday": 77,
+      "sunday": 9
     }
   }
 ]
