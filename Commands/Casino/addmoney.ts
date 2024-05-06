@@ -6,8 +6,8 @@ export default {
         .setName('addmoney')
         .setDescription('Füge dem Konto eines Users Geld hinzu')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-        .addUserOption(input => input.setName("user").setDescription("Der User, der das Geld erhält."))
-        .addNumberOption(input => input.setName("amount").setDescription("Wie viel soll hinzugefügt werden?").setRequired(true)),
+        .addNumberOption(input => input.setName("amount").setDescription("Wie viel soll hinzugefügt werden?").setRequired(true))
+        .addUserOption(input => input.setName("user").setDescription("Der User, der das Geld erhält.")),
 
     async execute(interaction: ChatInputCommandInteraction) {
 
