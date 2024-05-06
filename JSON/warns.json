@@ -1,57 +1,92 @@
 [
   {
     "userid": "1097094060071718973",
-    "reason": "Häufiges fragen nach einer Beförderung",
-    "id": "frl7m"
-  },
-  {
-    "userid": "1038399133192560711",
-    "reason": "Inaktivität",
-    "id": "HByaA"
-  },
-  {
-    "userid": "1097094060071718973",
-    "reason": "Inaktivität",
-    "id": "41bls"
-  },
-  {
-    "userid": "949339322178478090",
-    "reason": "Inaktivität",
-    "id": "fUgIu"
-  },
-  {
-    "userid": "731990066158895175",
-    "reason": "Inaktiv",
-    "id": "2KtBT"
-  },
-  {
-    "userid": "949339322178478090",
-    "reason": "Inaktiv",
-    "id": "nDwFt"
-  },
-  {
-    "userid": "1097094060071718973",
-    "reason": "Inaktiv",
-    "id": "6IW7e"
-  },
-  {
-    "userid": "1038399133192560711",
-    "reason": "Inaktiv",
-    "id": "rQC5Q"
-  },
-  {
-    "userid": "1039581530416234667",
-    "reason": "Inaktiv",
-    "id": "Z6Bhe"
-  },
-  {
-    "userid": "1035799257409667102",
-    "reason": "Inaktiv",
-    "id": "3dE7k"
+    "username": "einsnullsieben",
+    "warns": [
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Häufiges fragen nach einer Beförderung",
+        "id": "uvbsd"
+      },
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktivität",
+        "id": "5kIRF"
+      },
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "kKJaH"
+      }
+    ]
   },
   {
     "userid": "847164343602774097",
-    "reason": "Inaktiv",
-    "id": "EaarI"
+    "username": "magnificentsimon",
+    "warns": [
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "iXs1m"
+      }
+    ]
+  },
+  {
+    "userid": "1039581530416234667",
+    "username": "ruffi101yt",
+    "warns": [
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "71Fuo"
+      },
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "EF0gx"
+      }
+    ]
+  },
+  {
+    "userid": "1035799257409667102",
+    "username": "felix.4099",
+    "warns": [
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "spu1k"
+      },
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "a9iwt"
+      }
+    ]
+  },
+  {
+    "userid": "731990066158895175",
+    "username": "mikerandom",
+    "warns": [
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "DL06I"
+      },
+      {
+        "date": "6.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "nRXcE"
+      }
+    ]
   }
 ]
