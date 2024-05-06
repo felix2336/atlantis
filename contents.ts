@@ -65,28 +65,66 @@ class Suggestion {
 //warn
 interface WarnData {
     userid: string,
-    reason: string,
+    username: string,
+    warns?: { date: string, reason: string, moderator: string, id: string }[]
 }
 
 class Warn {
     userid: string
-    reason: string
-    id: string
+    username: string
+    private warns: { date: string, reason: string, moderator: string, id: string }[]
 
 
     constructor(data: WarnData) {
         this.userid = data.userid;
-        this.reason = data.reason;
-        this.id = this.generateId()
+        this.username = data.username;
+        if(data.warns) {
+            this.warns = data.warns
+        } else {
+            this.warns = []
+        }
+    }
+    public addWarn(moderator: string, reason: string): void {
+        this.warns.push({
+            date: new Date().toLocaleDateString('ger'),
+            moderator,
+            reason,
+            id: this.generateWarnId()
+        })
     }
 
-    // public assignData(data: Warn){
-    //     this.userid = data.userid
-    //     this.reason = data.reason
-    //     return this
-    // }
+    public removeWarn(warnId: string): boolean {
+        const warnToRemove = this.warns.find(w => w.id == warnId)
+        if(warnToRemove) {
+            this.warns = this.warns.filter(w => w.id != warnId)
+            return true
+        } else return false
+    }
 
-    private generateId() {
+    public getWarnsAsEmbed(): EmbedBuilder {
+        const e = new EmbedBuilder({
+            title: `Warns von ${this.username}`,
+            description: '',
+            color: Colors.Aqua
+        })
+
+        for (const warn of this.warns) {
+            e.data.description += `${warn.date} von ${warn.moderator}\nGrund: **${warn.reason}**\nWarn-ID: \`${warn.id}\`\n\n`
+        }
+
+        return e
+    }
+
+    public save(): void {
+        let warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as Warn[]
+        if (warns.find(w => w.userid == this.userid)) {
+            warns = warns.filter(w => w.userid != this.userid)
+        }
+        warns.push(this)
+        writeFileSync('./JSON/warns.json', JSON.stringify(warns, null, 2), 'utf8')
+    }
+
+    private generateWarnId() {
         const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
         let id: string = "";
 
@@ -302,6 +340,7 @@ export {
     Suggestion,
     SuggestionType,
     Warn,
+    WarnData,
     StaffPoll,
     MessageUser,
     Backup,

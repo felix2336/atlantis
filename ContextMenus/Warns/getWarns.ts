@@ -1,6 +1,6 @@
 import { ApplicationCommandType, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, PermissionFlagsBits, GuildMember, EmbedBuilder } from "discord.js";
 import { readFileSync } from 'fs'
-import { Warn } from "../../contents";
+import { Warn, WarnData } from "../../contents";
 
 export default {
     data: new ContextMenuCommandBuilder()
@@ -10,13 +10,15 @@ export default {
     async execute(interaction: UserContextMenuCommandInteraction) {
         const target = interaction.targetMember as GuildMember
 
-        const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as Warn[]
-        const memberWarns = warns.filter(w => w.userid == target.user.id)
+        const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
 
-        const embed = new EmbedBuilder({
-            description: `## Warns von ${target}\n${memberWarns.map(w => w.reason + ` (\`${w.id}\`)`).join('\n')}`
-        })
+        const warnData = warns.find(w => w.userid == target.user.id)
+        if (!warnData || !warnData.warns) return interaction.reply({ content: `${target} hat keine Verwarnungen!`, ephemeral: true })
 
-        interaction.reply({embeds: [embed], ephemeral: true})
+        const warnUser = new Warn(warnData)
+
+        const embed = warnUser.getWarnsAsEmbed()
+
+        interaction.reply({ embeds: [embed], ephemeral: true })
     }
 }

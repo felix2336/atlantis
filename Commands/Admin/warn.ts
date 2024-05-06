@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 import { Channels } from '../../contents'
-import { Warn } from '../../contents'
+import { Warn, WarnData } from '../../contents'
 
 export default {
     data: new SlashCommandBuilder()
@@ -12,17 +12,29 @@ export default {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction: CommandInteraction) {
-        const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as Warn[]
+        const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
         const reason = interaction.options.get('reason', true).value as string
+        //@ts-ignore
         const member = interaction.options.getMember('user') as GuildMember
         const channel = interaction.guild!.channels.cache.get(Channels.warn) as TextChannel
+        let warnUser: Warn
+        const warnData = warns.find(w => w.userid == member.user.id)
+        if(!warnData) {
+            warnUser = new Warn({
+                userid: member.user.id,
+                username: member.user.username,
+                warns: []
+            })
+        } else {
+            warnUser = new Warn(warnData)
+        }
 
-        const warn = new Warn({userid: member.user.id, reason: reason})
-        warns.push(warn)
-        writeFileSync('./JSON/warns.json', JSON.stringify(warns, null, 2), 'utf8')
+        warnUser.addWarn(interaction.user.username, reason)
+        warnUser.save()
+
         const embed = new EmbedBuilder({
             title: 'User gewarnt',
-            description: `<:check:1229021540956504105> ${member} wurde von ${interaction.user.username} gewarnt\nGrund: **${reason}**\nWarn-ID: \`${warn.id}\``,
+            description: `<:check:1229021540956504105> ${member} wurde von ${interaction.user.username} gewarnt\nGrund: **${reason}**`,
             color: Colors.Red
         })
         await channel.send({ embeds: [embed] })

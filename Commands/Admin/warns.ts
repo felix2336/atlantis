@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import { Warn } from '../../contents'
+import { Warn, WarnData } from '../../contents'
 
 export default {
     data: new SlashCommandBuilder()
@@ -10,14 +10,15 @@ export default {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction: CommandInteraction) {
-        const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as Warn[]
+        const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
+        //@ts-ignore
         const member = interaction.options.getMember('user') as GuildMember
 
-        const memberWarns = warns.filter(w => w.userid == member.user.id)
+        const warnData = warns.find(w => w.userid == member.user.id)
+        if (!warnData || !warnData.warns) return interaction.reply({ content: `${member} hat keine Verwarnungen!`, ephemeral: true })
 
-        const embed = new EmbedBuilder({
-            description: `## Warns von ${member}\n${memberWarns.map(w => w.reason + ` (\`${w.id}\`)`).join('\n')}`
-        })
+        const warnUser = new Warn(warnData)
+        const embed = warnUser.getWarnsAsEmbed()
 
         interaction.reply({ embeds: [embed] })
 
