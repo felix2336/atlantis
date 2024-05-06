@@ -11,7 +11,8 @@ enum Channels {
     clan_ticket = "1203371307811471451",
     welcome = "1146113685962625127",
     rules = "1146113685962625128",
-    ticket = "1153007107688386752"
+    ticket = "1153007107688386752",
+    unban_requests = "1236848025788481638"
 }
 enum Categories {
     ticket = "1173314530521129042"
