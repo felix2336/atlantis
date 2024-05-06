@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
 import Casino from '../../Schemas/casino';
 
 export default {
@@ -7,7 +7,7 @@ export default {
         .setDescription("Zahle Geld auf dein Bankkonto ein")
         .addNumberOption(input => input.setName('amount').setDescription('Wie viel möchtest du einzahlen? (-1 für alles)').setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         let User;
         User = await Casino.findOne({ user: interaction.user.id })
 
@@ -20,8 +20,7 @@ export default {
             interaction.reply({ embeds: [embed] })
             return;
         }
-        //@ts-ignore
-        let amount = interaction.options.getNumber('amount')
+        let amount = interaction.options.getNumber('amount', true)
         if (amount > User.wallet) {
             const embed = new EmbedBuilder({
                 title: 'Einzahlung fehlgeschlagen',

@@ -1,4 +1,4 @@
-import { CommandInteraction, ApplicationCommandOptionType, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ComponentType, Colors, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
+import { ChatInputCommandInteraction, ApplicationCommandOptionType, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ComponentType, Colors, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,7 +9,7 @@ module.exports = {
         .addAttachmentOption(input => input.setName('image').setDescription('Erlaubte Dateien: png, jpg, jpeg, webp'))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         //@ts-ignore
         const user = interaction.options.getUser('user')
         //@ts-ignore

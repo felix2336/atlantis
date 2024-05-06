@@ -1,4 +1,4 @@
-import { CommandInteraction, ApplicationCommandOptionType, EmbedBuilder, Colors, SlashCommandBuilder, PermissionFlagsBits, GuildMember } from 'discord.js'
+import { ChatInputCommandInteraction, ApplicationCommandOptionType, EmbedBuilder, Colors, SlashCommandBuilder, PermissionFlagsBits, GuildMember } from 'discord.js'
 import Casino from '../../Schemas/casino'
 
 export default {
@@ -12,13 +12,13 @@ export default {
         .addUserOption(input => input.setName('user2').setDescription('Der User, der das Geld erhalten soll').setRequired(true))
         .addStringOption(input => input.setName('user2type').setDescription('Wo soll das Geld hingehen?').setRequired(true).addChoices({ name: 'Wallet', value: 'wallet' }, { name: 'Bank', value: 'bank' })),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const user1 = interaction.options.getMember('user1') as GuildMember
         const user2 = interaction.options.getMember('user2') as GuildMember
         //@ts-ignore
-        const user1type = interaction.options.getString('user1type')
+        const user1type = interaction.options.getString('user1type', true)
         //@ts-ignore
-        const user2type = interaction.options.getString('user2type')
+        const user2type = interaction.options.getString('user2type', true)
         //@ts-ignore
         const amount = parseInt(interaction.options.getNumber('amount'))
 

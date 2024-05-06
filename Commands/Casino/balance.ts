@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, SlashCommandBuilder, GuildMember } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, SlashCommandBuilder, GuildMember } from 'discord.js';
 import Casino from '../../Schemas/casino';
 
 export default {
@@ -7,7 +7,7 @@ export default {
         .setDescription('Lasse dir deinen Kontostand anzeigen')
         .addUserOption(input => input.setName("user").setDescription("Der Benutzer, dessen Kontostand du sehen möchtest.")),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const target = interaction.options.getUser('user');
         let User;
 

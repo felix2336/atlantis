@@ -1,4 +1,4 @@
-import { CommandInteraction, ActionRowBuilder, TextInputBuilder, Client, TextInputStyle, ModalBuilder, PermissionFlagsBits, ApplicationCommandOptionType, SlashCommandBuilder, TextChannel, EmbedBuilder, Colors } from 'discord.js'
+import { ChatInputCommandInteraction, ActionRowBuilder, TextInputBuilder, Client, TextInputStyle, ModalBuilder, PermissionFlagsBits, ApplicationCommandOptionType, SlashCommandBuilder, TextChannel, EmbedBuilder, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 import { StaffPoll } from '../../contents'
 
@@ -10,7 +10,7 @@ export default {
         .addStringOption(input => input.setName('topic').setDescription('Das Thema der Umfrage').setRequired(true))
         .addBooleanOption(input => input.setName('mehrfachauswahl').setDescription('Mehrfachauswahl aktivieren?').setRequired(true)),
 
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction: ChatInputCommandInteraction, client: Client) {
         const bool = interaction.options.get('mehrfachauswahl', true).value as boolean
         const topic = interaction.options.get('topic', true).value as string
 

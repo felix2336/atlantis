@@ -1,4 +1,4 @@
-import { CommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
 import fs from 'fs';
 
 export default {
@@ -10,7 +10,7 @@ export default {
             .setDescription('Lasse dir alle Befehle zum Casino System anzeigen')
         ),
 
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction: ChatInputCommandInteraction, client: Client) {
         //@ts-ignore
         const subcommand = interaction.options.getSubcommand()
 

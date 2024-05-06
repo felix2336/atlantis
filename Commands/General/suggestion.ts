@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, CommandInteraction, AnyComponentBuilder, RestOrArray } from 'discord.js'
+import { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction, AnyComponentBuilder, RestOrArray } from 'discord.js'
 import { SuggestionType, Suggestion } from '../../contents'
 
 export default {
@@ -7,7 +7,7 @@ export default {
         .setDescription('Reiche einen Vorschlag ein')
         .addNumberOption(input => input.setName('type').setDescription('Server oder Bot Vorschlag?').addChoices({ name: 'Server', value: 1 }, { name: 'Bot', value: 2 }).setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const type = interaction.options.get('type', true).value as number
 
         const modal = new ModalBuilder({

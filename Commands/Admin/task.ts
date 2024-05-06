@@ -1,4 +1,4 @@
-import { CommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
+import { ChatInputCommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
 
 export default {
 	data: new SlashCommandBuilder()
@@ -6,7 +6,7 @@ export default {
 		.setDescription('Gib den Devs eine Aufgabe')
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-	async execute(interaction: CommandInteraction){
+	async execute(interaction: ChatInputCommandInteraction){
 		const modal = new ModalBuilder()
 			.setCustomId('taskmodal')
 			.setTitle('Neue Task')

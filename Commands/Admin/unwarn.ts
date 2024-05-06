@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits, GuildMember } from 'discord.js'
+import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 import {Warn, WarnData} from '../../contents'
 
@@ -10,7 +10,7 @@ export default {
         .addStringOption(input => input.setName('warn-id').setDescription('Die ID des Warns, den du entfernen möchtest').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: CommandInteraction){
+    async execute(interaction: ChatInputCommandInteraction){
         let warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
         //@ts-ignore
         const member = interaction.options.getMember('user') as GuildMember

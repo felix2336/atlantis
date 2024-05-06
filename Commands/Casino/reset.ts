@@ -1,4 +1,4 @@
-import { CommandInteraction, ApplicationCommandOptionType, EmbedBuilder, Colors, SlashCommandBuilder, GuildMember, Role } from 'discord.js'
+import { ChatInputCommandInteraction, ApplicationCommandOptionType, EmbedBuilder, Colors, SlashCommandBuilder, GuildMember, Role } from 'discord.js'
 import Casino from '../../Schemas/casino'
 
 export default {
@@ -7,7 +7,7 @@ export default {
         .setDescription('Setze das Konto eines Users zurück')
         .addUserOption(input => input.setName('target').setDescription('Welcher User?').setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const target = interaction.options.getMember('target') as GuildMember
         const member = interaction.member as GuildMember
         let User = await Casino.findOne({ user: target.id })

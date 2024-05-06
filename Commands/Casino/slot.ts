@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
 import Casino from '../../Schemas/casino';
 
 export default {
@@ -7,9 +7,9 @@ export default {
         .setDescription('Spiele an einem Spielautomaten, um mit etwas Glück etwas Geld zu gewinnen')
         .addNumberOption(option => option.setName("bet").setDescription("Wie viel soll das Geld betragen?").setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         //@ts-ignore
-        const bet = interaction.options.getNumber('bet')
+        const bet = interaction.options.getNumber('bet', true)
         let User;
         User = await Casino.findOne({ user: interaction.user.id });
         if (!User || User.wallet <= 0 || bet > User.wallet) {

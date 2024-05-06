@@ -1,4 +1,4 @@
-import { CommandInteraction, Client, ApplicationCommandOptionType, PermissionFlagsBits, ChannelType, SlashCommandBuilder, GuildTextBasedChannel } from 'discord.js';
+import { ChatInputCommandInteraction, Client, ApplicationCommandOptionType, PermissionFlagsBits, ChannelType, SlashCommandBuilder, GuildTextBasedChannel } from 'discord.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -6,7 +6,7 @@ export default {
         .setDescription('Lösche alle Nachrichten in diesem Kanal')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction: ChatInputCommandInteraction, client: Client) {
         const channel = interaction.channel as GuildTextBasedChannel;
         interaction.deferReply({ ephemeral: true })
 

@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, TextChannel } from 'discord.js'
+import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, TextChannel } from 'discord.js'
 import { Channels } from '../../contents'
 
 export default {
@@ -7,7 +7,7 @@ export default {
         .setDescription('Temp command')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: CommandInteraction){
+    async execute(interaction: ChatInputCommandInteraction){
         const channel = interaction.guild!.channels.cache.get(Channels.clan_ticket) as TextChannel
         const message = await channel.messages.fetch('1232420615579762821')
         const embed = new EmbedBuilder({

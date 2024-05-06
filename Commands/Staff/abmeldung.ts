@@ -1,11 +1,11 @@
-import { CommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
+import { ChatInputCommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
 
 export default {
     data: new SlashCommandBuilder()
         .setName('abmeldung')
         .setDescription('Stelle einen Antrag auf Abmeldung'),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const member = interaction.member as GuildMember
         if (!member.roles.cache.has('1156298949301379212')) return interaction.reply({ content: 'Du bist nicht im Team :wink:', ephemeral: true })
 

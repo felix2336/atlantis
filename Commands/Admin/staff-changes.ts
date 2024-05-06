@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, SlashCommandBuilder, PermissionFlagsBits, Role, GuildMember, User, RoleResolvable, TextChannel } from 'discord.js'
+import { ChatInputCommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, SlashCommandBuilder, PermissionFlagsBits, Role, GuildMember, User, RoleResolvable, TextChannel } from 'discord.js'
 
 export default {
     data: new SlashCommandBuilder()
@@ -43,7 +43,7 @@ export default {
             .addStringOption(input => input.setName('reason').setDescription('Warum hat dieser User das Team verlassen?'))
         ),
 
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction: ChatInputCommandInteraction, client: Client) {
         const channel = interaction.guild!.channels.cache.get('1182852409198903316') as TextChannel
         const ping = '<@&1148638515840700497>'
         //@ts-ignore

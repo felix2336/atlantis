@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits } from 'discord.js'
+import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js'
 import axios from 'axios'
 
 export default {
@@ -8,7 +8,7 @@ export default {
         .addStringOption(input => input.setName('emoji').setDescription('Welches Emoji möchtest du auf diesen Server holen?').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const emoji = interaction.options.get('emoji', true).value as string;
         const id = emoji.split(':').pop()?.split('>')[0]
 

@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js'
+import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js'
 import Casino from '../../Schemas/casino'
 
 export default {
@@ -8,7 +8,7 @@ export default {
         .addStringOption(input => input.setName('symbol').setDescription('Wähle das Symbol, auf das du setzen möchtest').addChoices({name: 'Kopf', value: 'heads'}, {name: 'Zahl', value: 'tails'}).setRequired(true))
         .addNumberOption(input => input.setName('amount').setDescription('Wie viel Geld möchtest du setzen?').setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         let User = await Casino.findOne({ user: interaction.user.id })
         if(!User){
             User = await Casino.create({

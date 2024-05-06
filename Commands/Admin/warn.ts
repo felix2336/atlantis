@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 import { Channels } from '../../contents'
 import { Warn, WarnData } from '../../contents'
@@ -11,7 +11,7 @@ export default {
         .addStringOption(input => input.setName('reason').setDescription('Der Grund für den Warn').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
         const reason = interaction.options.get('reason', true).value as string
         //@ts-ignore

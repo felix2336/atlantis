@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, Client, SlashCommandBuilder } from 'discord.js'
+import { ChatInputCommandInteraction, EmbedBuilder, Client, SlashCommandBuilder } from 'discord.js'
 import {readdirSync} from 'fs'
 
 export default {
@@ -6,7 +6,7 @@ export default {
         .setName('info')
         .setDescription('Lasse dir Infos zum Bot anzeigen'),
 
-    async execute(interaction: CommandInteraction, client: Client){
+    async execute(interaction: ChatInputCommandInteraction, client: Client){
         const embed = new EmbedBuilder({
             title: `${client.user!.username} Infos`,
             description: `${client.user} wurde von <@773072144304963624> und <@731990066158895175> mit der discord.js Library programmiert.

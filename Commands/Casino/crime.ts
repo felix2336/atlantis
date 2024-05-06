@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js'
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import Casino from '../../Schemas/casino'
 import Cooldowns from '../../Schemas/cooldowns'
 
@@ -7,7 +7,7 @@ export default {
         .setName('crime')
         .setDescription('Begehe ein Verbrechen für etwas Geld'),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         let CD = await Cooldowns.findOne({ user: interaction.user.id })
         if (CD && CD.crime) {
             const now = Date.now()

@@ -1,4 +1,4 @@
-import { CommandInteraction, ApplicationCommandOptionType, SlashCommandBuilder, PermissionFlagsBits, GuildMember, Role, EmbedBuilder, Colors } from 'discord.js';
+import { ApplicationCommandOptionType, SlashCommandBuilder, PermissionFlagsBits, GuildMember, Role, EmbedBuilder, Colors, User, ChatInputCommandInteraction } from 'discord.js';
 import Casino from '../../Schemas/casino';
 
 export default {
@@ -6,13 +6,13 @@ export default {
         .setName('addmoney')
         .setDescription('Füge dem Konto eines Users Geld hinzu')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-        .addUserOption(input => input.setName("user").setDescription("Der User, der das Geld erhält.").setRequired(true))
+        .addUserOption(input => input.setName("user").setDescription("Der User, der das Geld erhält."))
         .addNumberOption(input => input.setName("amount").setDescription("Wie viel soll hinzugefügt werden?").setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
+
         const user = interaction.options.getUser('user') || interaction.user,
-            //@ts-ignore
-            amount = interaction.options.getNumber('amount');
+            amount = interaction.options.getNumber('amount', true);
 
         const member = interaction.member as GuildMember
 

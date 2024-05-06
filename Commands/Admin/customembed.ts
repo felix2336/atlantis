@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, CommandInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits } from 'discord.js'
+import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits } from 'discord.js'
 
 export default {
     data: new SlashCommandBuilder()
@@ -11,7 +11,7 @@ export default {
                 .setDescription('Erstelle ein Custom Embed')
         ),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const embed = new EmbedBuilder({
             author: { name: interaction.user.username, iconURL: interaction.user.displayAvatarURL() },
             title: 'Custom Embed',

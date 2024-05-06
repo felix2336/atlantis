@@ -1,4 +1,4 @@
-import { CommandInteraction, ApplicationCommandOptionType, EmbedBuilder, SlashCommandBuilder, User } from 'discord.js'
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, User } from 'discord.js'
 import Casino from '../../Schemas/casino'
 
 export default {
@@ -8,12 +8,12 @@ export default {
 		.addUserOption(input => input.setName('user').setDescription('Wähle den User aus').setRequired(true))
 		.addNumberOption(input => input.setName('amount').setDescription('Wie viel möchtest du dem Spieler geben?').setRequired(true)),
 
-	async execute(interaction: CommandInteraction){
+	async execute(interaction: ChatInputCommandInteraction){
 		const User = await Casino.findOne({user: interaction.user.id})
 		if(!User) return interaction.reply({content: 'Du hast kein Geld, das du vergeben kannst', ephemeral: true})
 		const target = interaction.options.getUser('user') as User
 	//@ts-ignore
-		const amount = interaction.options.getNumber('amount')
+		const amount = interaction.options.getNumber('amount', true)
 		if(amount < 1) return interaction.reply({content: 'Du kannst einem User nicht weniger als 1 geben, du Genie', ephemeral: true})
 		else if(amount > User.wallet!) return interaction.reply({content: 'Du kannst einem User nicht mehr Geld geben, als du hast', ephemeral: true})
 		
@@ -28,7 +28,7 @@ export default {
 		}
 		
 		User.wallet! -= amount;
-		Target.wallet += amount;
+		Target.wallet! += amount;
 		await User.save();
 		await Target.save();
 		

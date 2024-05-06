@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js'
+import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js'
 import Casino from '../../Schemas/casino'
 
 export default {
@@ -7,7 +7,7 @@ export default {
         .setDescription('Hebe Geld von deinem Bankkonto ab')
         .addNumberOption(input => input.setName('amount').setDescription('Wie viel möchtest du abheben? (-1 für alles)').setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         let User = await Casino.findOne({ user: interaction.user.id })
 
         if (!User || User.bank! <= 0) {
@@ -20,7 +20,7 @@ export default {
             return;
         }
         //@ts-ignore
-        let amount = interaction.options.getNumber('amount')
+        let amount = interaction.options.getNumber('amount', true)
 
         if (amount > User.bank!) {
             const embed = new EmbedBuilder({
@@ -32,7 +32,7 @@ export default {
             return;
         }
 
-        if (amount == -1) amount = User.bank
+        if (amount == -1) amount = User.bank!
 
         const embed = new EmbedBuilder({
             title: 'Abhebung erfolgreich',
@@ -40,7 +40,7 @@ export default {
             color: 0x77ff00
         })
         User.bank! -= amount
-        User.wallet += amount
+        User.wallet! += amount
         await User.save()
         interaction.reply({ embeds: [embed] })
     }

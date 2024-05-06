@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder, User } from 'discord.js'
+import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder, User } from 'discord.js'
 import Casino from '../../Schemas/casino'
 import Cooldowns from '../../Schemas/cooldowns'
 
@@ -8,7 +8,7 @@ export default {
     .setDescription('Versuche einem user etwas Geld zu stehlen (MAX 40% des Guthabens)')
     .addUserOption(input => input.setName("target").setDescription("Der User den du ausrauben möchtest").setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const target = interaction.options.getUser('target') as User
         if (target.bot) return interaction.reply({ content: 'Du kannst keine Bots beklauen', ephemeral: true })
 

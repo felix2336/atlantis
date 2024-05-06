@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, CommandInteraction, GuildMember } from 'discord.js'
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 import { Warn, WarnData } from '../../contents'
 
@@ -9,7 +9,7 @@ export default {
         .addUserOption(input => input.setName('user').setDescription('Der User, von dem du die Warns sehen möchtest').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
         //@ts-ignore
         const member = interaction.options.getMember('user') as GuildMember

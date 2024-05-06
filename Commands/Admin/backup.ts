@@ -1,4 +1,4 @@
-import { CommandInteraction, Client, ChannelType, SlashCommandBuilder, PermissionFlagsBits, Guild } from 'discord.js'
+import { ChatInputCommandInteraction, Client, ChannelType, SlashCommandBuilder, PermissionFlagsBits, Guild } from 'discord.js'
 import { Backup } from '../../contents'
 import {readFileSync} from 'fs'
 
@@ -16,9 +16,8 @@ export default {
             .setDescription('Lade das neuste Backup auf diesen Server')
         ),
 
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction: ChatInputCommandInteraction, client: Client) {
         const guild = interaction.guild as Guild
-        //@ts-ignore
         const subcommand = interaction.options.getSubcommand()
 
 

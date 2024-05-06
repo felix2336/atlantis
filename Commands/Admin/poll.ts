@@ -1,4 +1,4 @@
-import { CommandInteraction, PermissionFlagsBits, Poll, PollData, PollLayoutType, SlashCommandBuilder, TextChannel } from 'discord.js'
+import { ChatInputCommandInteraction, PermissionFlagsBits, Poll, PollData, PollLayoutType, SlashCommandBuilder, TextChannel } from 'discord.js'
 
 export default {
     data: new SlashCommandBuilder()
@@ -11,13 +11,12 @@ export default {
         .addBooleanOption(input => input.setName('multiselect').setDescription('Multiselect?').setRequired(true))
         .addChannelOption(input => input.setName('channel').setDescription('Welcher Channel?').setRequired(true)),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const emojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟']
-        const question = interaction.options.get("question", true).value as string
-        const rawOptions = interaction.options.get('options', true).value as string
-        const multiselect = interaction.options.get('multiselect', true).value as boolean
-        const duration = interaction.options.get('duration', true).value as number
-        //@ts-ignore
+        const question = interaction.options.getString("question", true)
+        const rawOptions = interaction.options.getString('options', true)
+        const multiselect = interaction.options.getBoolean('multiselect', true)
+        const duration = interaction.options.getNumber('duration', true)
         const channel = interaction.options.getChannel('channel') as TextChannel
 
         const options = rawOptions.split(',')

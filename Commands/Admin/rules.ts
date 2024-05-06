@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, CommandInteraction, Colors, TextChannel } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Colors, TextChannel } from "discord.js";
 import { Channels } from "../../contents";
 
 export default {
@@ -7,7 +7,7 @@ export default {
         .setDescription('Sende das aktualisierte Regelwerk')
         .setDefaultMemberPermissions(0),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         const channel = interaction.guild!.channels.cache.get(Channels.rules) as TextChannel
         const message = await channel.messages.fetch("1234592346402721803")
         const embed = new EmbedBuilder({

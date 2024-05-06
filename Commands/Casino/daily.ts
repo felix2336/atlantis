@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, InteractionResponse, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, InteractionResponse, SlashCommandBuilder } from 'discord.js';
 import Casino from '../../Schemas/casino';
 import Cooldowns from '../../Schemas/cooldowns';
 
@@ -7,7 +7,7 @@ export default {
         .setName('daily')
         .setDescription('Hole dir deine tägliche Belohnung ab'),
 
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction) {
         let CD;
         CD = await Cooldowns.findOne({ user: interaction.user.id })
         if (CD && CD.daily) {

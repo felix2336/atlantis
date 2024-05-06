@@ -1,4 +1,4 @@
-import {Client, CommandInteraction, SlashCommandBuilder, PermissionFlagsBits, ActivityType} from 'discord.js'
+import {Client, ChatInputCommandInteraction, SlashCommandBuilder, PermissionFlagsBits, ActivityType} from 'discord.js'
 
 export default {
     data: new SlashCommandBuilder()
@@ -7,9 +7,8 @@ export default {
         .addStringOption(input => input.setName('status').setDescription('Gib hier den Status ein, den der Bot haben soll').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: CommandInteraction){
-        const customStatus = interaction.options.get('status')!.value as string
-        //@ts-ignore
+    async execute(interaction: ChatInputCommandInteraction){
+        const customStatus = interaction.options.getString('status', true)
         interaction.client.user!.setActivity({
             type: ActivityType.Custom,
             name: 'customstatus',
