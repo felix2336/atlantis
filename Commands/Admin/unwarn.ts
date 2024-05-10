@@ -8,7 +8,7 @@ export default {
         .setDescription('Entferne einen Warn von einem User')
         .addUserOption(input => input.setName('user').setDescription('Der User, von dem du einen Warn entfernen möchtest').setRequired(true))
         .addStringOption(input => input.setName('warn-id').setDescription('Die ID des Warns, den du entfernen möchtest').setRequired(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
     async execute(interaction: ChatInputCommandInteraction){
         let warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]

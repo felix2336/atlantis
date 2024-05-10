@@ -9,6 +9,7 @@ export default {
 
     async execute(interaction: UserContextMenuCommandInteraction) {
         const target = interaction.targetMember as GuildMember
+        if(!(interaction.member as GuildMember).permissions.has(PermissionFlagsBits.ModerateMembers)) return interaction.reply({content: 'Du darfst das nicht :)', ephemeral: true})
 
         const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
 

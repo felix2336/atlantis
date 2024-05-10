@@ -7,7 +7,7 @@ export default {
         .setName('warns')
         .setDescription('Lasse dir alle Warns von einem User anzeigen')
         .addUserOption(input => input.setName('user').setDescription('Der User, von dem du die Warns sehen möchtest').setRequired(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
     async execute(interaction: ChatInputCommandInteraction) {
         const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]

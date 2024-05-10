@@ -9,7 +9,7 @@ export default {
         .setDescription('Warne einen User')
         .addUserOption(input => input.setName('user').setDescription('Der User der gewarnt werden soll').setRequired(true))
         .addStringOption(input => input.setName('reason').setDescription('Der Grund für den Warn').setRequired(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
     async execute(interaction: ChatInputCommandInteraction) {
         const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
