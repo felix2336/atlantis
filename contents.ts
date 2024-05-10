@@ -12,7 +12,8 @@ enum Channels {
     welcome = "1146113685962625127",
     rules = "1146113685962625128",
     ticket = "1153007107688386752",
-    unban_requests = "1236848025788481638"
+    unban_requests = "1236848025788481638",
+    beichten = "1238589282747285584"
 }
 enum Categories {
     ticket = "1173314530521129042"
@@ -332,7 +333,7 @@ class ConsoleInfo {
 
 class ConsoleWarning {
     public show(message: string): void {
-        console.log(chalk.yellowBright(`[${new Date().toLocaleTimeString()} WARNING]`), chalk.whiteBright(message))
+        console.log(chalk.yellowBright(`[${new Date().toLocaleTimeString()} WARN] ${message}`))
     }
 }
 
