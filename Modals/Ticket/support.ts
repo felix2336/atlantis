@@ -2,7 +2,7 @@ import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, 
 import { Categories, Roles } from '../../contents'
 
 export default {
-    id: 'report',
+    id: 'support',
 
     async execute(interaction: ModalSubmitInteraction) {
         const channel = await interaction.guild!.channels.create({
@@ -11,19 +11,18 @@ export default {
             parent: Categories.test,
             permissionOverwrites: [
                 { id: interaction.user, allow: ['SendMessages', 'ViewChannel'] },
-                { id: interaction.guild!.roles.everyone, deny: ['ViewChannel'] }
+                { id: interaction.guild!.roles.everyone, deny: ['ViewChannel'] },
+                // { id: Roles.staff, allow: ['SendMessages', 'ViewChannel'] }
             ]
         })
 
         const embed1 = new EmbedBuilder({
-            description: 'Dies ist ein Report Ticket!\nBitte habe etwas Geduld, ein Teammitglied wird sich demnächst um deinen Report kümmern',
+            description: 'Dies ist ein Support Ticket!\nBitte habe etwas Geduld, ein Teammitglied wird sich demnächst um dein Anliegen kümmern',
             color: 0x0000FF
         })
         const embed2 = new EmbedBuilder({
             fields: [
-                {name: 'Gemeldeter User', value: interaction.fields.getTextInputValue('target')},
-                {name: 'Grund für die Meldung', value: interaction.fields.getTextInputValue('reason')},
-                {name: 'Beweise?', value: interaction.fields.getTextInputValue('evidence')}
+                {name: 'Anliegen', value: interaction.fields.getTextInputValue('issue')}
             ],
             color: 0x0000FF
         })

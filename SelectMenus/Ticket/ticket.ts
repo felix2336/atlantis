@@ -4,6 +4,7 @@ export default {
     id: 'ticket',
 
     async execute(interaction: StringSelectMenuInteraction) {
+        console.log(interaction.values[0])
         switch(interaction.values[0]) {
             case 'bewerben': {
                 const modal = new ModalBuilder({

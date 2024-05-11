@@ -11,7 +11,9 @@ export default {
             description: `Dieses Ticket wird von ${interaction.member} bearbeitet.`,
             color: Colors.Green
         })
-
+        const components = interaction.message.components[0]
+        components.components.pop()
+        await interaction.message.edit({components: [components]})
         await interaction.reply({embeds: [embed]})
     }
 }

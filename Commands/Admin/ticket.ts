@@ -8,7 +8,8 @@ export default {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction: CommandInteraction) {
-        const channel = interaction.guild!.channels.cache.get(Channels.ticket) as TextChannel
+        // const channel = interaction.guild!.channels.cache.get(Channels.ticket) as TextChannel
+        const channel = interaction.channel as TextChannel
         const select = new StringSelectMenuBuilder()
             .setCustomId('ticket')
             .setPlaceholder('Wähle ein Thema für ein Ticket...')
@@ -16,14 +17,17 @@ export default {
                 new StringSelectMenuOptionBuilder()
                     .setLabel('Bewerben')
                     .setDescription('Du möchtest dich bewerben?')
+                    .setEmoji('🤝')
                     .setValue('bewerben'),
                 new StringSelectMenuOptionBuilder()
                     .setLabel('Report')
                     .setDescription('Du möchtest einen User melden?')
+                    .setEmoji('💢')
                     .setValue('report'),
                 new StringSelectMenuOptionBuilder()
                     .setLabel('Support')
                     .setDescription('Du brauchst hilfe?')
+                    .setEmoji('📩')
                     .setValue('support')
             )
 
@@ -36,5 +40,6 @@ export default {
         })
         
         await channel.send({embeds: [embed], components: [row]})
+        await interaction.reply({content: ':thumbsup:', ephemeral: true})
     }
 }

@@ -30,6 +30,7 @@ const commands = new Collection<string, any>();
 const buttons = new Collection<string, any>();
 const modals = new Collection<string, any>();
 const menus = new Collection<string, any>();
+const selectMenus = new Collection<string, any>()
 const apps: any[] = []
 
 await importCommands()
@@ -37,6 +38,7 @@ await importButtons()
 await importModals()
 await importMenus()
 await importEvents()
+await importSelectMenus()
 
 client.on("interactionCreate", async interaction => {
     switch (true) {
@@ -58,6 +60,11 @@ client.on("interactionCreate", async interaction => {
         case interaction.isModalSubmit():
             const modal = modals.get(interaction.customId)
             modal.execute(interaction, client)
+            break;
+
+        case interaction.isStringSelectMenu():
+            const selectMenu = selectMenus.get(interaction.customId)
+            selectMenu.execute(interaction, client)
             break;
     }
 })
@@ -165,6 +172,24 @@ async function importEvents() {
 
 
             new ConsoleInfo().show(`${event.name}-Event "${file.split('.')[0]}" geladen`)
+        }
+    }
+}
+
+async function importSelectMenus() {
+    const subDirs = fs.readdirSync('./SelectMenus')
+    for (const dir of subDirs) {
+        const files = fs.readdirSync(`./SelectMenus/${dir}`)
+        for (const file of files) {
+            const module = await import(`../SelectMenus/${dir}/${file}`)
+            const menu = module.default
+            if (!menu || !menu.id) {
+                new ConsoleWarning().show(`Fehler bei Select Menu in SelectMenus/${dir}/${file}`)
+                continue
+            }
+
+            selectMenus.set(menu.id, menu)
+            new ConsoleInfo().show(`Select Menu "${menu.id}" geladen`)
         }
     }
 }
