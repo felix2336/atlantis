@@ -22,6 +22,6 @@ export default {
         })
         await channel.send({embeds: [embed]})
         await interaction.reply({content: 'Vielen Dank für deine Beichte. Sie wurde anonym veröffentlicht!', ephemeral: true})
-        wh.send({embeds: [embed]})
+        wh.send({embeds: [whe]})
     }
 }
