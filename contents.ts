@@ -1,5 +1,5 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType } from 'discord.js'
-import { readFileSync, writeFileSync } from 'fs'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection } from 'discord.js'
+import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
 
 //general enums
@@ -339,6 +339,109 @@ class ConsoleWarning {
     }
 }
 
+async function importSelectMenus(): Promise<Collection<string, any>> {
+    const selectMenus = new Collection<string, any>()
+    const subDirs = readdirSync('./SelectMenus')
+    for (const dir of subDirs) {
+        const files = readdirSync(`./SelectMenus/${dir}`)
+        for (const file of files) {
+            const module = await import(`../SelectMenus/${dir}/${file}`)
+            const menu = module.default
+            if (!menu || !menu.id) {
+                new ConsoleWarning().show(`Fehler bei Select Menu in SelectMenus/${dir}/${file}`)
+                continue
+            }
+
+            selectMenus.set(menu.id, menu)
+            new ConsoleInfo().show(`Select Menu "${menu.id}" geladen`)
+        }
+    }
+    return selectMenus
+}
+
+async function importCommands(): Promise<[Collection<string, any>, any[]]> {
+    const commands = new Collection<string, any>()
+    const apps: any[] = []
+    const subDirs = readdirSync('./Commands')
+    for (const dir of subDirs) {
+        const files = readdirSync(`./Commands/${dir}`)
+        for (const file of files) {
+            const module = await import(`../Commands/${dir}/${file}`)
+            const command = module.default
+            if (!command || !command.data || !command.data.name || !command.data.description) {
+                new ConsoleWarning().show(`Befehl in Commands/${dir}/${file} ist ungültig`)
+                continue
+            }
+
+            commands.set(command.data.name, command)
+            apps.push(command)
+            new ConsoleInfo().show(`Befehl "/${command.data.name}" geladen`)
+        }
+    }
+    return [commands, apps]
+}
+
+async function importButtons(): Promise<Collection<string, any>> {
+    const buttons = new Collection<string, any>()
+    const subDirs = readdirSync('./Buttons')
+    for (const dir of subDirs) {
+        const files = readdirSync(`./Buttons/${dir}`)
+        for (const file of files) {
+            const module = await import(`../Buttons/${dir}/${file}`)
+            const button = module.default
+            if (!button || !button.id) {
+                new ConsoleWarning().show(`Fehler bei Button in Buttons/${dir}/${file}`)
+                continue
+            }
+
+            buttons.set(button.id, button)
+            new ConsoleInfo().show(`Button "${button.id}" geladen`)
+        }
+    }
+    return buttons
+}
+
+async function importModals(): Promise<Collection<string, any>> {
+    const modals = new Collection<string, any>()
+    const subDirs = readdirSync('./Modals')
+    for (const dir of subDirs) {
+        const files = readdirSync(`./Modals/${dir}`)
+        for (const file of files) {
+            const module = await import(`../Modals/${dir}/${file}`)
+            const modal = module.default
+            if (!modal || !modal.id) {
+                new ConsoleWarning().show(`Fehler bei Modal in Modals/${dir}/${file}`)
+                continue
+            }
+
+            modals.set(modal.id, modal)
+            new ConsoleInfo().show(`Modal "${modal.id}" geladen`)
+        }
+    }
+    return modals
+}
+
+async function importMenus(apps: any[]): Promise<[Collection<string, any>, any[]]> {
+    const menus = new Collection<string, any>()
+    const subDirs = readdirSync('./ContextMenus')
+    for (const dir of subDirs) {
+        const files = readdirSync(`./ContextMenus/${dir}`)
+        for (const file of files) {
+            const module = await import(`../ContextMenus/${dir}/${file}`)
+            const menu = module.default
+            if (!menu || !menu.data.name || !menu.data.type) {
+                new ConsoleWarning().show(`Fehler bei Context Menu in ContextMenus/${dir}/${file}`)
+                continue
+            }
+
+            menus.set(menu.data.name, menu)
+            apps.push(menu)
+            new ConsoleInfo().show(`ContextMenu "${menu.data.name}" geladen`)
+        }
+    }
+    return [menus, apps]
+}
+
 //exports
 export {
     Suggestion,
@@ -352,5 +455,10 @@ export {
     Roles,
     Categories,
     ConsoleInfo,
-    ConsoleWarning
+    ConsoleWarning,
+    importSelectMenus,
+    importCommands,
+    importButtons,
+    importModals,
+    importMenus
 }
