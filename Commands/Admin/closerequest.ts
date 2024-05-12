@@ -12,7 +12,7 @@ export default {
         const ticketUser = interaction.guild!.members.cache.find(member => member.user.username == (interaction.channel as TextChannel).name.split('-')[1])
         if(!ticketUser) return interaction.reply({content: 'Der User, der das Ticket erstellt hat, konnte nicht gefunden werden!', ephemeral: true});
 
-        if((interaction.channel as TextChannel).parentId != Categories.test) return interaction.reply({content: 'Dies ist kein Ticket Kanal!', ephemeral: true})
+        if((interaction.channel as TextChannel).parentId != Categories.ticket) return interaction.reply({content: 'Dies ist kein Ticket Kanal!', ephemeral: true})
 
         const embed = new EmbedBuilder({
             title: 'Schließ-Anfrage',

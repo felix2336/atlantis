@@ -8,11 +8,11 @@ export default {
         const channel = await interaction.guild!.channels.create({
             name: `ticket-${interaction.user.username}`,
             type: ChannelType.GuildText,
-            parent: Categories.test,
+            parent: Categories.ticket,
             permissionOverwrites: [
                 { id: interaction.user, allow: ['SendMessages', 'ViewChannel'] },
                 { id: interaction.guild!.roles.everyone, deny: ['ViewChannel'] },
-                // { id: Roles.staff, allow: ['SendMessages', 'ViewChannel'] }
+                { id: Roles.staff, allow: ['SendMessages', 'ViewChannel'] }
             ]
         })
 
