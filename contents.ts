@@ -345,7 +345,7 @@ async function importSelectMenus(): Promise<Collection<string, any>> {
     for (const dir of subDirs) {
         const files = readdirSync(`./SelectMenus/${dir}`)
         for (const file of files) {
-            const module = await import(`../SelectMenus/${dir}/${file}`)
+            const module = await import(`./SelectMenus/${dir}/${file}`)
             const menu = module.default
             if (!menu || !menu.id) {
                 new ConsoleWarning().show(`Fehler bei Select Menu in SelectMenus/${dir}/${file}`)
@@ -366,7 +366,7 @@ async function importCommands(): Promise<[Collection<string, any>, any[]]> {
     for (const dir of subDirs) {
         const files = readdirSync(`./Commands/${dir}`)
         for (const file of files) {
-            const module = await import(`../Commands/${dir}/${file}`)
+            const module = await import(`./Commands/${dir}/${file}`)
             const command = module.default
             if (!command || !command.data || !command.data.name || !command.data.description) {
                 new ConsoleWarning().show(`Befehl in Commands/${dir}/${file} ist ungültig`)
@@ -387,7 +387,7 @@ async function importButtons(): Promise<Collection<string, any>> {
     for (const dir of subDirs) {
         const files = readdirSync(`./Buttons/${dir}`)
         for (const file of files) {
-            const module = await import(`../Buttons/${dir}/${file}`)
+            const module = await import(`./Buttons/${dir}/${file}`)
             const button = module.default
             if (!button || !button.id) {
                 new ConsoleWarning().show(`Fehler bei Button in Buttons/${dir}/${file}`)
@@ -407,7 +407,7 @@ async function importModals(): Promise<Collection<string, any>> {
     for (const dir of subDirs) {
         const files = readdirSync(`./Modals/${dir}`)
         for (const file of files) {
-            const module = await import(`../Modals/${dir}/${file}`)
+            const module = await import(`./Modals/${dir}/${file}`)
             const modal = module.default
             if (!modal || !modal.id) {
                 new ConsoleWarning().show(`Fehler bei Modal in Modals/${dir}/${file}`)
@@ -427,7 +427,7 @@ async function importMenus(apps: any[]): Promise<[Collection<string, any>, any[]
     for (const dir of subDirs) {
         const files = readdirSync(`./ContextMenus/${dir}`)
         for (const file of files) {
-            const module = await import(`../ContextMenus/${dir}/${file}`)
+            const module = await import(`./ContextMenus/${dir}/${file}`)
             const menu = module.default
             if (!menu || !menu.data.name || !menu.data.type) {
                 new ConsoleWarning().show(`Fehler bei Context Menu in ContextMenus/${dir}/${file}`)
