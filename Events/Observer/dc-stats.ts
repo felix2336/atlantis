@@ -16,11 +16,8 @@ export default {
             const totalMembers = guild.memberCount
             const boosts = guild.premiumSubscriptionCount
 
-            console.log(humanMembers, botCount, totalMembers, boosts)
-            console.log(memberChannel.name, botChannel.name, totalMembersChannel.name, boostChannel.name)
 
             await memberChannel.edit({name: `Mitglieder: ${humanMembers}`})
-            console.log('memberchannel updated')
             await botChannel.edit({name: `Bots: ${botCount}`})
             await totalMembersChannel.edit({name: `Alle Mitglieder: ${totalMembers}`})
             await boostChannel.edit({name: `Anzahl der Boosts: ${boosts}`})
