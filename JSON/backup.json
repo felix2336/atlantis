@@ -1,12 +1,12 @@
 {
   "categories": {
     "dlc stats": {
-      "Mitglieder: 120": 2,
-      "Bots: 15": 2,
-      "Anzahl der Boosts: 2": 2,
-      "alle Mitglieder: 135": 2
+      "Mitglieder: 125": 2,
+      "Bots: 12": 2,
+      "Anzahl der Boosts: 9": 2,
+      "Alle Mitglieder: 137": 2
     },
-    "willkommen": {
+    "»»——Willkommen——««": {
       "👋│willkommen": 0,
       "📢│neuigkeiten": 5,
       "『📊』abstimmung": 0,
@@ -15,9 +15,10 @@
       "🎉│gewinnspiele": 0,
       "📖│regeln": 0
     },
-    "🔐 〢 Team Bereich": {
+    "『»»——Team Lounge——««』": {
       "🔧│team-cmds": 0,
       "abmeldungen": 0,
+      "🔒│sup-chat": 0,
       "🚨│warn-chat": 0,
       "team-umfragen": 0,
       "┣🛡📕-team-regelwerk": 0,
@@ -36,7 +37,7 @@
       "Events": 13,
       "『🔰』events": 0
     },
-    "Clans": {
+    "»»——Clans——««": {
       "clan-mitglieder": 0,
       "Clan-Kämpfe": 13,
       "informationen": 5,
@@ -45,7 +46,7 @@
       "Spielplan Erstellung": 2,
       "spielplan": 5
     },
-    "infos": {
+    "»»——Infos——««": {
       "💬│support-chat": 0,
       "📜│bewerbungs-infos": 0,
       "🎫│ticket-support": 0,
@@ -115,8 +116,8 @@
       "2⃣│Spieler Talk 2": 2,
       "1⃣│Spieler Talk 1": 2
     },
-    "💬allgemein": {
-      "🌍│globalchat": 0,
+    "»»——Allgemein——««": {
+      "🙃│beichten": 0,
       "👋│vorstellungen": 15,
       "🤖│commands": 0,
       "💬│hauptchat": 0,
@@ -127,12 +128,12 @@
       "eure-werbung": 0,
       "🗨-server-name-ideen": 15
     },
-    "offene Tickets": {
+    "»»——Offene Tickets——««": {
       "ticket-wannabefanboy": 0,
       "ticket-nicouschulas": 0,
       "ticket-ruffi101yt": 0,
       "ticket-nxah2257": 0,
-      "ticket-felix2336": 0
+      "ticket-brovenco": 0
     },
     "Partner": {
       "team1712": 0,
