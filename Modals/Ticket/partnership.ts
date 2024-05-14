@@ -1,5 +1,5 @@
 import { ModalSubmitInteraction, EmbedBuilder, Client, ChannelType } from "discord.js";
-import { Categories, ticketButtons } from "../../contents";
+import { Categories, Roles, ticketButtons } from "../../contents";
 
 export default {
     id: 'partnerschaft',
@@ -11,7 +11,8 @@ export default {
             parent: Categories.ticket,
             permissionOverwrites: [
                 { id: interaction.user, allow: ['SendMessages', 'ViewChannel'] },
-                { id: interaction.guild!.roles.everyone, deny: ['ViewChannel'] }
+                { id: interaction.guild!.roles.everyone, deny: ['ViewChannel'] },
+                { id: Roles.staff, allow: ['SendMessages', 'ViewChannel']}
             ]
         })
         const memberCount = interaction.fields.getTextInputValue('membercount')
