@@ -14,12 +14,11 @@ export default {
     async execute(interaction: ChatInputCommandInteraction) {
         const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
         const reason = interaction.options.get('reason', true).value as string
-        //@ts-ignore
         const member = interaction.options.getMember('user') as GuildMember
         const channel = interaction.guild!.channels.cache.get(Channels.warn) as TextChannel
         let warnUser: Warn
         const warnData = warns.find(w => w.userid == member.user.id)
-        if(!warnData) {
+        if (!warnData) {
             warnUser = new Warn({
                 userid: member.user.id,
                 username: member.user.username,
@@ -37,7 +36,18 @@ export default {
             description: `<:check:1229021540956504105> ${member} wurde von ${interaction.user.username} gewarnt\nGrund: **${reason}**`,
             color: Colors.Red
         })
+
+        const dmEmbed = new EmbedBuilder({
+            author: { name: interaction.guild!.name, iconURL: interaction.guild!.iconURL() || '' },
+            title: 'Du wurdest gewarnt',
+            fields: [
+                { name: 'Moderator', value: `${interaction.user} (${interaction.user.username})`, inline: true },
+                { name: 'Grund', value: reason, inline: true }
+            ]
+        })
+
         await channel.send({ embeds: [embed] })
         interaction.reply({ content: `Du hast ${member} wegen **${reason}** gewarnt!`, ephemeral: true })
+        await member.send({ embeds: [dmEmbed] }).catch(console.log)
     }
 }
