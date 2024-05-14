@@ -14,20 +14,6 @@
     }
   },
   {
-    "userid": "731990066158895175",
-    "username": "mikerandom",
-    "totalMessages": 0,
-    "messages": {
-      "monday": 0,
-      "tuesday": 0,
-      "wednesday": 0,
-      "thursday": 0,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
     "userid": "1039581530416234667",
     "username": "ruffi101yt",
     "totalMessages": 0,
@@ -56,12 +42,12 @@
     }
   },
   {
-    "userid": "847164343602774097",
-    "username": "magnificentsimon",
-    "totalMessages": 6,
+    "userid": "731990066158895175",
+    "username": "mikerandom",
+    "totalMessages": 3,
     "messages": {
-      "monday": 6,
-      "tuesday": 0,
+      "monday": 0,
+      "tuesday": 3,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
@@ -70,12 +56,26 @@
     }
   },
   {
-    "userid": "1196808890227118201",
-    "username": "hxpershadow",
-    "totalMessages": 17,
+    "userid": "847164343602774097",
+    "username": "magnificentsimon",
+    "totalMessages": 8,
     "messages": {
-      "monday": 17,
-      "tuesday": 0,
+      "monday": 6,
+      "tuesday": 2,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "1204491721119891492",
+    "username": "hxperkatzchen",
+    "totalMessages": 5,
+    "messages": {
+      "monday": 0,
+      "tuesday": 5,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
@@ -86,10 +86,10 @@
   {
     "userid": "773072144304963624",
     "username": "felix2336",
-    "totalMessages": 15,
+    "totalMessages": 41,
     "messages": {
       "monday": 13,
-      "tuesday": 2,
+      "tuesday": 28,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
