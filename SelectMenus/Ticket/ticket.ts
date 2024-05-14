@@ -66,6 +66,40 @@ export default {
                 break
             }
 
+            case('partnerschaft'): {
+                const modal = new ModalBuilder({
+                    title: 'Partnerschaft',
+                    customId: 'partnerschaft',
+                    components: [
+                        new ActionRowBuilder<TextInputBuilder>({
+                            components: [
+                                new TextInputBuilder({
+                                    label: 'Wie viele Mitglieder hat dein Server?',
+                                    customId: 'membercount',
+                                    required: true,
+                                    style: 1,
+                                })
+                            ]
+                        }),
+                        new ActionRowBuilder<TextInputBuilder>({
+                            components: [
+                                new TextInputBuilder({
+                                    label: 'Bitte beschreibe deinen Server',
+                                    customId: 'description',
+                                    required: true,
+                                    minLength: 20,
+                                    placeholder: 'Bitte schreibe ganze Sätze',
+                                    style: 2
+                                })
+                            ]
+                        })
+                    ]
+                })
+                await interaction.showModal(modal)
+                
+                break
+            }
+
             case 'report': {
                 const modal = new ModalBuilder({
                     title: 'Person melden',

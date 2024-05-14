@@ -1,5 +1,5 @@
 import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, Colors, ChannelType } from 'discord.js'
-import { Categories, Roles } from '../../contents'
+import { Categories, Roles, ticketButtons } from '../../contents'
 
 export default {
     id: 'apply',
@@ -35,20 +35,7 @@ export default {
             color: 0x0000FF
         })
 
-        const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
-            new ButtonBuilder({
-                customId: 'close-with-reason',
-                label: '🔒 Schließen mit Begründung',
-                style: 4
-            }),
-            new ButtonBuilder({
-                customId: 'claim',
-                label: '🙋‍♂️ Beanspruchen',
-                style: 3
-            })
-        ])
-
-        await channel.send({ content: '@everyone', embeds: [embed1, embed2], components: [row] })
+        await channel.send({ content: '@everyone', embeds: [embed1, embed2], components: [ticketButtons] })
             .then(async message => {
                 await message.edit({ content: '' })
                 interaction.reply({ content: `Dein Ticket wurde erstellt: ${channel}`, ephemeral: true })

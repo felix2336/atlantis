@@ -20,6 +20,11 @@ export default {
                     .setEmoji('🤝')
                     .setValue('bewerben'),
                 new StringSelectMenuOptionBuilder()
+                    .setLabel('Partnerschaft')
+                    .setDescription('Du möchtest eine Partnerschaft beginnen?')
+                    .setEmoji('🤝')
+                    .setValue('partnerschaft'),
+                new StringSelectMenuOptionBuilder()
                     .setLabel('Report')
                     .setDescription('Du möchtest einen User melden?')
                     .setEmoji('💢')
@@ -28,7 +33,7 @@ export default {
                     .setLabel('Support')
                     .setDescription('Du brauchst hilfe?')
                     .setEmoji('📩')
-                    .setValue('support')
+                    .setValue('support'),
             )
 
         const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select)

@@ -1,4 +1,4 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection, ActionRowBuilder, ButtonBuilder } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
 
@@ -387,6 +387,19 @@ async function importMenus(apps: any[]): Promise<[Collection<string, any>, any[]
     return [menus, apps]
 }
 
+const ticketButtons = new ActionRowBuilder<ButtonBuilder>().addComponents([
+    new ButtonBuilder({
+        customId: 'close-with-reason',
+        label: '🔒 Schließen mit Begründung',
+        style: 4
+    }),
+    new ButtonBuilder({
+        customId: 'claim',
+        label: '🙋‍♂️ Beanspruchen',
+        style: 3
+    })
+])
+
 //exports
 export {
     Suggestion,
@@ -404,5 +417,6 @@ export {
     importCommands,
     importButtons,
     importModals,
-    importMenus
+    importMenus,
+    ticketButtons
 }
