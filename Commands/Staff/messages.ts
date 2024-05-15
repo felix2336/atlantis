@@ -67,10 +67,13 @@ export default {
                             if (member.roles.cache.has('1201848061819891774')) {
                                 message += `\`\`${i + 1}. \`\`⏱️ <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
                             } else {
-                                if (entry.count < 100) {
-                                    message += `\`\`${i + 1}. \`\`<:AL_RedCross:1173483861959770184> <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
+                                if (entry.count < 50) {
+                                    message += `\`\`${i + 1}. \`\`<a:redlight:1211374559224135700> <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
+                                }
+                                else if (entry.count >= 50 && entry.count < 75) {
+                                    message += `\`\`${i + 1}. \`\`<:dogsmile:1230441707766808608> <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
                                 } else {
-                                    message += `\`\`${i + 1}. \`\`<:AL_GreenHook:1173483826920574986> <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
+                                    message += `\`\`${i + 1}. \`\`<a:6797evolvingbadgeboost:1234205150898425898> <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
                                 }
                             }
                         }
