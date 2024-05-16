@@ -357,6 +357,23 @@ class MemberManager {
         await channel.send({ embeds: [logEmbed] }).catch(console.log)
         return true
     }
+
+    public getId(): string {
+        return this.member.user.id
+    }
+
+    public getAvatarUrl(): string | undefined {
+        return this.member.displayAvatarURL()
+    }
+
+    public getPermissions(): string[] {
+        const perms: string[] = []
+        for(const perm of this.member.permissions) {
+            perms.push(perm)
+        }
+        perms.sort()
+        return perms
+    }
 }
 
 
