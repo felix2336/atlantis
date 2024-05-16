@@ -1,4 +1,4 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
 
@@ -373,6 +373,20 @@ class MemberManager {
         }
         perms.sort()
         return perms
+    }
+
+    public getRoles(): Role[] {
+        const roles: Role[] = []
+        for(const [id, role] of this.member.roles.cache) {
+            if(role.name == '@everyone') continue
+            roles.push(role)
+        }
+        roles.sort((a, b) => b.position - a.position)
+        return roles
+    }
+
+    public isStaff(): boolean {
+        return this.member.roles.cache.some(r => r.id == Roles.staff)
     }
 }
 

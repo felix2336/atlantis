@@ -14,7 +14,7 @@ export default {
         const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
 
         const warnData = warns.find(w => w.userid == target.user.id)
-        if (!warnData || !warnData.warns) return interaction.reply({ content: `${target} hat keine Verwarnungen!`, ephemeral: true })
+        if (!warnData || !warnData.warns || warnData.warns.length == 0) return interaction.reply({ content: `${target} hat keine Verwarnungen!`, ephemeral: true })
 
         const warnUser = new Warn(warnData)
 

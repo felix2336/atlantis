@@ -21,7 +21,8 @@ export default {
         const embed = new EmbedBuilder({
             title: `Berechtigungen von ${user.user.username}`,
             description: `\`${perms.join('\`, \`')}\``,
-            color: Colors.Gold
+            color: Colors.Gold,
+            thumbnail: {url: Member.getAvatarUrl() || ''}
         })
 
         if(search) {
