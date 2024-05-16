@@ -56,20 +56,6 @@
     }
   },
   {
-    "userid": "847164343602774097",
-    "username": "magnificentsimon",
-    "totalMessages": 90,
-    "messages": {
-      "monday": 6,
-      "tuesday": 5,
-      "wednesday": 79,
-      "thursday": 0,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
     "userid": "731990066158895175",
     "username": "mikerandom",
     "totalMessages": 93,
@@ -84,14 +70,28 @@
     }
   },
   {
+    "userid": "847164343602774097",
+    "username": "magnificentsimon",
+    "totalMessages": 91,
+    "messages": {
+      "monday": 6,
+      "tuesday": 5,
+      "wednesday": 79,
+      "thursday": 1,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
     "userid": "773072144304963624",
     "username": "felix2336",
-    "totalMessages": 224,
+    "totalMessages": 227,
     "messages": {
       "monday": 13,
       "tuesday": 32,
       "wednesday": 177,
-      "thursday": 2,
+      "thursday": 5,
       "friday": 0,
       "saturday": 0,
       "sunday": 0

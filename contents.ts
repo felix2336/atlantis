@@ -1,4 +1,4 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection, ActionRowBuilder, ButtonBuilder } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
 
@@ -14,7 +14,8 @@ enum Channels {
     ticket = "1153007107688386752",
     unban_requests = "1236848025788481638",
     beichten = "1238589282747285584",
-    ticket_log = "1173939552239501333"
+    ticket_log = "1173939552239501333",
+    user_update_log = "1221387141834084363"
 }
 enum Categories {
     ticket = "1173314530521129042",
@@ -24,6 +25,27 @@ enum Roles {
     staff = '1156298949301379212',
     community = "1149971550578147378"
 }
+
+const ticketButtons = new ActionRowBuilder<ButtonBuilder>().addComponents([
+    new ButtonBuilder({
+        customId: 'close-with-reason',
+        label: '🔒 Schließen mit Begründung',
+        style: 4
+    }),
+    new ButtonBuilder({
+        customId: 'claim',
+        label: '🙋‍♂️ Beanspruchen',
+        style: 3
+    })
+])
+
+const unbanRequestButton = new ActionRowBuilder<ButtonBuilder>().addComponents([
+    new ButtonBuilder({
+        label: 'Entbannungsantrag',
+        customId: 'unban-request',
+        style: 1,
+    })
+])
 
 
 //suggestion
@@ -82,7 +104,7 @@ class Warn {
     constructor(data: WarnData) {
         this.userid = data.userid;
         this.username = data.username;
-        if(data.warns) {
+        if (data.warns) {
             this.warns = data.warns
         } else {
             this.warns = []
@@ -99,7 +121,7 @@ class Warn {
 
     public removeWarn(warnId: string): boolean {
         const warnToRemove = this.warns.find(w => w.id == warnId)
-        if(warnToRemove) {
+        if (warnToRemove) {
             this.warns = this.warns.filter(w => w.id != warnId)
             return true
         } else return false
@@ -284,6 +306,60 @@ class ConsoleWarning {
     }
 }
 
+class MemberManager {
+    private member: GuildMember
+    private guild: Guild
+
+    constructor(member: GuildMember, guild: Guild) {
+        this.member = member
+        this.guild = guild
+    }
+
+    public getMember(): GuildMember {
+        return this.member
+    }
+
+    public async addRole(roleOrRoles: RoleResolvable | RoleResolvable[]): Promise<void> {
+        await this.member.roles.add(roleOrRoles).catch(console.log)
+    }
+
+    public async removeRole(roleOrRoles: RoleResolvable | RoleResolvable[]): Promise<void> {
+        await this.member.roles.remove(roleOrRoles).catch(console.log)
+    }
+
+    public hasRole(role: Snowflake): boolean {
+        return this.member.roles.cache.has(role)
+    }
+
+    public async ban(reason: string, deleteMessageSeconds?: number): Promise<boolean> {
+        await this.member.ban({ reason, deleteMessageSeconds })
+            .catch(e => {
+                console.log(e)
+                return false
+            })
+
+        const embed = new EmbedBuilder({
+            author: { name: this.guild.name, iconURL: this.guild.iconURL() || '' },
+            title: 'Du wurdest gebannt',
+            description: `Grund: **${reason}**.\n\nDu kannst mit dem Button unten einen Entbannungsantrag stellen!`,
+            color: Colors.Red
+        })
+
+        const logEmbed = new EmbedBuilder({
+            title: 'Neuer Ban',
+            fields: [
+                { name: 'User', value: `${this.member} (${this.member.user.username}) - ${this.member.user.id}` },
+                { name: 'Grund', value: reason }
+            ]
+        })
+        const channel = this.guild.channels.cache.get(Channels.user_update_log) as TextChannel
+        await this.member.send({ embeds: [embed], components: [unbanRequestButton] }).catch(console.log)
+        await channel.send({ embeds: [logEmbed] }).catch(console.log)
+        return true
+    }
+}
+
+
 async function importSelectMenus(): Promise<Collection<string, any>> {
     const selectMenus = new Collection<string, any>()
     const subDirs = readdirSync('./SelectMenus')
@@ -387,19 +463,6 @@ async function importMenus(apps: any[]): Promise<[Collection<string, any>, any[]
     return [menus, apps]
 }
 
-const ticketButtons = new ActionRowBuilder<ButtonBuilder>().addComponents([
-    new ButtonBuilder({
-        customId: 'close-with-reason',
-        label: '🔒 Schließen mit Begründung',
-        style: 4
-    }),
-    new ButtonBuilder({
-        customId: 'claim',
-        label: '🙋‍♂️ Beanspruchen',
-        style: 3
-    })
-])
-
 //exports
 export {
     Suggestion,
@@ -413,10 +476,12 @@ export {
     Categories,
     ConsoleInfo,
     ConsoleWarning,
+    MemberManager,
     importSelectMenus,
     importCommands,
     importButtons,
     importModals,
     importMenus,
-    ticketButtons
+    ticketButtons,
+    unbanRequestButton
 }
