@@ -1,19 +1,5 @@
 [
   {
-    "userid": "1190249932381233173",
-    "username": "sunnyshine1490",
-    "totalMessages": 2,
-    "messages": {
-      "monday": 2,
-      "tuesday": 0,
-      "wednesday": 0,
-      "thursday": 0,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
     "userid": "1204491721119891492",
     "username": "hxperkatzchen",
     "totalMessages": 5,
@@ -86,12 +72,12 @@
   {
     "userid": "773072144304963624",
     "username": "felix2336",
-    "totalMessages": 227,
+    "totalMessages": 228,
     "messages": {
       "monday": 13,
       "tuesday": 32,
       "wednesday": 177,
-      "thursday": 5,
+      "thursday": 6,
       "friday": 0,
       "saturday": 0,
       "sunday": 0
