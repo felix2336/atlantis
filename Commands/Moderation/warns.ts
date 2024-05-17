@@ -15,7 +15,7 @@ export default {
         const member = interaction.options.getMember('user') as GuildMember
 
         const warnData = warns.find(w => w.userid == member.user.id)
-        if (!warnData || !warnData.warns) return interaction.reply({ content: `${member} hat keine Verwarnungen!`, ephemeral: true })
+        if (!warnData || !warnData.warns || warnData.warns.length == 0) return interaction.reply({ content: `${member} hat keine Verwarnungen!`, ephemeral: true })
 
         const warnUser = new Warn(warnData)
         const embed = warnUser.getWarnsAsEmbed()
