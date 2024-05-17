@@ -350,7 +350,7 @@ class MemberManager {
         return this.member.roles.cache.has(role)
     }
 
-    public async ban(reason: string, deleteMessageSeconds?: number): Promise<boolean> {
+    public async ban(moderator: GuildMember, reason: string, deleteMessageSeconds?: number): Promise<boolean> {
         await this.member.ban({ reason, deleteMessageSeconds })
             .catch(e => {
                 console.log(e)
@@ -369,7 +369,35 @@ class MemberManager {
             fields: [
                 { name: 'User', value: `${this.member} (${this.member.user.username}) - ${this.member.user.id}` },
                 { name: 'Grund', value: reason }
-            ]
+            ],
+            footer: {text: `Durchgeführt von ${moderator.user.username}`, iconURL: moderator.user.displayAvatarURL()}
+        })
+        const channel = this.guild.channels.cache.get(Channels.user_update_log) as TextChannel
+        await this.member.send({ embeds: [embed], components: [unbanRequestButton] }).catch(console.log)
+        await channel.send({ embeds: [logEmbed] }).catch(console.log)
+        return true
+    }
+
+    public async kick(moderator: GuildMember, reason: string): Promise<boolean> {
+        await this.member.kick(reason).catch(e => {
+            console.log(e)
+            return false
+        })
+
+        const embed = new EmbedBuilder({
+            author: { name: this.guild.name, iconURL: this.guild.iconURL() || '' },
+            title: 'Du wurdest gekickt',
+            description: `Grund: **${reason}**.`,
+            color: Colors.Red
+        })
+
+        const logEmbed = new EmbedBuilder({
+            title: 'Neuer Kick',
+            fields: [
+                { name: 'User', value: `${this.member} (${this.member.user.username}) - ${this.member.user.id}` },
+                { name: 'Grund', value: reason }
+            ],
+            footer: { text: `Durchgeführt von ${moderator.user.username}`, iconURL: moderator.user.displayAvatarURL() }
         })
         const channel = this.guild.channels.cache.get(Channels.user_update_log) as TextChannel
         await this.member.send({ embeds: [embed], components: [unbanRequestButton] }).catch(console.log)

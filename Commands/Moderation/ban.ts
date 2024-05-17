@@ -14,10 +14,11 @@ const command: SlashCommand = {
         const target = interaction.options.getMember('user') as GuildMember
         const deleteMessageSeconds = interaction.options.getNumber('deletemessageseconds') || undefined
         const reason = interaction.options.getString('reason', true)
+        const mod = interaction.member as GuildMember
 
         const manager = new MemberManager(target, interaction.guild as Guild)
 
-        const ban = await manager.ban(reason, deleteMessageSeconds)
+        const ban = await manager.ban(mod, reason, deleteMessageSeconds)
         if (!ban) return await interaction.editReply('Der Ban ist fehlgeschlagen!');
         else return await interaction.editReply(`Du hast ${target} erfolgreich gebannt!`)
     }
