@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, ApplicationCommandOptionType, EmbedBuilder, Colors, SlashCommandBuilder, GuildMember, Role } from 'discord.js'
 import Casino from '../../Schemas/casino'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('reset')
         .setDescription('Setze das Konto eines Users zurück')
@@ -26,3 +27,4 @@ export default {
         interaction.reply({ embeds: [new EmbedBuilder({ title: 'Erfolg', description: `Du hast erfolgreich das Konto von ${target} auf 0 zurückgesetzt`, color: Colors.DarkGreen, timestamp: new Date() })] })
     }
 }
+export default command

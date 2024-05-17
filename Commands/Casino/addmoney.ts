@@ -1,7 +1,8 @@
 import { ApplicationCommandOptionType, SlashCommandBuilder, PermissionFlagsBits, GuildMember, Role, EmbedBuilder, Colors, User, ChatInputCommandInteraction } from 'discord.js';
 import Casino from '../../Schemas/casino';
+import { SlashCommand } from '../../contents';
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('addmoney')
         .setDescription('Füge dem Konto eines Users Geld hinzu')
@@ -37,3 +38,4 @@ export default {
         interaction.reply({ content: `Du hast ${user} erfolgreich 💰${amount} gegeben.`, ephemeral: true })
     }
 }
+export default command

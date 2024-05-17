@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction, AnyComponentBuilder, RestOrArray } from 'discord.js'
-import { SuggestionType, Suggestion } from '../../contents'
+import { SuggestionType, Suggestion, SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('suggestion')
         .setDescription('Reiche einen Vorschlag ein')
@@ -40,3 +40,4 @@ export default {
     }
 
 }
+export default command

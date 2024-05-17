@@ -1,9 +1,9 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import { Channels } from '../../contents'
+import { Channels, SlashCommand } from '../../contents'
 import { Warn, WarnData } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('warn')
         .setDescription('Warne einen User')
@@ -51,3 +51,4 @@ export default {
         await member.send({ embeds: [dmEmbed] }).catch(console.log)
     }
 }
+export default command

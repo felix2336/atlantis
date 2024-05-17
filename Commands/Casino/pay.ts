@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, User } from 'discord.js'
 import Casino from '../../Schemas/casino'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
 	data: new SlashCommandBuilder()
 		.setName('pay')
 		.setDescription('Gib etwas von deinem Geld an einen anderen Spieler')
@@ -41,3 +42,4 @@ export default {
 		interaction.reply({embeds: [embed]})	
 	}
 }
+export default command

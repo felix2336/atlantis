@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, Client, ModalBuilder, ActionRowBuilder, TextInputBuilder } from 'discord.js'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('beichte')
         .setDescription('Erstelle eine anonyme Beichte'),
@@ -26,3 +27,4 @@ export default {
         await interaction.showModal(modal)
     }
 }
+export default command

@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
 import fs from 'fs';
+import { SlashCommand } from '../../contents';
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('help')
         .setDescription('Führe diesen Befehl aus, wenn du Hilfe brauchst')
@@ -38,3 +39,4 @@ export default {
         }
     }
 }
+export default command

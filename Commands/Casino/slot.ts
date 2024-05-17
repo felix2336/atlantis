@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
 import Casino from '../../Schemas/casino';
+import { SlashCommand } from '../../contents';
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('slot')
         .setDescription('Spiele an einem Spielautomaten, um mit etwas Glück etwas Geld zu gewinnen')
@@ -54,3 +55,4 @@ export default {
         }
     }
 }
+export default command

@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('abmeldung')
         .setDescription('Melde dich für einen gewissen Zeitraum vom Team ab'),
@@ -47,3 +48,4 @@ export default {
         await interaction.showModal(modal)
     }
 }
+export default command

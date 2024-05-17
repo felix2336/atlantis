@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder, Colors, AutoModerationActionExecution } from 'discord.js'
-import { MyClient } from '../../contents'
+import { MyClient, SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('commands')
         .setDescription('Gibt alle Slash Commands des Bots wieder'),
@@ -16,3 +16,4 @@ export default {
         await interaction.reply({embeds: [embed]})
     }
 }
+export default command

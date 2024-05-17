@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Colors, TextChannel } from "discord.js";
-import { Channels } from "../../contents";
+import { Channels, SlashCommand } from "../../contents";
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('rules')
         .setDescription('Sende das aktualisierte Regelwerk')
@@ -53,3 +53,5 @@ export default {
         interaction.reply({content: 'Regelwerk gesendet', ephemeral: true})
     }
 }
+
+export default command

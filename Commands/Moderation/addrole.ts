@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, Role, GuildMember, Guild, Client, PermissionFlagsBits } from 'discord.js'
-import { MemberManager } from '../../contents'
+import { MemberManager, SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('addrole')
         .setDescription('Gib einem User eine Rolle')
@@ -27,3 +27,4 @@ export default {
         interaction.reply({content: `Du hast ${user} erfolgreich folgende Rolle gegeben: ${role}`, ephemeral: true})
     }
 }
+export default command

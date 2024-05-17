@@ -1,6 +1,7 @@
 import {Client, ChatInputCommandInteraction, SlashCommandBuilder, PermissionFlagsBits, ActivityType} from 'discord.js'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('changestatus')
         .setDescription('Ändere den Status des Bots')
@@ -17,3 +18,5 @@ export default {
         interaction.reply({content: `Der Status wurde erfolgreich auf **${customStatus}** gesetzt`, ephemeral: true})
     }
 }
+
+export default command

@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import { Warn, WarnData } from '../../contents'
+import { SlashCommand, Warn, WarnData } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('warns')
         .setDescription('Lasse dir alle Warns von einem User anzeigen')
@@ -23,5 +23,5 @@ export default {
         interaction.reply({ embeds: [embed] })
 
     }
-
 }
+export default command

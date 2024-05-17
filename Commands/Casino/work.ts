@@ -1,8 +1,9 @@
 import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import Casino from '../../Schemas/casino';
 import Cooldowns from '../../Schemas/cooldowns';
+import { SlashCommand } from '../../contents';
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('work')
         .setDescription('gehe arbeiten für ein wenig Geld'),
@@ -65,3 +66,4 @@ export default {
         interaction.reply({embeds: [embed]})
     }
 }
+export default command

@@ -1,4 +1,4 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild,ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild,ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable, CacheType, StringSelectMenuInteraction, UserSelectMenuInteraction, SelectMenuInteraction, Events, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, InteractionResponse, Message, ContextMenuCommandInteraction } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
 
@@ -48,28 +48,28 @@ const unbanRequestButton = new ActionRowBuilder<ButtonBuilder>().addComponents([
 ])
 
 interface SlashCommand {
-    data: SlashCommandBuilder,
-    execute: (interaction: ChatInputCommandInteraction, client?: Client) => Promise<void>
+    data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder,
+    execute: (interaction: ChatInputCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined> | Promise<Message<boolean>>
 }
 
-interface ContextMenu {
+interface ContextMenu<T extends UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction> {
     data: ContextMenuCommandBuilder,
-    execute: (interaction: UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction, client?: Client) => Promise<void>
+    execute: (interaction: T, client: Client | MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
 }
 
 interface Button {
     id: string,
-    execute: (interaction: ButtonInteraction, client?: Client) => Promise<void>
+    execute: (interaction: ButtonInteraction, client: MyClient) => Promise<void>
 }
 
 interface SelectMenu {
     id: string
-    execute: (interaction: AnySelectMenuInteraction, client?: Client) => Promise<void>
+    execute: (interaction: StringSelectMenuInteraction, client: MyClient) => Promise<void>
 }
 
 interface Modal {
     id: string,
-    execute: (interaction: ModalSubmitInteraction, client?: Client) => Promise<void>
+    execute: (interaction: ModalSubmitInteraction, client: MyClient) => Promise<void>
 }
 
 //suggestion
@@ -414,10 +414,10 @@ class MemberManager {
     }
 }
 
-class MyClient extends Client {
+class MyClient extends Client<boolean> {
     public commands: Collection<string, SlashCommand>;
-    public apps: SlashCommand[] & ContextMenu[];
-    public contextMenus: Collection<string, ContextMenu>;
+    public apps: SlashCommand[] & ContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>[];
+    public contextMenus: Collection<string, ContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>>;
     public modals: Collection<string, Modal>;
     public selectMenus: Collection<string, SelectMenu>
     public buttons: Collection<string, Button>
@@ -514,7 +514,7 @@ async function importMenus(client: MyClient): Promise<void> {
         const files = readdirSync(`./ContextMenus/${dir}`)
         for (const file of files) {
             const module = await import(`./ContextMenus/${dir}/${file}`)
-            const menu = module.default as ContextMenu
+            const menu = module.default as ContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>
             if (!menu || !menu.data.name || !menu.data.type) {
                 new ConsoleWarning().show(`Fehler bei Context Menu in ContextMenus/${dir}/${file}`)
                 continue
@@ -551,6 +551,7 @@ async function importEvents(client: MyClient): Promise<void> {
     }
 }
 
+
 //exports
 export {
     Suggestion,
@@ -566,6 +567,11 @@ export {
     ConsoleWarning,
     MemberManager,
     MyClient,
+    SelectMenu,
+    SlashCommand,
+    Modal,
+    Button,
+    ContextMenu,
     importSelectMenus,
     importCommands,
     importButtons,

@@ -1,10 +1,11 @@
-import { StringSelectMenuInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder, ActionRow } from "discord.js";
+import { StringSelectMenuInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder, ActionRow, AnySelectMenuInteraction } from "discord.js";
+import { SelectMenu } from '../../contents'
 
-export default {
+const selectMenu: SelectMenu = {
     id: 'ticket',
 
     async execute(interaction: StringSelectMenuInteraction) {
-        switch(interaction.values[0]) {
+        switch (interaction.values[0]) {
             case 'bewerben': {
                 const modal = new ModalBuilder({
                     title: 'Team Bewerbung',
@@ -66,7 +67,7 @@ export default {
                 break
             }
 
-            case('partnerschaft'): {
+            case ('partnerschaft'): {
                 const modal = new ModalBuilder({
                     title: 'Partnerschaft',
                     customId: 'partnerschaft',
@@ -96,7 +97,7 @@ export default {
                     ]
                 })
                 await interaction.showModal(modal)
-                
+
                 break
             }
 
@@ -160,3 +161,5 @@ export default {
         }
     }
 }
+
+export default selectMenu

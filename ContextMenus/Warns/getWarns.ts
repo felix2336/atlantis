@@ -1,13 +1,13 @@
 import { ApplicationCommandType, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, PermissionFlagsBits, GuildMember, EmbedBuilder } from "discord.js";
 import { readFileSync } from 'fs'
-import { Warn, WarnData } from "../../contents";
+import { ContextMenu, Warn, WarnData } from "../../contents";
 
-export default {
+const menu: ContextMenu<UserContextMenuCommandInteraction> = {
     data: new ContextMenuCommandBuilder()
         .setName('Warns')
         .setType(ApplicationCommandType.User),
 
-    async execute(interaction: UserContextMenuCommandInteraction) {
+    async execute(interaction) {
         const target = interaction.targetMember as GuildMember
         if(!(interaction.member as GuildMember).permissions.has(PermissionFlagsBits.ModerateMembers)) return interaction.reply({content: 'Du darfst das nicht :)', ephemeral: true})
 
@@ -23,3 +23,4 @@ export default {
         interaction.reply({ embeds: [embed], ephemeral: true })
     }
 }
+export default menu

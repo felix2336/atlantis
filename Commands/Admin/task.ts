@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
 	data: new SlashCommandBuilder()
 		.setName('task')
 		.setDescription('Gib den Devs eine Aufgabe')
@@ -32,3 +33,4 @@ export default {
         await interaction.showModal(modal)
 	}
 }
+export default command

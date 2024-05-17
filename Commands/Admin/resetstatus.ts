@@ -1,6 +1,7 @@
 import {SlashCommandBuilder, ChatInputCommandInteraction, Client, PermissionFlagsBits, ActivityType} from 'discord.js'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('resetstatus')
         .setDescription('Setze den Status des Bots auf den Standard zurück')
@@ -11,3 +12,4 @@ export default {
         interaction.reply({content: 'Der Status wurde zurückgesetzt!', ephemeral: true})
     }
 }
+export default command

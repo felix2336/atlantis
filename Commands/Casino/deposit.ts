@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
 import Casino from '../../Schemas/casino';
+import { SlashCommand } from '../../contents';
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('deposit')
         .setDescription("Zahle Geld auf dein Bankkonto ein")
@@ -45,3 +46,4 @@ export default {
         interaction.reply({ embeds: [embed] })
     }
 }
+export default command

@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, SlashCommandBuilder, PermissionFlagsBits, Role, GuildMember, User, RoleResolvable, TextChannel } from 'discord.js'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('staff')
         .setDescription('Gib eine Teamänderung preis')
@@ -152,3 +153,4 @@ export default {
         }
     }
 }
+export default command

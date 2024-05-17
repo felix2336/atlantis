@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js'
 import Casino from '../../Schemas/casino'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('coinflip')
         .setDescription('Wirf eine Münze und erhalte mit etwas Glück ein wenig Geld')
@@ -82,3 +83,4 @@ export default {
         }
     }
 }
+export default command

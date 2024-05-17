@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import {Warn, WarnData} from '../../contents'
+import {SlashCommand, Warn, WarnData} from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('unwarn')
         .setDescription('Entferne einen Warn von einem User')
@@ -27,3 +27,4 @@ export default {
         interaction.reply(`Du hast einen Warn von ${member} entfernt!`)
     }
 }
+export default command

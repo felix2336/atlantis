@@ -1,8 +1,8 @@
 import { ChatInputCommandInteraction, Client, EmbedBuilder, Colors, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
-import { MessageUser } from '../../contents';
+import { MessageUser, SlashCommand } from '../../contents';
 import { readFileSync } from 'fs'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('messages')
         .setDescription("Lasse dir Nachrichten anzeigen von dir, einem anderen User oder das Leaderboard")
@@ -90,9 +90,4 @@ export default {
         }
     }
 }
-
-
-function getDay(dayNumber: number) {
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    return days[dayNumber];
-}
+export default command

@@ -1,8 +1,9 @@
 import { ChatInputCommandInteraction, EmbedBuilder, InteractionResponse, SlashCommandBuilder } from 'discord.js';
 import Casino from '../../Schemas/casino';
 import Cooldowns from '../../Schemas/cooldowns';
+import { SlashCommand } from '../../contents';
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('daily')
         .setDescription('Hole dir deine tägliche Belohnung ab'),
@@ -59,3 +60,4 @@ export default {
         await User.save()
     }
 }
+export default command

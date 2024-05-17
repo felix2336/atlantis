@@ -1,13 +1,13 @@
-import { ContextMenuCommandBuilder, UserContextMenuCommandInteraction, ApplicationCommandType, PermissionFlagsBits, GuildMember } from 'discord.js'
-import { MessageUser } from '../../contents';
+import { ContextMenuCommandBuilder, UserContextMenuCommandInteraction, ApplicationCommandType, PermissionFlagsBits, GuildMember, CacheType } from 'discord.js'
+import { ContextMenu, MessageUser } from '../../contents';
 import { readFileSync } from 'fs'
 
-export default {
+const menu: ContextMenu<UserContextMenuCommandInteraction> = {
     data: new ContextMenuCommandBuilder()
         .setName('Weekly Messages')
         .setType(ApplicationCommandType.User),
 
-    async execute(interaction: UserContextMenuCommandInteraction) {
+    async execute(interaction) {
         const member = interaction.member as GuildMember;
         const target = interaction.targetMember as GuildMember
         if (!member.roles.cache.has('1156298949301379212')) return interaction.reply({ content: 'Du bist nicht im Serverteam und darfst diesen Befehl nicht nutzen', ephemeral: true })
@@ -17,5 +17,6 @@ export default {
         const User = new MessageUser().assignData(UserData)
 
         interaction.reply({ content: `${target} hat in dieser Woche bereits ${User.getTotalMessages()} Nachrichten gesendet!`, ephemeral: true })
-    }
+    },
 }
+export default menu

@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, Guild, GuildMember, EmbedBuilder, Colors } from 'discord.js'
-import { MemberManager } from '../../contents'
+import { MemberManager, SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('roles')
         .setDescription('Gibt die Rollen eines MItglieds wieder')
@@ -24,3 +24,4 @@ export default {
         interaction.reply({embeds: [embed]})
     }
 }
+export default command

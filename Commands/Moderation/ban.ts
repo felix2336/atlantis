@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, GuildMember, Guild } from 'discord.js'
-import { MemberManager } from '../../contents'
+import { MemberManager, SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('ban')
         .setDescription('Banne einen User')
@@ -22,3 +22,4 @@ export default {
         else return await interaction.editReply(`Du hast ${target} erfolgreich gebannt!`)
     }
 }
+export default command

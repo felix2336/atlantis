@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Client, TextChannel, Colors, ButtonStyle, GuildMember } from 'discord.js'
-import { Categories, Roles } from '../../contents'
+import { Categories, Roles, SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('closerequest')
         .setDescription('Beantrage die Schließung des aktuellen Tickets')
@@ -40,3 +40,5 @@ export default {
         await interaction.reply({content: `${ticketUser}`, embeds: [embed], components: [row]})
     }
 }
+
+export default command

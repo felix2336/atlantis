@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, EmbedBuilder, ApplicationCommandOptionType, Colors, SlashCommandBuilder, PermissionFlagsBits, GuildMember, Role } from 'discord.js'
 import Casino from '../../Schemas/casino'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('removemoney')
         .setDescription('Entferne Geld von dem Konto eines Users')
@@ -29,3 +30,4 @@ export default {
         interaction.reply({ embeds: [new EmbedBuilder({ title: 'Erfolg', description: `Du hast erfolgreich der ${type} von ${target} ${amount} abgezogen`, color: Colors.DarkGreen })] })
     }
 }
+export default command

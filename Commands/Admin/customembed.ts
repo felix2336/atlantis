@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits } from 'discord.js'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('customembed')
         .setDescription('Custom Embed System')
@@ -72,3 +73,5 @@ export default {
         interaction.reply({ embeds: [embed], components: [row, row2] })
     }
 }
+
+export default command

@@ -1,7 +1,7 @@
 import { StringSelectMenuBuilder, CommandInteraction, SlashCommandBuilder, Colors, TextChannel, ActionRowBuilder, StringSelectMenuOptionBuilder, EmbedBuilder, PermissionFlagsBits } from 'discord.js'
-import { Channels } from '../../contents'
+import { Channels, SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('ticket')
         .setDescription('Sende das Ticket Embed in den Channel')
@@ -48,3 +48,4 @@ export default {
         await interaction.reply({content: ':thumbsup:', ephemeral: true})
     }
 }
+export default command

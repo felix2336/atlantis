@@ -1,7 +1,8 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js'
 import axios from 'axios'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('steal-emoji')
         .setDescription('Hole ein Emoji von einem anderen Server auf diesen')
@@ -42,3 +43,4 @@ export default {
         }
     }
 }
+export default command

@@ -1,13 +1,13 @@
 import { ChatInputCommandInteraction, EmbedBuilder, Client, SlashCommandBuilder } from 'discord.js'
 import {readdirSync} from 'fs'
-import { MyClient } from '../../contents'
+import { Bot, MyClient, SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('info')
         .setDescription('Lasse dir Infos zum Bot anzeigen'),
 
-    async execute(interaction: ChatInputCommandInteraction, client: MyClient){
+    async execute(interaction: ChatInputCommandInteraction, client: MyClient) {
         const embed = new EmbedBuilder({
             title: `${client.user!.username} Infos`,
             description: `${client.user} wurde von <@773072144304963624> und <@731990066158895175> mit der discord.js Library programmiert.
@@ -25,15 +25,4 @@ export default {
         await interaction.reply({embeds: [embed]})
     }
 }
-
-function convertUptime(ms: number) {
-    let seconds: string | number = Math.floor((ms / 1000) % 60);
-    let minutes: string | number = Math.floor((ms / (1000 * 60)) % 60);
-    let hours: string | number = Math.floor((ms / (1000 * 60 * 60)) % 24);
-
-    hours = (Number(hours) < 10) ? `0${hours}` : hours;
-    minutes = (Number(minutes) < 10) ? `0${minutes}` : minutes;
-    seconds = (Number(seconds) < 10) ? `0${seconds}` : seconds;
-
-    return `${hours}:${minutes}:${seconds}`;
-}
+export default command

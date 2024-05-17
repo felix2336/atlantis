@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, ApplicationCommandOptionType, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ComponentType, Colors, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
+import { SlashCommand } from '../../contents'
 
-module.exports = {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('report')
         .setDescription('Melde einen User an das Serverteam')
@@ -38,3 +39,4 @@ module.exports = {
         await interaction.reply({ embeds: [embed] })
     }
 }
+export default command

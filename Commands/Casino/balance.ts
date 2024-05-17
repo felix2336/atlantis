@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, EmbedBuilder, Client, ApplicationCommandOptionType, SlashCommandBuilder, GuildMember } from 'discord.js';
 import Casino from '../../Schemas/casino';
+import { SlashCommand } from '../../contents';
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('balance')
         .setDescription('Lasse dir deinen Kontostand anzeigen')
@@ -55,3 +56,4 @@ export default {
         interaction.reply({ embeds: [embed] })
     }
 }
+export default command

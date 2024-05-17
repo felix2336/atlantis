@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, Client, ApplicationCommandOptionType, PermissionFlagsBits, ChannelType, SlashCommandBuilder, GuildTextBasedChannel } from 'discord.js';
+import { SlashCommand } from '../../contents';
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('fullclear')
         .setDescription('Lösche alle Nachrichten in diesem Kanal')
@@ -24,4 +25,5 @@ export default {
 
         interaction.editReply('Channel cleared!').catch(err => console.log(err))
     }
-};
+}
+export default command

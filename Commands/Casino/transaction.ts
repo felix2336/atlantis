@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, ApplicationCommandOptionType, EmbedBuilder, Colors, SlashCommandBuilder, PermissionFlagsBits, GuildMember } from 'discord.js'
 import Casino from '../../Schemas/casino'
+import { SlashCommand } from '../../contents'
 
-export default {
+const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('transaction')
         .setDescription('Transferiere Geld von einem Konto auf ein anderes')
@@ -45,3 +46,4 @@ export default {
         interaction.reply({embeds: [new EmbedBuilder({title: 'Erfolg', description: `Du hast erfolgreich ${amount} von ${user1}'s ${user1type} auf ${user2}'s ${user2type} verschoben.`, color: Colors.DarkGreen, timestamp: new Date()})]})
     }
 }
+export default command
