@@ -3,7 +3,7 @@ import { ChatInputCommandInteraction, ModalBuilder, TextInputBuilder, TextInputS
 export default {
     data: new SlashCommandBuilder()
         .setName('abmeldung')
-        .setDescription('Stelle einen Antrag auf Abmeldung'),
+        .setDescription('Melde dich für einen gewissen Zeitraum vom Team ab'),
 
     async execute(interaction: ChatInputCommandInteraction) {
         const member = interaction.member as GuildMember

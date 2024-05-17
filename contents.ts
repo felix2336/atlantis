@@ -1,4 +1,4 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild,ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
 
@@ -414,9 +414,26 @@ class MemberManager {
     }
 }
 
+class MyClient extends Client {
+    public commands: Collection<string, SlashCommand>;
+    public apps: SlashCommand[] & ContextMenu[];
+    public contextMenus: Collection<string, ContextMenu>;
+    public modals: Collection<string, Modal>;
+    public selectMenus: Collection<string, SelectMenu>
+    public buttons: Collection<string, Button>
 
-async function importSelectMenus(): Promise<Collection<string, SelectMenu>> {
-    const selectMenus = new Collection<string, SelectMenu>()
+    constructor(options: ClientOptions){
+        super(options)
+        this.commands = new Collection()
+        this.apps = []
+        this.contextMenus = new Collection()
+        this.modals = new Collection()
+        this.selectMenus = new Collection
+        this.buttons = new Collection()
+    }
+}
+
+async function importSelectMenus(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./SelectMenus')
     for (const dir of subDirs) {
         const files = readdirSync(`./SelectMenus/${dir}`)
@@ -428,18 +445,15 @@ async function importSelectMenus(): Promise<Collection<string, SelectMenu>> {
                 continue
             }
 
-            selectMenus.set(menu.id, menu)
+            client.selectMenus.set(menu.id, menu)
             new ConsoleInfo().show(`Select Menu "${menu.id}" geladen`)
         }
     }
-    return selectMenus
 }
 
-async function importCommands(): Promise<[Collection<string, SlashCommand>, SlashCommand[] & ContextMenu[]]> {
+async function importCommands(client: MyClient): Promise<void> {
     const cw = new ConsoleWarning()
     const ci = new ConsoleInfo()
-    const commands = new Collection<string, SlashCommand>()
-    const apps: SlashCommand[] & ContextMenu[] = []
     const subDirs = readdirSync('./Commands')
     for (const dir of subDirs) {
         const files = readdirSync(`./Commands/${dir}`)
@@ -451,16 +465,14 @@ async function importCommands(): Promise<[Collection<string, SlashCommand>, Slas
                 continue
             }
 
-            commands.set(command.data.name, command)
-            apps.push(command)
+            client.commands.set(command.data.name, command)
+            client.apps.push(command)
             ci.show(`Befehl "/${command.data.name}" geladen`)
         }
     }
-    return [commands, apps]
 }
 
-async function importButtons(): Promise<Collection<string, Button>> {
-    const buttons = new Collection<string, Button>()
+async function importButtons(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./Buttons')
     for (const dir of subDirs) {
         const files = readdirSync(`./Buttons/${dir}`)
@@ -472,15 +484,13 @@ async function importButtons(): Promise<Collection<string, Button>> {
                 continue
             }
 
-            buttons.set(button.id, button)
+            client.buttons.set(button.id, button)
             new ConsoleInfo().show(`Button "${button.id}" geladen`)
         }
     }
-    return buttons
 }
 
-async function importModals(): Promise<Collection<string, Modal>> {
-    const modals = new Collection<string, Modal>()
+async function importModals(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./Modals')
     for (const dir of subDirs) {
         const files = readdirSync(`./Modals/${dir}`)
@@ -492,15 +502,13 @@ async function importModals(): Promise<Collection<string, Modal>> {
                 continue
             }
 
-            modals.set(modal.id, modal)
+            client.modals.set(modal.id, modal)
             new ConsoleInfo().show(`Modal "${modal.id}" geladen`)
         }
     }
-    return modals
 }
 
-async function importMenus(apps: SlashCommand[] & ContextMenu[]): Promise<[Collection<string, ContextMenu>, SlashCommand[] & ContextMenu[]]> {
-    const menus = new Collection<string, any>()
+async function importMenus(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./ContextMenus')
     for (const dir of subDirs) {
         const files = readdirSync(`./ContextMenus/${dir}`)
@@ -512,12 +520,35 @@ async function importMenus(apps: SlashCommand[] & ContextMenu[]): Promise<[Colle
                 continue
             }
 
-            menus.set(menu.data.name, menu)
-            apps.push(menu)
+            client.contextMenus.set(menu.data.name, menu)
+            client.apps.push(menu)
             new ConsoleInfo().show(`ContextMenu "${menu.data.name}" geladen`)
         }
     }
-    return [menus, apps]
+}
+
+async function importEvents(client: MyClient): Promise<void> {
+    const subDirs = readdirSync('./Events')
+    for (const dir of subDirs) {
+        const files = readdirSync(`./Events/${dir}`)
+        for (const file of files) {
+            const module = await import(`./Events/${dir}/${file}`)
+            const event = module.default
+            if (!event || !event.name) {
+                new ConsoleWarning().show(`Fehler bei Event in Events/${dir}/${file}`)
+                continue
+            }
+
+            if (event.once) {
+                client.once(event.name, (...args) => event.execute(...args, client))
+            } else {
+                client.on(event.name, (...args) => event.execute(...args, client))
+            }
+
+
+            new ConsoleInfo().show(`${event.name}-Event "${file.split('.')[0]}" geladen`)
+        }
+    }
 }
 
 //exports
@@ -534,11 +565,13 @@ export {
     ConsoleInfo,
     ConsoleWarning,
     MemberManager,
+    MyClient,
     importSelectMenus,
     importCommands,
     importButtons,
     importModals,
     importMenus,
+    importEvents,
     ticketButtons,
     unbanRequestButton
 }
