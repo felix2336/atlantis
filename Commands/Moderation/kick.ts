@@ -23,3 +23,4 @@ const command: SlashCommand = {
         else return interaction.reply({content: `Du hast ${member.user.username} erfolgreich gekickt`, ephemeral: true})
     }
 }
+export default command
