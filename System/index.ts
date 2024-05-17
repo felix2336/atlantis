@@ -26,9 +26,9 @@ const client = new Client({
 });
 const config = await import('./config.json');
 const [commands, apps] = await importCommands()
+const [menus, finalApps] = await importMenus(apps);
 const buttons = await importButtons();
 const modals = await importModals();
-const [menus, finalApps] = await importMenus(apps);
 const selectMenus = await importSelectMenus();
 
 await importEvents()
@@ -37,26 +37,31 @@ client.on("interactionCreate", async interaction => {
     switch (true) {
         case interaction.isContextMenuCommand():
             const menu = menus.get(interaction.commandName);
+            if(!menu) return interaction.reply({content: "Menu not found", ephemeral: true})
             menu.execute(interaction, client)
             break;
 
         case interaction.isChatInputCommand():
             const command = commands.get(interaction.commandName)
+            if (!command) return interaction.reply({ content: "Command not found", ephemeral: true });
             command.execute(interaction, client)
             break;
 
         case interaction.isButton():
             const button = buttons.get(interaction.customId)
+            if(!button) return interaction.reply({content: 'Button not found', ephemeral: true})
             button.execute(interaction, client)
             break;
 
         case interaction.isModalSubmit():
             const modal = modals.get(interaction.customId)
+            if(!modal) return interaction.reply({content: 'MOdal not found', ephemeral: true})
             modal.execute(interaction, client)
             break;
 
         case interaction.isStringSelectMenu():
             const selectMenu = selectMenus.get(interaction.customId)
+            if(!selectMenu) return interaction.reply({content: 'SelectMenu not found', ephemeral: true})
             selectMenu.execute(interaction, client)
             break;
     }
@@ -64,7 +69,7 @@ client.on("interactionCreate", async interaction => {
 
 client.on('ready', () => {
     client.guilds.cache.forEach(g => {
-        g.commands.set(finalApps.map(a => a.data))
+        g.commands.set(finalApps.map((c) => c.data))
     })
 })
 

@@ -1,4 +1,4 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
 
@@ -47,6 +47,30 @@ const unbanRequestButton = new ActionRowBuilder<ButtonBuilder>().addComponents([
     })
 ])
 
+interface SlashCommand {
+    data: SlashCommandBuilder,
+    execute: (interaction: ChatInputCommandInteraction, client?: Client) => Promise<void>
+}
+
+interface ContextMenu {
+    data: ContextMenuCommandBuilder,
+    execute: (interaction: UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction, client?: Client) => Promise<void>
+}
+
+interface Button {
+    id: string,
+    execute: (interaction: ButtonInteraction, client?: Client) => Promise<void>
+}
+
+interface SelectMenu {
+    id: string
+    execute: (interaction: AnySelectMenuInteraction, client?: Client) => Promise<void>
+}
+
+interface Modal {
+    id: string,
+    execute: (interaction: ModalSubmitInteraction, client?: Client) => Promise<void>
+}
 
 //suggestion
 enum SuggestionType {
@@ -368,7 +392,7 @@ class MemberManager {
 
     public getPermissions(): string[] {
         const perms: string[] = []
-        for(const perm of this.member.permissions) {
+        for (const perm of this.member.permissions) {
             perms.push(perm)
         }
         perms.sort()
@@ -377,8 +401,8 @@ class MemberManager {
 
     public getRoles(): Role[] {
         const roles: Role[] = []
-        for(const [id, role] of this.member.roles.cache) {
-            if(role.name == '@everyone') continue
+        for (const [id, role] of this.member.roles.cache) {
+            if (role.name == '@everyone') continue
             roles.push(role)
         }
         roles.sort((a, b) => b.position - a.position)
@@ -391,14 +415,14 @@ class MemberManager {
 }
 
 
-async function importSelectMenus(): Promise<Collection<string, any>> {
-    const selectMenus = new Collection<string, any>()
+async function importSelectMenus(): Promise<Collection<string, SelectMenu>> {
+    const selectMenus = new Collection<string, SelectMenu>()
     const subDirs = readdirSync('./SelectMenus')
     for (const dir of subDirs) {
         const files = readdirSync(`./SelectMenus/${dir}`)
         for (const file of files) {
             const module = await import(`./SelectMenus/${dir}/${file}`)
-            const menu = module.default
+            const menu = module.default as SelectMenu
             if (!menu || !menu.id) {
                 new ConsoleWarning().show(`Fehler bei Select Menu in SelectMenus/${dir}/${file}`)
                 continue
@@ -411,36 +435,38 @@ async function importSelectMenus(): Promise<Collection<string, any>> {
     return selectMenus
 }
 
-async function importCommands(): Promise<[Collection<string, any>, any[]]> {
-    const commands = new Collection<string, any>()
-    const apps: any[] = []
+async function importCommands(): Promise<[Collection<string, SlashCommand>, SlashCommand[] & ContextMenu[]]> {
+    const cw = new ConsoleWarning()
+    const ci = new ConsoleInfo()
+    const commands = new Collection<string, SlashCommand>()
+    const apps: SlashCommand[] & ContextMenu[] = []
     const subDirs = readdirSync('./Commands')
     for (const dir of subDirs) {
         const files = readdirSync(`./Commands/${dir}`)
         for (const file of files) {
             const module = await import(`./Commands/${dir}/${file}`)
-            const command = module.default
+            const command = module.default as SlashCommand
             if (!command || !command.data || !command.data.name || !command.data.description) {
-                new ConsoleWarning().show(`Befehl in Commands/${dir}/${file} ist ungültig`)
+                cw.show(`Befehl in Commands/${dir}/${file} ist ungültig`)
                 continue
             }
 
             commands.set(command.data.name, command)
             apps.push(command)
-            new ConsoleInfo().show(`Befehl "/${command.data.name}" geladen`)
+            ci.show(`Befehl "/${command.data.name}" geladen`)
         }
     }
     return [commands, apps]
 }
 
-async function importButtons(): Promise<Collection<string, any>> {
-    const buttons = new Collection<string, any>()
+async function importButtons(): Promise<Collection<string, Button>> {
+    const buttons = new Collection<string, Button>()
     const subDirs = readdirSync('./Buttons')
     for (const dir of subDirs) {
         const files = readdirSync(`./Buttons/${dir}`)
         for (const file of files) {
             const module = await import(`./Buttons/${dir}/${file}`)
-            const button = module.default
+            const button = module.default as Button
             if (!button || !button.id) {
                 new ConsoleWarning().show(`Fehler bei Button in Buttons/${dir}/${file}`)
                 continue
@@ -453,14 +479,14 @@ async function importButtons(): Promise<Collection<string, any>> {
     return buttons
 }
 
-async function importModals(): Promise<Collection<string, any>> {
-    const modals = new Collection<string, any>()
+async function importModals(): Promise<Collection<string, Modal>> {
+    const modals = new Collection<string, Modal>()
     const subDirs = readdirSync('./Modals')
     for (const dir of subDirs) {
         const files = readdirSync(`./Modals/${dir}`)
         for (const file of files) {
             const module = await import(`./Modals/${dir}/${file}`)
-            const modal = module.default
+            const modal = module.default as Modal
             if (!modal || !modal.id) {
                 new ConsoleWarning().show(`Fehler bei Modal in Modals/${dir}/${file}`)
                 continue
@@ -473,14 +499,14 @@ async function importModals(): Promise<Collection<string, any>> {
     return modals
 }
 
-async function importMenus(apps: any[]): Promise<[Collection<string, any>, any[]]> {
+async function importMenus(apps: SlashCommand[] & ContextMenu[]): Promise<[Collection<string, ContextMenu>, SlashCommand[] & ContextMenu[]]> {
     const menus = new Collection<string, any>()
     const subDirs = readdirSync('./ContextMenus')
     for (const dir of subDirs) {
         const files = readdirSync(`./ContextMenus/${dir}`)
         for (const file of files) {
             const module = await import(`./ContextMenus/${dir}/${file}`)
-            const menu = module.default
+            const menu = module.default as ContextMenu
             if (!menu || !menu.data.name || !menu.data.type) {
                 new ConsoleWarning().show(`Fehler bei Context Menu in ContextMenus/${dir}/${file}`)
                 continue
