@@ -2,7 +2,6 @@ import { Colors, EmbedBuilder, TextChannel, Client, Guild,ClientOptions, Channel
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
 
-//general enums
 enum Channels {
     teamliste = "1173357582933573722",
     warn = "1160607902210470009",
@@ -52,9 +51,9 @@ interface SlashCommand {
     execute: (interaction: ChatInputCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined> | Promise<Message<boolean>>
 }
 
-interface ContextMenu<T extends UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction> {
+interface ContextMenu {
     data: ContextMenuCommandBuilder,
-    execute: (interaction: T, client: Client | MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
+    execute: (interaction: UserContextMenuCommandInteraction & MessageContextMenuCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
 }
 
 interface Button {
@@ -72,7 +71,6 @@ interface Modal {
     execute: (interaction: ModalSubmitInteraction, client: MyClient) => Promise<void>
 }
 
-//suggestion
 enum SuggestionType {
     Server = 1,
     Bot = 2
@@ -112,7 +110,6 @@ class Suggestion {
     }
 }
 
-//warn
 interface WarnData {
     userid: string,
     username: string,
@@ -187,7 +184,6 @@ class Warn {
     }
 }
 
-//staff-messages
 interface MessageUserData {
     userid?: string,
     username?: string,
@@ -270,7 +266,6 @@ class MessageUser {
     }
 }
 
-//backup system
 class Backup {
     categories?: {}
 
@@ -416,8 +411,8 @@ class MemberManager {
 
 class MyClient extends Client<boolean> {
     public commands: Collection<string, SlashCommand>;
-    public apps: SlashCommand[] & ContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>[];
-    public contextMenus: Collection<string, ContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>>;
+    public apps: SlashCommand[] & ContextMenu[];
+    public contextMenus: Collection<string, ContextMenu>;
     public modals: Collection<string, Modal>;
     public selectMenus: Collection<string, SelectMenu>
     public buttons: Collection<string, Button>
@@ -514,7 +509,7 @@ async function importMenus(client: MyClient): Promise<void> {
         const files = readdirSync(`./ContextMenus/${dir}`)
         for (const file of files) {
             const module = await import(`./ContextMenus/${dir}/${file}`)
-            const menu = module.default as ContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>
+            const menu = module.default as ContextMenu
             if (!menu || !menu.data.name || !menu.data.type) {
                 new ConsoleWarning().show(`Fehler bei Context Menu in ContextMenus/${dir}/${file}`)
                 continue
@@ -551,8 +546,6 @@ async function importEvents(client: MyClient): Promise<void> {
     }
 }
 
-
-//exports
 export {
     Suggestion,
     SuggestionType,

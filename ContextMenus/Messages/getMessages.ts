@@ -2,12 +2,12 @@ import { ContextMenuCommandBuilder, UserContextMenuCommandInteraction, Applicati
 import { ContextMenu, MessageUser } from '../../contents';
 import { readFileSync } from 'fs'
 
-const menu: ContextMenu<UserContextMenuCommandInteraction> = {
+const menu: ContextMenu = {
     data: new ContextMenuCommandBuilder()
         .setName('Weekly Messages')
         .setType(ApplicationCommandType.User),
 
-    async execute(interaction) {
+    async execute(interaction: UserContextMenuCommandInteraction) {
         const member = interaction.member as GuildMember;
         const target = interaction.targetMember as GuildMember
         if (!member.roles.cache.has('1156298949301379212')) return interaction.reply({ content: 'Du bist nicht im Serverteam und darfst diesen Befehl nicht nutzen', ephemeral: true })

@@ -16,7 +16,7 @@ const command: SlashCommand = {
             .setDescription('Lade das neuste Backup auf diesen Server')
         ),
 
-    async execute(interaction: ChatInputCommandInteraction, client: Client) {
+    async execute(interaction, client) {
         const guild = interaction.guild as Guild
         const subcommand = interaction.options.getSubcommand()
 
