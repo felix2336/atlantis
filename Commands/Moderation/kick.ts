@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, GuildMember, Guild, CommandInteractionOptionResolver } from "discord.js";
+import { SlashCommandBuilder, PermissionFlagsBits, GuildMember, Guild } from "discord.js";
 import { MemberManager, SlashCommand } from "../../contents";
 
 const command: SlashCommand = {
