@@ -51,9 +51,9 @@ interface SlashCommand {
     execute: (interaction: ChatInputCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined> | Promise<Message<boolean>>
 }
 
-interface ContextMenu {
+interface ContextMenu<T extends UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction> {
     data: ContextMenuCommandBuilder,
-    execute: (interaction: UserContextMenuCommandInteraction & MessageContextMenuCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
+    execute: (interaction: T, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
 }
 
 interface Button {
@@ -188,6 +188,7 @@ interface MessageUserData {
     userid?: string,
     username?: string,
 }
+
 class MessageUser {
     userid?: string
     username?: string
@@ -439,8 +440,8 @@ class MemberManager {
 
 class MyClient extends Client<boolean> {
     public commands: Collection<string, SlashCommand>;
-    public apps: SlashCommand[] & ContextMenu[];
-    public contextMenus: Collection<string, ContextMenu>;
+    public apps: SlashCommand[] & ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>[];
+    public contextMenus: Collection<string, ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>>;
     public modals: Collection<string, Modal>;
     public selectMenus: Collection<string, SelectMenu>
     public buttons: Collection<string, Button>
@@ -537,7 +538,7 @@ async function importMenus(client: MyClient): Promise<void> {
         const files = readdirSync(`./ContextMenus/${dir}`)
         for (const file of files) {
             const module = await import(`./ContextMenus/${dir}/${file}`)
-            const menu = module.default as ContextMenu
+            const menu = module.default as ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>
             if (!menu || !menu.data.name || !menu.data.type) {
                 new ConsoleWarning().show(`Fehler bei Context Menu in ContextMenus/${dir}/${file}`)
                 continue

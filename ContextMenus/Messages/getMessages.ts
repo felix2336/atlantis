@@ -2,7 +2,7 @@ import { ContextMenuCommandBuilder, UserContextMenuCommandInteraction, Applicati
 import { ContextMenu, MessageUser } from '../../contents';
 import { readFileSync } from 'fs'
 
-const menu: ContextMenu = {
+const menu: ContextMenu<UserContextMenuCommandInteraction> = {
     data: new ContextMenuCommandBuilder()
         .setName('Weekly Messages')
         .setType(ApplicationCommandType.User),

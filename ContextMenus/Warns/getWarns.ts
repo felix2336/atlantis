@@ -2,7 +2,7 @@ import { ApplicationCommandType, ContextMenuCommandBuilder, UserContextMenuComma
 import { readFileSync } from 'fs'
 import { ContextMenu, Warn, WarnData } from "../../contents";
 
-const menu: ContextMenu = {
+const menu: ContextMenu<UserContextMenuCommandInteraction> = {
     data: new ContextMenuCommandBuilder()
         .setName('Warns')
         .setType(ApplicationCommandType.User),

@@ -1,6 +1,7 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
-import { MyClient, ConsoleInfo, ConsoleWarning, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
+import { MyClient, ConsoleInfo, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
+const ci = new ConsoleInfo
 
 const client = new MyClient({
     intents: [
@@ -67,10 +68,14 @@ client.on("interactionCreate", async interaction => {
     }
 })
 
-client.on('ready', () => {
-    client.guilds.cache.forEach(g => {
-        g.commands.set(client.apps.map((c) => c.data))
-    })
+client.on('ready', async () => {
+    for(const [id, guild] of client.guilds.cache) {
+        guild.commands.set(client.apps.map(c => c.data))
+        // await guild.members.fetch().then(() => {
+        //     ci.show(`Member des Servers ${guild.name} gefetcht`)
+        // })
+    }
+    ci.show(`${client.users.cache.size} Member im Cache des Bots`)
 })
 
 client.setMaxListeners(0)
