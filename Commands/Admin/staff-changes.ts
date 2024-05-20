@@ -44,8 +44,8 @@ const command: SlashCommand = {
             .addStringOption(input => input.setName('reason').setDescription('Warum hat dieser User das Team verlassen?'))
         ),
 
-    async execute(interaction: ChatInputCommandInteraction, client: Client) {
-        const channel = interaction.guild!.channels.cache.get('1182852409198903316') as TextChannel
+    async execute(interaction, client) {
+        const channel = client.guild.channels.cache.get('1182852409198903316') as TextChannel
         const ping = '<@&1148638515840700497>'
         //@ts-ignore
         const subcommand = interaction.options.getSubcommand()

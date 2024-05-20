@@ -445,6 +445,7 @@ class MyClient extends Client<boolean> {
     public modals: Collection<string, Modal>;
     public selectMenus: Collection<string, SelectMenu>
     public buttons: Collection<string, Button>
+    public guild: Guild
 
     constructor(options: ClientOptions){
         super(options)
@@ -454,6 +455,7 @@ class MyClient extends Client<boolean> {
         this.modals = new Collection()
         this.selectMenus = new Collection
         this.buttons = new Collection()
+        this.guild = this.guilds.cache.get('1146113684435898439')!
     }
 }
 

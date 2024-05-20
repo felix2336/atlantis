@@ -9,7 +9,7 @@ const command: SlashCommand = {
         .addStringOption(input => input.setName('emoji').setDescription('Welches Emoji möchtest du auf diesen Server holen?').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction, client) {
         const emoji = interaction.options.get('emoji', true).value as string;
         const id = emoji.split(':').pop()?.split('>')[0]
 
@@ -29,7 +29,7 @@ const command: SlashCommand = {
 
             const emojiurl = `https://cdn.discordapp.com/emojis/${id}.${type}?quality=lossless`
 
-            await interaction.guild!.emojis.create({
+            await client.guild.emojis.create({
                 attachment: `${emojiurl}`,
                 name: emojiName
             })

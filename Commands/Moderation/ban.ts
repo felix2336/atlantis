@@ -9,14 +9,14 @@ const command: SlashCommand = {
         .addStringOption(input => input.setName('reason').setDescription('Der Grund für den Ban').setRequired(true))
         .addNumberOption(input => input.setName('deletemessageseconds').setDescription('In welcher Zeit vor dem Ban sollen die Nachrichten gelöscht werden? (in Sekunden)')),
 
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
         const target = interaction.options.getMember('user') as GuildMember
         const deleteMessageSeconds = interaction.options.getNumber('deletemessageseconds') || undefined
         const reason = interaction.options.getString('reason', true)
         const mod = interaction.member as GuildMember
 
-        const manager = new MemberManager(target, interaction.guild as Guild)
+        const manager = new MemberManager(target, client.guild)
 
         const ban = await manager.ban(mod, reason, deleteMessageSeconds)
         if (!ban) return await interaction.editReply('Der Ban ist fehlgeschlagen!');

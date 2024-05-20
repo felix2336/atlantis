@@ -9,9 +9,9 @@ const command: SlashCommand ={
         .addStringOption(input => input.setName('search').setDescription('Suche nach einer Berechtigung'))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction, client) {
         const user = interaction.options.getMember('user') as GuildMember
-        const guild = interaction.guild as Guild
+        const guild = client.guild
         const search = interaction.options.getString('search', false)
 
         const Member = new MemberManager(user, guild)

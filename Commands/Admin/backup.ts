@@ -17,7 +17,7 @@ const command: SlashCommand = {
         ),
 
     async execute(interaction, client) {
-        const guild = interaction.guild as Guild
+        const guild = client.guild
         const subcommand = interaction.options.getSubcommand()
 
 
