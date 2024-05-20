@@ -41,8 +41,8 @@ const command: SlashCommand = {
             author: { name: interaction.guild!.name, iconURL: interaction.guild!.iconURL() || '' },
             title: 'Du wurdest gewarnt',
             fields: [
-                { name: 'Moderator', value: `${interaction.user} (${interaction.user.username})`, inline: true },
-                { name: 'Grund', value: reason, inline: true }
+                { name: 'Moderator', value: `${interaction.user} (${interaction.user.username})` },
+                { name: 'Grund', value: reason }
             ]
         })
 

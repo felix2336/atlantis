@@ -5,13 +5,6 @@
     "warns": []
   },
   {
-    "userid": "1039581530416234667",
-    "username": "ruffi101yt",
-    "warns": [
-
-    ]
-  },
-  {
     "userid": "1035799257409667102",
     "username": "felix.4099",
     "warns": [
@@ -44,6 +37,23 @@
         "moderator": "felix2336",
         "reason": "Inaktiv",
         "id": "nRXcE"
+      }
+    ]
+  },
+  {
+    "userid": "773072144304963624",
+    "username": "felix2336",
+    "warns": []
+  },
+  {
+    "userid": "1039581530416234667",
+    "username": "ruffi101yt",
+    "warns": [
+      {
+        "date": "20.5.2024",
+        "moderator": "felix2336",
+        "reason": "Inaktiv",
+        "id": "MN3Fg"
       }
     ]
   }
