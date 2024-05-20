@@ -70,10 +70,8 @@ client.on("interactionCreate", async interaction => {
 client.on('ready', async () => {
     for (const [id, guild] of client.guilds.cache) {
         guild.commands.set(client.apps.map(c => c.data))
-        // await guild.members.fetch().then(() => {
-        //     ci.show(`Member des Servers ${guild.name} gefetcht`)
-        // })
     }
+    client.setGuild(client.guilds.cache.get('1146113684435898439')!)
 })
 
 export default client;

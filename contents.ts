@@ -14,7 +14,9 @@ enum Channels {
     unban_requests = "1236848025788481638",
     beichten = "1238589282747285584",
     ticket_log = "1173939552239501333",
-    user_update_log = "1221387141834084363"
+    user_update_log = "1221387141834084363",
+    test = "1178073046444163102",
+    giveaway = "1173357225721462804"
 }
 enum Categories {
     ticket = "1173314530521129042",
@@ -23,6 +25,10 @@ enum Categories {
 enum Roles {
     staff = '1156298949301379212',
     community = "1149971550578147378"
+}
+
+enum Pings {
+    giveaway = "<@&1148638318263799869>"
 }
 
 const ticketButtons = new ActionRowBuilder<ButtonBuilder>().addComponents([
@@ -46,6 +52,13 @@ const unbanRequestButton = new ActionRowBuilder<ButtonBuilder>().addComponents([
     })
 ])
 
+interface Giveaway {
+    messageId: string,
+    prize: string,
+    participants: string[],
+    endTime: number
+}
+
 interface SlashCommand {
     data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder,
     execute: (interaction: ChatInputCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined> | Promise<Message<boolean>>
@@ -58,7 +71,7 @@ interface ContextMenu<T extends UserContextMenuCommandInteraction | MessageConte
 
 interface Button {
     id: string,
-    execute: (interaction: ButtonInteraction, client: MyClient) => Promise<void>
+    execute: (interaction: ButtonInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
 }
 
 interface SelectMenu {
@@ -455,7 +468,10 @@ class MyClient extends Client<boolean> {
         this.modals = new Collection()
         this.selectMenus = new Collection
         this.buttons = new Collection()
-        this.guild = this.guilds.cache.get('1146113684435898439')!
+    }
+
+    public setGuild(guild: Guild) {
+        this.guild = guild
     }
 }
 
@@ -577,6 +593,10 @@ async function importEvents(client: MyClient): Promise<void> {
     }
 }
 
+function countdown(ms: number) {
+    return `<t:${Math.floor(ms / 1000)}:R>`
+}
+
 export {
     Suggestion,
     SuggestionType,
@@ -596,12 +616,15 @@ export {
     Modal,
     Button,
     ContextMenu,
+    Giveaway,
+    Pings,
     importSelectMenus,
     importCommands,
     importButtons,
     importModals,
     importMenus,
     importEvents,
+    countdown,
     ticketButtons,
     unbanRequestButton
 }
