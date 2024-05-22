@@ -1,6 +1,7 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild,ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable, CacheType, StringSelectMenuInteraction, UserSelectMenuInteraction, SelectMenuInteraction, Events, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, InteractionResponse, Message, ContextMenuCommandInteraction } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild, ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable, CacheType, StringSelectMenuInteraction, UserSelectMenuInteraction, SelectMenuInteraction, Events, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, InteractionResponse, Message, ContextMenuCommandInteraction, VoiceChannel } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
+import { AudioPlayer, createAudioPlayer } from '@discordjs/voice'
 
 enum Channels {
     teamliste = "1173357582933573722",
@@ -100,7 +101,7 @@ interface Giveaway {
 
 interface SlashCommand {
     data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder,
-    execute: (interaction: ChatInputCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined> | Promise<Message<boolean>>
+    execute: (interaction: ChatInputCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined> | Promise<Message<boolean>> | Promise<Message<boolean> | undefined>
 }
 
 interface ContextMenu<T extends UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction> {
@@ -423,7 +424,7 @@ class MemberManager {
                 { name: 'User', value: `${this.member} (${this.member.user.username}) - ${this.member.user.id}` },
                 { name: 'Grund', value: reason }
             ],
-            footer: {text: `Durchgeführt von ${moderator.user.username}`, iconURL: moderator.user.displayAvatarURL()}
+            footer: { text: `Durchgeführt von ${moderator.user.username}`, iconURL: moderator.user.displayAvatarURL() }
         })
         const channel = this.guild.channels.cache.get(Channels.user_update_log) as TextChannel
         await this.member.send({ embeds: [embed], components: [unbanRequestButton] }).catch(console.log)
@@ -498,8 +499,10 @@ class MyClient extends Client<boolean> {
     public selectMenus: Collection<string, SelectMenu>
     public buttons: Collection<string, Button>
     public guild: Guild
+    public queue: { title: string, url: string }[]
+    public player: AudioPlayer
 
-    constructor(options: ClientOptions){
+    constructor(options: ClientOptions) {
         super(options)
         this.commands = new Collection()
         this.apps = []
@@ -507,10 +510,14 @@ class MyClient extends Client<boolean> {
         this.modals = new Collection()
         this.selectMenus = new Collection
         this.buttons = new Collection()
+        this.queue = []
     }
 
     public setGuild(guild: Guild) {
         this.guild = guild
+    }
+    public enableAudioPlayer() {
+        this.player = createAudioPlayer()
     }
 }
 

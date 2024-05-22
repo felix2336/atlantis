@@ -1,6 +1,7 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
 import { MyClient, ConsoleInfo, ConsoleWarning, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
+import { Player } from 'discord-player';
 const client = new MyClient({
     intents: [
         GatewayIntentBits.Guilds,
@@ -72,6 +73,7 @@ client.on('ready', async () => {
         guild.commands.set(client.apps.map(c => c.data))
     }
     client.setGuild(client.guilds.cache.get('1146113684435898439')!)
+    client.enableAudioPlayer()
 })
 
 export default client;
