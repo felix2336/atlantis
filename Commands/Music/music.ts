@@ -45,6 +45,7 @@ const command: SlashCommand = {
             const search = interaction.options.getString('songinfo', true)
 
             const song = (await ytsr(search, { limit: 1 })).items[0]
+            if(!song) return interaction.reply({content: 'Es wurde kein Song gefunden!', ephemeral: true})
             const songInfo = {
                 //@ts-ignore
                 title: song.title as string,
@@ -114,7 +115,6 @@ const command: SlashCommand = {
 
             return await interaction.reply({embeds: [embed]})
         } else if(sub == 'stop') {
-            connection.disconnect()
             connection.destroy()
             embed
                 .setDescription('Die Wiedergabe wurde erfolgreich beendet!')
@@ -132,7 +132,6 @@ const command: SlashCommand = {
                 const nextResource = createAudioResource(nextStream)
                 client.player.play(nextResource)
             } else {
-                connection.disconnect()
                 connection.destroy()
                 client.queue = []
             }
