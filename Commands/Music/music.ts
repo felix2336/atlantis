@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, GuildMember, Colors } from 'discord.js'
 import { SlashCommand } from '../../contents'
-import { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnection } from '@discordjs/voice'
+import { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnection, AudioPlayerStatus } from '@discordjs/voice'
 import ytdl from 'ytdl-core-discord'
 import ytsr from 'ytsr'
 
@@ -23,15 +23,26 @@ const command: SlashCommand = {
             .setDescription('Überspringe den aktuellen Song')
         )
         .addSubcommand(cmd => cmd
-            .setName('stop')
+            .setName('exit')
             .setDescription('Beende die Wiedergabe und der Bot verlässt den Sprachkanal')
+        )
+        .addSubcommand(cmd => cmd
+            .setName('pause')
+            .setDescription('Pausiere die Weidergabe')
+        )
+        .addSubcommand(cmd => cmd
+            .setName('resume')
+            .setDescription('Setze die Wiedergabe fort')
         ),
 
     async execute(interaction, client) {
         let embed = new EmbedBuilder()
         const member = interaction.member as GuildMember
+        const clientMember = interaction.guild!.members.cache.get(client.user!.id) as GuildMember
+        clientMember.fetch()
 
         if (!member.voice.channel) return interaction.reply({ content: 'Du musst dich in einem Sprachkanal befinden!', ephemeral: true });
+        if(member.voice.channelId != clientMember.voice.channelId) return interaction.reply({content: 'Um Musik zu steuern, musst du im selben Sprachkanal sein, wie der Bot!', ephemeral: true})
 
         const sub = interaction.options.getSubcommand()
 
@@ -45,12 +56,16 @@ const command: SlashCommand = {
             const search = interaction.options.getString('songinfo', true)
 
             const song = (await ytsr(search, { limit: 1 })).items[0]
-            if(!song) return interaction.reply({content: 'Es wurde kein Song gefunden!', ephemeral: true})
+            if (!song) return interaction.reply({ content: 'Es wurde kein Song gefunden!', ephemeral: true })
             const songInfo = {
                 //@ts-ignore
                 title: song.title as string,
                 //@ts-ignore
                 url: song.url as string,
+                //@ts-ignore
+                thumbnail: song.bestThumbnail.url,
+                //@ts-ignore
+                duration: song.duration
             }
 
             client.queue.push(songInfo)
@@ -81,62 +96,89 @@ const command: SlashCommand = {
                 //@ts-ignore
                 .setFooter({ text: `Länge: ${song.duration}` })
                 .setColor(Colors.Gold)
-                
+
             interaction.reply({ embeds: [embed] });
 
-        } else if(sub == 'queue') {
+        } else if (sub == 'queue') {
+            if(!clientMember.voice.channel) return interaction.reply({content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true})
             const embed = new EmbedBuilder({
                 title: 'Warteschlange',
                 description: client.queue.map((song, i) => {
-                    return `**${i})** **[${song.title}](${song.url})**`
+                    return `**${i})** **[${song.title}](${song.url})** \`${song.duration}\``
                 }).join('\n'),
                 color: Colors.Gold
             })
 
-            return await interaction.reply({embeds: [embed]})
-        } else if(sub == 'skip') {
-            client.queue.shift()
+            interaction.reply({ embeds: [embed] })
+        } else if (sub == 'skip') {
+            if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
 
+            client.queue.shift()
             if (client.queue.length > 0) {
                 const nextStream = await ytdl(client.queue[0].url)
                 const nextResource = createAudioResource(nextStream)
                 client.player.play(nextResource);
                 embed
                     .setDescription(`Ich spiele jetzt **[${client.queue[0].title}](${client.queue[0].url})**`)
-                    .setColor(Colors.Gold);
+                    .setColor(Colors.Gold)
+                    .setThumbnail(client.queue[0].thumbnail)
+                    .setFooter({ text: 'Länge: ' + client.queue[0].duration })
+
+                interaction.reply({ embeds: [embed] })
+
             } else {
-                connection.disconnect()
-                connection.destroy()
                 client.queue = []
                 embed
-                    .setDescription('Da keine weiteren Songs in der Warteschlange sind, habe ich den Sprachkanal verlassen!')
+                    .setDescription('Da keine weiteren Songs in der Warteschlange sind, kann ich nichts abspielen!')
                     .setColor(Colors.Gold)
+
+                interaction.reply({ embeds: [embed] })
             }
 
-            return await interaction.reply({embeds: [embed]})
-        } else if(sub == 'stop') {
+        } else if (sub == 'exit') {
+            if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+            client.queue = []
             connection.destroy()
             embed
-                .setDescription('Die Wiedergabe wurde erfolgreich beendet!')
+                .setDescription('Ich habe den Sprachkanal verlassen!')
                 .setColor(Colors.Gold);
 
-            interaction.reply({embeds: [embed]})
-        }
+            interaction.reply({ embeds: [embed] })
+        } else if (sub == 'pause') {
+            if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
 
-        client.player.on('stateChange', async (oldState, newState) => {
-            if (newState.status != 'idle') return
-            client.queue.shift()
+            const paused = client.player.pause(true)
+            if (paused) {
+                embed
+                    .setColor(Colors.Gold)
+                    .setDescription('Wiedergabe erfolgreich pausiert!')
 
-            if (client.queue.length > 0) {
-                const nextStream = await ytdl(client.queue[0].url)
-                const nextResource = createAudioResource(nextStream)
-                client.player.play(nextResource)
+                interaction.reply({ embeds: [embed] })
             } else {
-                connection.destroy()
-                client.queue = []
-            }
-        })
+                embed
+                    .setColor(Colors.Gold)
+                    .setDescription('Wiedergabe konnte nicht pausiert werden!')
 
+                interaction.reply({ embeds: [embed] })
+            }
+        } else if(sub == 'resume') {
+            if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+
+            const resumed = client.player.unpause()
+            if (resumed) {
+                embed
+                    .setColor(Colors.Gold)
+                    .setDescription('Wiedergabe erfolgreich gestartet!')
+
+                interaction.reply({ embeds: [embed] })
+            } else {
+                embed
+                    .setColor(Colors.Gold)
+                    .setDescription('Wiedergabe konnte nicht gestartet werden!')
+
+                interaction.reply({ embeds: [embed] })
+            }
+        }
     },
 }
 export default command

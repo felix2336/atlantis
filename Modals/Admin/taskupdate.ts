@@ -8,7 +8,7 @@ export default {
 
         await interaction.reply({content: 'Das Update wurde gepostet', ephemeral: true})
 
-        interaction.message!.embeds[0].fields.push({name: `Update vom ${new Date().toLocaleDateString()}`, value: update})
+        interaction.message!.embeds[0].fields.push({name: `Update vom ${new Date().toLocaleDateString('de')}`, value: update})
         await interaction.message!.edit({embeds: [interaction.message!.embeds[0]]})
     }
 }

@@ -499,7 +499,7 @@ class MyClient extends Client<boolean> {
     public selectMenus: Collection<string, SelectMenu>
     public buttons: Collection<string, Button>
     public guild: Guild
-    public queue: { title: string, url: string }[]
+    public queue: { title: string, url: string, thumbnail: string, duration: string }[]
     public player: AudioPlayer
 
     constructor(options: ClientOptions) {
