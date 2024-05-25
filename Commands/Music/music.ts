@@ -38,8 +38,7 @@ const command: SlashCommand = {
     async execute(interaction, client) {
         let embed = new EmbedBuilder()
         const member = interaction.member as GuildMember
-        const clientMember = interaction.guild!.members.cache.get(client.user!.id) as GuildMember
-        clientMember.fetch()
+        const clientMember = await interaction.guild!.members.fetch(client.user!.id)
 
         if (!member.voice.channel) return interaction.reply({ content: 'Du musst dich in einem Sprachkanal befinden!', ephemeral: true });
         if(member.voice.channelId != clientMember.voice.channelId) return interaction.reply({content: 'Um Musik zu steuern, musst du im selben Sprachkanal sein, wie der Bot!', ephemeral: true})
