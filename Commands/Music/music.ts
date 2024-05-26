@@ -41,7 +41,9 @@ const command: SlashCommand = {
         const clientMember = await interaction.guild!.members.fetch(client.user!.id)
 
         if (!member.voice.channel) return interaction.reply({ content: 'Du musst dich in einem Sprachkanal befinden!', ephemeral: true });
-        if(member.voice.channelId != clientMember.voice.channelId) return interaction.reply({content: 'Um Musik zu steuern, musst du im selben Sprachkanal sein, wie der Bot!', ephemeral: true})
+        if(clientMember.voice.channel) {
+            if(member.voice.channelId != clientMember.voice.channelId) return interaction.reply({content: 'Um Musik zu steuern, musst du im selben Sprachkanal sein, wie der Bot!', ephemeral: true})
+        }
 
         const sub = interaction.options.getSubcommand()
 
