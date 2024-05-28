@@ -184,6 +184,7 @@ class Warn {
             this.warns = []
         }
     }
+    
     public addWarn(moderator: string, reason: string): void {
         this.warns.push({
             date: new Date().toLocaleDateString('ger'),
@@ -199,6 +200,12 @@ class Warn {
             this.warns = this.warns.filter(w => w.id != warnId)
             return true
         } else return false
+    }
+
+    public clearWarns(): boolean {
+        if(this.warns.length == 0) return false
+        this.warns = []
+        return true
     }
 
     public getWarnsAsEmbed(): EmbedBuilder {
