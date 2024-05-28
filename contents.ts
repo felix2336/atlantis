@@ -1,7 +1,7 @@
 import { Colors, EmbedBuilder, TextChannel, Client, Guild, ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable, CacheType, StringSelectMenuInteraction, UserSelectMenuInteraction, SelectMenuInteraction, Events, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, InteractionResponse, Message, ContextMenuCommandInteraction, VoiceChannel } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync } from 'fs'
 import chalk from 'chalk'
-import { AudioPlayer, createAudioPlayer } from '@discordjs/voice'
+import { AudioPlayer, VoiceConnection, createAudioPlayer } from '@discordjs/voice'
 
 enum Channels {
     teamliste = "1173357582933573722",
