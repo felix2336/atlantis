@@ -376,13 +376,13 @@ class Backup {
 
 class ConsoleInfo {
     public show(message: string): void {
-        console.log(chalk.greenBright(`[${new Date().toLocaleTimeString()} INFO]`), chalk.whiteBright(message))
+        console.log(chalk.greenBright(`[${new Date().toLocaleTimeString('de')} INFO]`), chalk.whiteBright(message))
     }
 }
 
 class ConsoleWarning {
     public show(message: string): void {
-        console.log(chalk.yellowBright(`[${new Date().toLocaleTimeString()} WARN] ${message}`))
+        console.log(chalk.yellowBright(`[${new Date().toLocaleTimeString('de')} WARN] ${message}`))
     }
 }
 
