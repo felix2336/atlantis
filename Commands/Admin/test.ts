@@ -12,6 +12,7 @@ const command: SlashCommand = {
         await interaction.deferReply()
         const member = interaction.member as GuildMember
         const buffer = await profileImage(member.user.id, {
+            customDate: new Date().toLocaleDateString('ru'),
             badgesFrame: true,
             customTag: 'Willkommen',
             presenceStatus: member.presence?.status,

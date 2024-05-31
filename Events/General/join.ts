@@ -8,6 +8,7 @@ export default {
         const channel = member.guild.channels.cache.get(Channels.welcome) as TextChannel
 
         const buffer = await profileImage(member.user.id, {
+            customDate: new Date().toLocaleDateString('ru'),
             badgesFrame: true,
             customTag: 'Willkommen',
             presenceStatus: member.presence?.status,
