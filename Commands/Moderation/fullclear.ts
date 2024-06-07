@@ -9,21 +9,23 @@ const command: SlashCommand = {
 
     async execute(interaction: ChatInputCommandInteraction, client: Client) {
         const channel = interaction.channel as GuildTextBasedChannel;
-        interaction.deferReply({ ephemeral: true })
-
+        await interaction.deferReply({ ephemeral: true })
+        await interaction.editReply('Vorgang: ``Fetching Messages``')
         let messagesToDelete = await channel.messages.fetch({ limit: 100 })
-
+        
+        
         while (messagesToDelete.size > 0) {
+            await interaction.editReply(`Vorgang: \`\`Deleting ${messagesToDelete.size} Messages\`\``)
             const promise = messagesToDelete.map(message => {
                 if (message.deletable) return message.delete().catch(err => console.log(err))
             })
 
             await Promise.all(promise)
-
+            await interaction.editReply(`Vorgang: \`\`Fetching Messages\`\``)
             messagesToDelete = await channel.messages.fetch({ limit: 100 })
         }
 
-        interaction.editReply('Channel cleared!').catch(err => console.log(err))
+        await interaction.editReply('Channel cleared!').catch(err => console.log(err))
     }
 }
 export default command

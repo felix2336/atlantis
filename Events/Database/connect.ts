@@ -6,9 +6,9 @@ export default {
     name: 'ready',
     once: true,
 
-    async execute(){
+    async execute() {
         await mongoose.connect(cfg.mongourl)
-        .then(() => new ConsoleInfo().show(`Datenbankverbindung hergestellt`))
-        .catch(err => console.error(err))
+            .then(() => new ConsoleInfo().show(`Datenbankverbindung hergestellt`))
+            .catch(err => console.error(err))
     }
 }

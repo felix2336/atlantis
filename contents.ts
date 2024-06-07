@@ -652,7 +652,7 @@ function countdown(ms: number) {
 }
 
 function Err(err: Error): void {
-    const writeString = `${new Date().toLocaleDateString('ru')} - ${new Date().toLocaleTimeString('de')}\n${err}`
+    const writeString = `${new Date().toLocaleDateString('ru')} - ${new Date().toLocaleTimeString('de')}\n${err}\n\n`
     console.log(err)
     appendFileSync('./errors.log', writeString)
 }
