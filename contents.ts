@@ -1,5 +1,5 @@
 import { Colors, EmbedBuilder, TextChannel, Client, Guild, ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable, CacheType, StringSelectMenuInteraction, UserSelectMenuInteraction, SelectMenuInteraction, Events, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, InteractionResponse, Message, ContextMenuCommandInteraction, VoiceChannel } from 'discord.js'
-import { readFileSync, writeFileSync, readdirSync } from 'fs'
+import { readFileSync, writeFileSync, readdirSync, appendFileSync } from 'fs'
 import chalk from 'chalk'
 import { AudioPlayer, VoiceConnection, createAudioPlayer } from '@discordjs/voice'
 
@@ -651,6 +651,12 @@ function countdown(ms: number) {
     return `<t:${Math.floor(ms / 1000)}:R>`
 }
 
+function Err(err: Error): void {
+    const writeString = `${new Date().toLocaleDateString('ru')} - ${new Date().toLocaleTimeString('de')}\n${err}`
+    console.log(err)
+    appendFileSync('./errors.log', writeString)
+}
+
 export {
     Suggestion,
     SuggestionType,
@@ -680,6 +686,7 @@ export {
     importMenus,
     importEvents,
     countdown,
+    Err,
     ticketButtons,
     unbanRequestButton
 }

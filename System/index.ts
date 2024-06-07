@@ -1,8 +1,9 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
-import { MyClient, ConsoleInfo, ConsoleWarning, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
+import { MyClient, ConsoleInfo, ConsoleWarning, Err, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
+
 const client = new MyClient({
     intents: [
         GatewayIntentBits.Guilds,
@@ -87,6 +88,14 @@ client.on('ready', async () => {
             client.queue = []
         }
     })
+})
+
+client.on('error', (err: Error) => {
+    Err(err)
+})
+
+process.on('uncaughtException', (err) => {
+    Err(err)
 })
 
 export default client;
