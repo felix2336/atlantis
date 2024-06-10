@@ -613,15 +613,7 @@ function Err(err: Error): void {
     appendFileSync('./errors.log', writeString)
 }
 
-
-interface ICooldown<K, V> {
-    set(key: K, value: V): this;
-    get(key: K): V | undefined;
-    has(key: K): boolean;
-    delete(key: K): boolean
-}
-
-class Cooldown<K extends string, V extends number> implements ICooldown<K, V> {
+class Cooldown<K extends string, V extends number> {
     private storage: Record<string, V> = {};
     /**@returns das Objekt aus User und Cooldown */
     set(key: K, value: V): this {
