@@ -1,6 +1,7 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember } from 'discord.js'
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import { SlashCommand, Warn, WarnData } from '../../contents'
+import { SlashCommand } from '../../contents'
+import Warns from '../../Schemas/warns'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()
@@ -10,18 +11,28 @@ const command: SlashCommand = {
         .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
     async execute(interaction: ChatInputCommandInteraction) {
-        const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
-        //@ts-ignore
         const member = interaction.options.getMember('user') as GuildMember
 
-        const warnData = warns.find(w => w.userid == member.user.id)
-        if (!warnData || !warnData.warns || warnData.warns.length == 0) return interaction.reply({ content: `${member} hat keine Verwarnungen!`, ephemeral: true })
+        await Warns.findOne({userId: member.user.id})
+        .then(async User => {
+            if(!User || User.warns.length == 0) {
+                interaction.reply({content: `${member} hat keine Verwarnungen!`, ephemeral: true})
+            } else {
+                const embed = new EmbedBuilder({
+                    title: `Warns von ${member.displayName}`,
+                    description: '',
+                    color: Colors.Gold
+                })
 
-        const warnUser = new Warn(warnData)
-        const embed = warnUser.getWarnsAsEmbed()
+                for (const warn of User.warns) {
+                    embed.data.description += `${warn.date} von ${warn.moderator}\nGrund: **${warn.reason}**\nWarn-ID: \`${warn.id}\`\n\n`
+                }
 
-        interaction.reply({ embeds: [embed] })
-
+                interaction.reply({embeds: [embed]})
+                return
+            }
+        })
+        .catch(console.log)
     }
 }
 export default command

@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
 import { Channels, SlashCommand } from '../../contents'
-import { Warn, WarnData } from '../../contents'
+import Warns from '../../Schemas/warns'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()
@@ -12,28 +12,37 @@ const command: SlashCommand = {
         .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
     async execute(interaction: ChatInputCommandInteraction) {
-        const warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
         const reason = interaction.options.get('reason', true).value as string
         const member = interaction.options.getMember('user') as GuildMember
         const channel = interaction.guild!.channels.cache.get(Channels.warn) as TextChannel
-        let warnUser: Warn
-        const warnData = warns.find(w => w.userid == member.user.id)
-        if (!warnData) {
-            warnUser = new Warn({
-                userid: member.user.id,
-                username: member.user.username,
-                warns: []
-            })
-        } else {
-            warnUser = new Warn(warnData)
-        }
-
-        warnUser.addWarn(interaction.user.username, reason)
-        warnUser.save()
+        await Warns.findOne({userId: member.user.id})
+        .then(async User => {
+            if(User) {
+                User.warns.push({
+                    date: new Date().toLocaleDateString('ru'),
+                    id: generateWarnId(),
+                    moderator: interaction.user.username,
+                    reason: reason
+                })
+                await User.save()
+            } else {
+                await Warns.create({
+                    userId: member.user.id,
+                    warns: [
+                        {
+                            date: new Date().toLocaleDateString('ru'),
+                            id: generateWarnId(),
+                            moderator: interaction.user.username,
+                            reason: reason
+                        }
+                    ]
+                })
+            }
+        })
 
         const embed = new EmbedBuilder({
             title: 'User gewarnt',
-            description: `<:check:1229021540956504105> ${member} wurde von ${interaction.user.username} gewarnt\nGrund: **${reason}**`,
+            description: `<a:redlight:1211374559224135700> ${member} wurde von ${interaction.user.username} gewarnt\nGrund: **${reason}**`,
             color: Colors.Red
         })
 
@@ -47,8 +56,20 @@ const command: SlashCommand = {
         })
 
         await channel.send({ embeds: [embed] })
-        interaction.reply({ content: `Du hast ${member} wegen **${reason}** gewarnt!`, ephemeral: true })
+        interaction.reply({ content: `Du hast ${member} gewarnt!\nGrund: **${reason}**`, ephemeral: true })
         await member.send({ embeds: [dmEmbed] }).catch(console.log)
     }
 }
 export default command
+
+function generateWarnId(): string {
+    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+    let id: string = "";
+
+    for (let index = 0; index < 5; index++) {
+        const randIndex = Math.floor(Math.random() * charset.length)
+        id += charset.charAt(randIndex)
+    }
+
+    return id;
+}

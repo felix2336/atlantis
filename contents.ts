@@ -185,15 +185,6 @@ class Warn {
             this.warns = []
         }
     }
-    
-    public addWarn(moderator: string, reason: string): void {
-        this.warns.push({
-            date: new Date().toLocaleDateString('ger'),
-            moderator,
-            reason,
-            id: this.generateWarnId()
-        })
-    }
 
     public removeWarn(warnId: string): boolean {
         const warnToRemove = this.warns.find(w => w.id == warnId)
@@ -207,41 +198,6 @@ class Warn {
         if(this.warns.length == 0) return false
         this.warns = []
         return true
-    }
-
-    public getWarnsAsEmbed(): EmbedBuilder {
-        const e = new EmbedBuilder({
-            title: `Warns von ${this.username}`,
-            description: '',
-            color: Colors.Aqua
-        })
-
-        for (const warn of this.warns) {
-            e.data.description += `${warn.date} von ${warn.moderator}\nGrund: **${warn.reason}**\nWarn-ID: \`${warn.id}\`\n\n`
-        }
-
-        return e
-    }
-
-    public save(): void {
-        let warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as Warn[]
-        if (warns.find(w => w.userid == this.userid)) {
-            warns = warns.filter(w => w.userid != this.userid)
-        }
-        warns.push(this)
-        writeFileSync('./JSON/warns.json', JSON.stringify(warns, null, 2), 'utf8')
-    }
-
-    private generateWarnId() {
-        const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
-        let id: string = "";
-
-        for (let index = 0; index < 5; index++) {
-            const randIndex = Math.floor(Math.random() * charset.length)
-            id += charset.charAt(randIndex)
-        }
-
-        return id;
     }
 }
 

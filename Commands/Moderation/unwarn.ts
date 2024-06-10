@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember } from 'discord.js'
-import { readFileSync, writeFileSync } from 'fs'
-import {SlashCommand, Warn, WarnData} from '../../contents'
+import {SlashCommand} from '../../contents'
+import Warns from '../../Schemas/warns'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()
@@ -11,20 +11,20 @@ const command: SlashCommand = {
         .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
     async execute(interaction: ChatInputCommandInteraction){
-        let warns = JSON.parse(readFileSync('./JSON/warns.json', 'utf8')) as WarnData[]
-        //@ts-ignore
         const member = interaction.options.getMember('user') as GuildMember
         const id = interaction.options.get('warn-id', true).value as string
 
-        const warnData = warns.find(w => w.userid == member.user.id)
-        if(!warnData || !warnData.warns) return interaction.reply({content: `${member} hat keine Verwarnungen!`, ephemeral: true})
-
-        const warnUser = new Warn(warnData)
-        const success = warnUser.removeWarn(id)
-        if(!success) return interaction.reply({content: `${member} hat keine Verwarnung mit der ID \`${id}\`!`, ephemeral: true})
-        warnUser.save()
-
-        interaction.reply(`Du hast einen Warn von ${member} entfernt!`)
+        await Warns.findOne({userId: member.user.id})
+        .then(async User => {
+            if(!User || User.warns.length == 0 || !User.warns.find(w => w.id == id)) {
+                interaction.reply({content: `${member} hat keine Verwarnungen oder keine mit dieser ID!`, ephemeral: true})
+                return
+            } else {
+                User.warns = User.warns.filter(w => w.id != id)
+                await User.save()
+                interaction.reply(`Du hast einen Warn von ${member} entfernt!`)
+            }
+        })
     }
 }
 export default command
