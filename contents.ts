@@ -195,7 +195,7 @@ class Warn {
     }
 
     public clearWarns(): boolean {
-        if(this.warns.length == 0) return false
+        if (this.warns.length == 0) return false
         this.warns = []
         return true
     }
@@ -613,6 +613,43 @@ function Err(err: Error): void {
     appendFileSync('./errors.log', writeString)
 }
 
+
+interface ICooldown<K, V> {
+    set(key: K, value: V): this;
+    get(key: K): V | undefined;
+    has(key: K): boolean;
+    delete(key: K): boolean
+}
+
+class Cooldown<K extends string, V extends number> implements ICooldown<K, V> {
+    private storage: Record<string, V> = {};
+    /**@returns das Objekt aus User und Cooldown */
+    set(key: K, value: V): this {
+        const keyString = String(key)
+        this.storage[keyString] = value
+        return this
+    }
+    /**@returns Den Cooldown des Users, sonst `undefined` */
+    get(key: K): V | undefined {
+        const keyString = String(key)
+        return this.storage[keyString]
+    }
+    /**@returns `true` wenn der User einen Cooldown hat oder `false` wenn nicht */
+    has(key: K): boolean {
+        const keyString = String(key)
+        return this.storage[keyString] !== undefined
+    }
+    /** @returns `true` wenn der User gelöscht wurde oder `false` wenn er nicht existiert */
+    delete(key: K): boolean {
+        const keyString = String(key)
+        if(this.storage[keyString]){
+            delete this.storage[keyString]
+            return true
+        }
+        return false
+    }
+}
+
 export {
     Suggestion,
     SuggestionType,
@@ -635,6 +672,7 @@ export {
     Giveaway,
     Pings,
     Selfroles,
+    Cooldown,
     importSelectMenus,
     importCommands,
     importButtons,
