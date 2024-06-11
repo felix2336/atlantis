@@ -2,7 +2,38 @@ import { Colors, EmbedBuilder, TextChannel, Client, Guild, ClientOptions, Channe
 import { readFileSync, writeFileSync, readdirSync, appendFileSync } from 'fs'
 import chalk from 'chalk'
 import { AudioPlayer, VoiceConnection, createAudioPlayer } from '@discordjs/voice'
-import { MyClient,  } from 'contents'
+import { MyClient } from 'contents'
+
+// export class MyClient extends Client {
+//     public commands: Collection<string, SlashCommand>;
+//     public apps: SlashCommand[] & ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>[];
+//     public contextMenus: Collection<string, ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>>;
+//     public modals: Collection<string, Modal>;
+//     public selectMenus: Collection<string, SelectMenu>
+//     public buttons: Collection<string, Button>
+//     public guild: Guild | undefined
+//     public queue: { title: string, url: string, thumbnail: string, duration: string }[]
+//     public player: AudioPlayer | undefined
+
+//     constructor(options: ClientOptions) {
+//         super(options)
+//         this.commands = new Collection()
+//         this.apps = []
+//         this.contextMenus = new Collection()
+//         this.modals = new Collection()
+//         this.selectMenus = new Collection
+//         this.buttons = new Collection()
+//         this.queue = []
+//     }
+
+//     public setGuild(guild: Guild) {
+//         this.guild = guild
+//     }
+//     public enableAudioPlayer() {
+//         this.player = createAudioPlayer()
+//         console.log('AudioPlayer aktiviert')
+//     }
+// }
 
 export enum Channels {
     teamliste = "1173357582933573722",
