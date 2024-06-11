@@ -1,9 +1,10 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild, ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable, CacheType, StringSelectMenuInteraction, UserSelectMenuInteraction, SelectMenuInteraction, Events, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, InteractionResponse, Message, ContextMenuCommandInteraction, VoiceChannel } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Client, Guild, ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable, CacheType, StringSelectMenuInteraction, UserSelectMenuInteraction, SelectMenuInteraction, Events, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, InteractionResponse, Message, ContextMenuCommandInteraction, VoiceChannel, CategoryChannel } from 'discord.js'
 import { readFileSync, writeFileSync, readdirSync, appendFileSync } from 'fs'
 import chalk from 'chalk'
 import { AudioPlayer, VoiceConnection, createAudioPlayer } from '@discordjs/voice'
+import { MyClient,  } from 'contents'
 
-enum Channels {
+export enum Channels {
     teamliste = "1173357582933573722",
     warn = "1160607902210470009",
     suggestion = "1230234007854120960",
@@ -20,17 +21,17 @@ enum Channels {
     giveaway = "1173357225721462804",
     selfrole = "1148123116590071828"
 }
-enum Categories {
+export enum Categories {
     ticket = "1173314530521129042",
     test = "1200875792452829184"
 }
-enum Roles {
+export enum Roles {
     staff = '1156298949301379212',
     community = "1149971550578147378",
 
 }
 
-enum Selfroles {
+export enum Selfroles {
     male = "1165352617191407656",
     female = "1165352742953439403",
     age13 = "1146341429153640448",
@@ -67,12 +68,12 @@ enum Selfroles {
     staffchanges = "1148638515840700497"
 }
 
-enum Pings {
+export enum Pings {
     giveaway = "<@&1148638318263799869>",
     bumping = '<@&1173663419531022447>'
 }
 
-const ticketButtons = new ActionRowBuilder<ButtonBuilder>().addComponents([
+export const ticketButtons = new ActionRowBuilder<ButtonBuilder>().addComponents([
     new ButtonBuilder({
         customId: 'close-with-reason',
         label: '🔒 Schließen mit Begründung',
@@ -85,7 +86,7 @@ const ticketButtons = new ActionRowBuilder<ButtonBuilder>().addComponents([
     })
 ])
 
-const unbanRequestButton = new ActionRowBuilder<ButtonBuilder>().addComponents([
+export const unbanRequestButton = new ActionRowBuilder<ButtonBuilder>().addComponents([
     new ButtonBuilder({
         label: 'Entbannungsantrag',
         customId: 'unban-request',
@@ -93,120 +94,44 @@ const unbanRequestButton = new ActionRowBuilder<ButtonBuilder>().addComponents([
     })
 ])
 
-interface Giveaway {
+export interface Giveaway {
     messageId: string,
     prize: string,
     participants: string[],
     endTime: number
 }
 
-interface SlashCommand {
+export interface SlashCommand {
     data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder,
     execute: (interaction: ChatInputCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined> | Promise<Message<boolean>> | Promise<Message<boolean> | undefined>
 }
 
-interface ContextMenu<T extends UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction> {
+export interface ContextMenu<T extends UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction> {
     data: ContextMenuCommandBuilder,
     execute: (interaction: T, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
 }
 
-interface Button {
+export interface Button {
     id: string,
     execute: (interaction: ButtonInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
 }
 
-interface SelectMenu {
+export interface SelectMenu {
     id: string
     execute: (interaction: StringSelectMenuInteraction, client: MyClient) => Promise<void>
 }
 
-interface Modal {
+export interface Modal {
     id: string,
     execute: (interaction: ModalSubmitInteraction, client: MyClient) => Promise<void>
 }
 
-enum SuggestionType {
-    Server = 1,
-    Bot = 2
-}
-
-interface SuggestionData {
-    user: string,
-    suggestion: string,
-    type: SuggestionType
-}
-
-class Suggestion {
-
-    user: string
-    suggestion: string
-    type: SuggestionType
-
-    constructor(data: SuggestionData) {
-        this.user = data.user
-        this.suggestion = data.suggestion
-        this.type = data.type
-    }
-
-    public async submit(channel: TextChannel) {
-        const embed = new EmbedBuilder({
-            title: 'Neuer Vorschlag',
-            description: `<@${this.user}> hat einen neuen ${this.getTypeString()} eingereicht:\n\n**${this.suggestion}**`,
-            color: Colors.DarkAqua
-        })
-
-        await channel.send({ embeds: [embed] })
-    }
-
-    private getTypeString() {
-        if (this.type == 1) return 'Server Vorschlag'
-        else if (this.type == 2) return 'Bot Vorschlag'
-    }
-}
-
-interface WarnData {
-    userid: string,
-    username: string,
-    warns?: { date: string, reason: string, moderator: string, id: string }[]
-}
-
-class Warn {
-    userid: string
-    username: string
-    private warns: { date: string, reason: string, moderator: string, id: string }[]
-
-
-    constructor(data: WarnData) {
-        this.userid = data.userid;
-        this.username = data.username;
-        if (data.warns) {
-            this.warns = data.warns
-        } else {
-            this.warns = []
-        }
-    }
-
-    public removeWarn(warnId: string): boolean {
-        const warnToRemove = this.warns.find(w => w.id == warnId)
-        if (warnToRemove) {
-            this.warns = this.warns.filter(w => w.id != warnId)
-            return true
-        } else return false
-    }
-
-    public clearWarns(): boolean {
-        if (this.warns.length == 0) return false
-        this.warns = []
-        return true
-    }
-}
-
-interface MessageUserData {
+export interface MessageUserData {
     userid?: string,
     username?: string,
 }
 
-class MessageUser {
+export class MessageUser {
     userid?: string
     username?: string
     private totalMessages: number
@@ -238,12 +163,66 @@ class MessageUser {
     public addMessage(dayNumber: number) {
         const day = this.getDayByIndex(dayNumber)
         this.totalMessages++;
-        this.messages[day]++
+        switch (day) {
+            case 'monday': {
+                this.messages.monday++
+                break
+            }
+            case 'tuesday': {
+                this.messages.tuesday++
+                break
+            }
+            case 'wednesday': {
+                this.messages.wednesday++
+                break
+            }
+            case 'thursday': {
+                this.messages.thursday++
+                break
+            }
+            case 'friday': {
+                this.messages.friday++
+                break
+            }
+            case 'saturday': {
+                this.messages.saturday++
+                break
+            }
+            case 'sunday': {
+                this.messages.sunday++
+                break
+            }
+        }
     }
 
     public getMessagesOfDay(dayNumber: number): number {
         const day = this.getDayByIndex(dayNumber)
-        return this.messages[day];
+        switch (day) {
+            case 'monday': {
+                return this.messages.monday
+            }
+            case 'tuesday': {
+                return this.messages.tuesday
+            }
+            case 'wednesday': {
+                return this.messages.wednesday
+            }
+            case 'thursday': {
+                return this.messages.thursday
+            }
+            case 'friday': {
+                return this.messages.friday
+            }
+            case 'saturday': {
+                return this.messages.saturday
+            }
+            case 'sunday': {
+                return this.messages.sunday
+            }
+            default: {
+                return 0
+            }
+        }
     }
 
     public getTotalMessages(): number {
@@ -284,15 +263,15 @@ class MessageUser {
     }
 }
 
-class Backup {
-    categories?: {}
+export class Backup {
+    categories?: any;
 
     constructor(data?: Backup) {
         this.categories = data?.categories
     }
 
     public save(guild: Guild) {
-        const categories = {}
+        const categories: any = {}
         guild.channels.cache.filter(channel => channel.type === ChannelType.GuildCategory).forEach(category => {
             categories[category.name] = {};
 
@@ -331,19 +310,19 @@ class Backup {
     }
 }
 
-class ConsoleInfo {
+export class ConsoleInfo {
     public show(message: string): void {
         console.log(chalk.greenBright(`[${new Date().toLocaleTimeString('de')} INFO]`), chalk.whiteBright(message))
     }
 }
 
-class ConsoleWarning {
+export class ConsoleWarning {
     public show(message: string): void {
         console.log(chalk.yellowBright(`[${new Date().toLocaleTimeString('de')} WARN] ${message}`))
     }
 }
 
-class MemberManager {
+export class MemberManager {
     private member: GuildMember
     private guild: Guild
 
@@ -455,37 +434,7 @@ class MemberManager {
     }
 }
 
-class MyClient extends Client<boolean> {
-    public commands: Collection<string, SlashCommand>;
-    public apps: SlashCommand[] & ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>[];
-    public contextMenus: Collection<string, ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>>;
-    public modals: Collection<string, Modal>;
-    public selectMenus: Collection<string, SelectMenu>
-    public buttons: Collection<string, Button>
-    public guild: Guild
-    public queue: { title: string, url: string, thumbnail: string, duration: string }[]
-    public player: AudioPlayer
-
-    constructor(options: ClientOptions) {
-        super(options)
-        this.commands = new Collection()
-        this.apps = []
-        this.contextMenus = new Collection()
-        this.modals = new Collection()
-        this.selectMenus = new Collection
-        this.buttons = new Collection()
-        this.queue = []
-    }
-
-    public setGuild(guild: Guild) {
-        this.guild = guild
-    }
-    public enableAudioPlayer() {
-        this.player = createAudioPlayer()
-    }
-}
-
-async function importSelectMenus(client: MyClient): Promise<void> {
+export async function importSelectMenus(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./SelectMenus')
     for (const dir of subDirs) {
         const files = readdirSync(`./SelectMenus/${dir}`)
@@ -503,7 +452,7 @@ async function importSelectMenus(client: MyClient): Promise<void> {
     }
 }
 
-async function importCommands(client: MyClient): Promise<void> {
+export async function importCommands(client: MyClient): Promise<void> {
     const cw = new ConsoleWarning()
     const ci = new ConsoleInfo()
     const subDirs = readdirSync('./Commands')
@@ -524,7 +473,7 @@ async function importCommands(client: MyClient): Promise<void> {
     }
 }
 
-async function importButtons(client: MyClient): Promise<void> {
+export async function importButtons(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./Buttons')
     for (const dir of subDirs) {
         const files = readdirSync(`./Buttons/${dir}`)
@@ -542,7 +491,7 @@ async function importButtons(client: MyClient): Promise<void> {
     }
 }
 
-async function importModals(client: MyClient): Promise<void> {
+export async function importModals(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./Modals')
     for (const dir of subDirs) {
         const files = readdirSync(`./Modals/${dir}`)
@@ -560,7 +509,7 @@ async function importModals(client: MyClient): Promise<void> {
     }
 }
 
-async function importMenus(client: MyClient): Promise<void> {
+export async function importMenus(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./ContextMenus')
     for (const dir of subDirs) {
         const files = readdirSync(`./ContextMenus/${dir}`)
@@ -579,7 +528,7 @@ async function importMenus(client: MyClient): Promise<void> {
     }
 }
 
-async function importEvents(client: MyClient): Promise<void> {
+export async function importEvents(client: MyClient): Promise<void> {
     const subDirs = readdirSync('./Events')
     for (const dir of subDirs) {
         const files = readdirSync(`./Events/${dir}`)
@@ -603,76 +552,12 @@ async function importEvents(client: MyClient): Promise<void> {
     }
 }
 
-function countdown(ms: number) {
+export function countdown(ms: number) {
     return `<t:${Math.floor(ms / 1000)}:R>`
 }
 
-function Err(err: Error): void {
+export function Err(err: Error): void {
     const writeString = `${new Date().toLocaleDateString('ru')} - ${new Date().toLocaleTimeString('de')}\n${err}\n\n`
     console.log(err)
     appendFileSync('./errors.log', writeString)
-}
-
-class Cooldown<K extends string, V extends number> {
-    private storage: Record<string, V> = {};
-    /**@returns das Objekt aus User und Cooldown */
-    set(key: K, value: V): this {
-        const keyString = String(key)
-        this.storage[keyString] = value
-        return this
-    }
-    /**@returns Den Cooldown des Users, sonst `undefined` */
-    get(key: K): V | undefined {
-        const keyString = String(key)
-        return this.storage[keyString]
-    }
-    /**@returns `true` wenn der User einen Cooldown hat oder `false` wenn nicht */
-    has(key: K): boolean {
-        const keyString = String(key)
-        return this.storage[keyString] !== undefined
-    }
-    /** @returns `true` wenn der User gelöscht wurde oder `false` wenn er nicht existiert */
-    delete(key: K): boolean {
-        const keyString = String(key)
-        if(this.storage[keyString]){
-            delete this.storage[keyString]
-            return true
-        }
-        return false
-    }
-}
-
-export {
-    Suggestion,
-    SuggestionType,
-    Warn,
-    WarnData,
-    MessageUser,
-    Backup,
-    Channels,
-    Roles,
-    Categories,
-    ConsoleInfo,
-    ConsoleWarning,
-    MemberManager,
-    MyClient,
-    SelectMenu,
-    SlashCommand,
-    Modal,
-    Button,
-    ContextMenu,
-    Giveaway,
-    Pings,
-    Selfroles,
-    Cooldown,
-    importSelectMenus,
-    importCommands,
-    importButtons,
-    importModals,
-    importMenus,
-    importEvents,
-    countdown,
-    Err,
-    ticketButtons,
-    unbanRequestButton
 }

@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction, AnyComponentBuilder, RestOrArray } from 'discord.js'
-import { SuggestionType, Suggestion, SlashCommand } from '../../contents'
+import { SlashCommand } from '../../contents'
+import { SuggestionType, Suggestion } from 'contents'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

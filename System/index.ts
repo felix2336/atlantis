@@ -1,8 +1,10 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
-import { MyClient, ConsoleInfo, ConsoleWarning, Err, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
+import { ConsoleInfo, ConsoleWarning, Err, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
+
+import { MyClient } from 'contents'
 
 const client = new MyClient({
     intents: [
@@ -76,14 +78,14 @@ client.on('ready', async () => {
     }
     client.setGuild(client.guilds.cache.get('1146113684435898439')!)
     client.enableAudioPlayer()
-    client.player.on('stateChange', async (oldState, newState) => {
+    client.player?.on('stateChange', async (oldState, newState) => {
         if (newState.status != 'idle') return
         client.queue.shift()
 
         if (client.queue.length > 0) {
             const nextStream = await ytdl(client.queue[0].url)
             const nextResource = createAudioResource(nextStream)
-            client.player.play(nextResource)
+            client.player?.play(nextResource)
         } else {
             client.queue = []
         }
