@@ -1,6 +1,5 @@
 import { Client, ModalSubmitInteraction, TextChannel } from "discord.js";
-import { Suggestion } from "contents";
-import { Channels } from "../../contents";
+import { Channels, Suggestion } from "../../contents";
 
 export default {
     id: 'suggestion',
