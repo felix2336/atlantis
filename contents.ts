@@ -10,9 +10,9 @@ export class MyClient extends Client {
     public modals: Collection<string, Modal>;
     public selectMenus: Collection<string, SelectMenu>
     public buttons: Collection<string, Button>
-    public guild: Guild | undefined
+    public guild: Guild
     public queue: { title: string, url: string, thumbnail: string, duration: string }[]
-    public player: AudioPlayer | undefined
+    public player: AudioPlayer
 
     constructor(options: ClientOptions) {
         super(options)
