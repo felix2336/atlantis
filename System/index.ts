@@ -1,11 +1,8 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
-import { ConsoleInfo, ConsoleWarning, Err, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
+import { MyClient, ConsoleInfo, ConsoleWarning, Err, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
-
-import { MyClient } from 'contents'
-
 const client = new MyClient({
     intents: [
         GatewayIntentBits.Guilds,
