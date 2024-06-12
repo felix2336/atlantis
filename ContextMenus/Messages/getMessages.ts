@@ -1,5 +1,6 @@
 import { ContextMenuCommandBuilder, UserContextMenuCommandInteraction, ApplicationCommandType, PermissionFlagsBits, GuildMember, CacheType } from 'discord.js'
-import { ContextMenu, MessageUser } from '../../contents';
+import { MessageUser } from '../../contents';
+import {ContextMenu} from 'contents'
 import { readFileSync } from 'fs'
 
 const menu: ContextMenu<UserContextMenuCommandInteraction> = {

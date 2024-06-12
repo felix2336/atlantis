@@ -25,7 +25,7 @@ export default {
 
         const userEmbed = new EmbedBuilder(logEmbed.data).setAuthor({ name: interaction.guild!.name, iconURL: interaction.guild!.iconURL() || '' })
         await logChannel.send({ embeds: [logEmbed] })
-        await member!.send({ embeds: [userEmbed] }).catch(console.log)
+        await member!.send({ embeds: [userEmbed] })
         await interaction.channel!.delete()
     }
 }

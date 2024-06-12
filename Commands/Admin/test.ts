@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder, PermissionFlagsBits, GuildMember, Colors } from 'discord.js'
 import {profileImage} from 'discord-arts'
-import { SlashCommand } from '../../contents'
+import { SlashCommand } from 'contents'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

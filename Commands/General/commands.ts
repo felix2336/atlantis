@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder, Colors, AutoModerationActionExecution } from 'discord.js'
-import { MyClient, SlashCommand } from '../../contents'
+import { MyClient, SlashCommand } from 'contents'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

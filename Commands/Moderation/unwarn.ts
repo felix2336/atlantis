@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember } from 'discord.js'
-import {SlashCommand} from '../../contents'
+import {SlashCommand} from 'contents'
 import Warns from '../../Schemas/warns'
 
 const command: SlashCommand = {

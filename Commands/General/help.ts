@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
 import fs from 'fs';
-import { SlashCommand } from '../../contents';
+import { SlashCommand } from 'contents';
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

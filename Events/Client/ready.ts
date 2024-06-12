@@ -1,5 +1,5 @@
 import { Client, ActivityType } from 'discord.js'
-import { ConsoleInfo } from '../../contents'
+import { ConsoleInfo } from 'contents'
 
 export default {
     name: 'ready',

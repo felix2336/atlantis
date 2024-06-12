@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ButtonBuilder, EmbedBuilder, ActionRowBuilder, PermissionFlagsBits, Colors, TextChannel } from "discord.js";
-import { SlashCommand, Channels } from "../../contents";
+import { Channels } from "../../contents";
+import { SlashCommand } from 'contents'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, Colors } from "discord.js";
-import { SlashCommand } from "../../contents";
+import { SlashCommand } from "contents";
 import Bumps from '../../Schemas/bumps'
 
 const command: SlashCommand = {

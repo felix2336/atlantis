@@ -1,5 +1,6 @@
 import { ChatInputCommandInteraction, Client, ChannelType, SlashCommandBuilder, PermissionFlagsBits, Guild } from 'discord.js'
-import { Backup, SlashCommand } from '../../contents'
+import { Backup } from '../../contents'
+import { SlashCommand } from 'contents'
 import {readFileSync} from 'fs'
 
 const command: SlashCommand = {

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, PermissionFlagsBits, ActivityType } from "discord.js";
-import { SlashCommand, ConsoleWarning } from "../../contents";
+import { SlashCommand, ConsoleWarning } from 'contents'
 const cw = new ConsoleWarning
 
 const command: SlashCommand = {
@@ -9,7 +9,7 @@ const command: SlashCommand = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction, client) {
-        interaction.reply({content: 'Der Bot wird gestoppt', ephemeral: true})
+        interaction.reply({ content: 'Der Bot wird gestoppt', ephemeral: true })
         client.user!.setActivity({
             name: 'offline',
             state: 'Bot Offline',

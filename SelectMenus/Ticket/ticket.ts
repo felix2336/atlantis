@@ -1,5 +1,5 @@
 import { StringSelectMenuInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder, ActionRow, AnySelectMenuInteraction } from "discord.js";
-import { SelectMenu } from '../../contents'
+import { SelectMenu } from 'contents'
 
 const selectMenu: SelectMenu = {
     id: 'ticket',

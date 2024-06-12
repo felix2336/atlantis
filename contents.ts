@@ -1,38 +1,5 @@
-import { Colors, EmbedBuilder, TextChannel, Client, Guild, ClientOptions, ChannelType, Collection, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, resolvePartialEmoji, SystemChannelFlagsBitField, Snowflake, Role, Activity, SlashCommandBuilder, ChatInputCommandInteraction, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, MessageContextMenuCommandInteraction, ButtonInteraction, BaseSelectMenuBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, UserSelectMenuBuilder, StringSelectMenuBuilder, MentionableSelectMenuBuilder, AnySelectMenuInteraction, ModalSubmitInteraction, ApplicationCommandDataResolvable, CacheType, StringSelectMenuInteraction, UserSelectMenuInteraction, SelectMenuInteraction, Events, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, InteractionResponse, Message, ContextMenuCommandInteraction, VoiceChannel, CategoryChannel } from 'discord.js'
-import { readFileSync, writeFileSync, readdirSync, appendFileSync } from 'fs'
-import chalk from 'chalk'
-import { AudioPlayer, VoiceConnection, createAudioPlayer } from '@discordjs/voice'
-
-export class MyClient extends Client {
-    public commands: Collection<string, SlashCommand>;
-    public apps: SlashCommand[] & ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>[];
-    public contextMenus: Collection<string, ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>>;
-    public modals: Collection<string, Modal>;
-    public selectMenus: Collection<string, SelectMenu>
-    public buttons: Collection<string, Button>
-    public guild: Guild
-    public queue: { title: string, url: string, thumbnail: string, duration: string }[]
-    public player: AudioPlayer
-
-    constructor(options: ClientOptions) {
-        super(options)
-        this.commands = new Collection()
-        this.apps = []
-        this.contextMenus = new Collection()
-        this.modals = new Collection()
-        this.selectMenus = new Collection
-        this.buttons = new Collection()
-        this.queue = []
-    }
-
-    public setGuild(guild: Guild) {
-        this.guild = guild
-    }
-    public enableAudioPlayer() {
-        this.player = createAudioPlayer()
-        console.log('AudioPlayer aktiviert')
-    }
-}
+import { Colors, EmbedBuilder, TextChannel, Guild, ChannelType, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, Snowflake, Role } from 'discord.js'
+import { writeFileSync, appendFileSync } from 'fs'
 
 export enum SuggestionType {
     Server = 1,
@@ -198,31 +165,6 @@ export interface Giveaway {
     prize: string,
     participants: string[],
     endTime: number
-}
-
-export interface SlashCommand {
-    data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder,
-    execute: (interaction: ChatInputCommandInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined> | Promise<Message<boolean>> | Promise<Message<boolean> | undefined>
-}
-
-export interface ContextMenu<T extends UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction> {
-    data: ContextMenuCommandBuilder,
-    execute: (interaction: T, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
-}
-
-export interface Button {
-    id: string,
-    execute: (interaction: ButtonInteraction, client: MyClient) => Promise<void> | Promise<InteractionResponse<boolean> | undefined>
-}
-
-export interface SelectMenu {
-    id: string
-    execute: (interaction: StringSelectMenuInteraction, client: MyClient) => Promise<void>
-}
-
-export interface Modal {
-    id: string,
-    execute: (interaction: ModalSubmitInteraction, client: MyClient) => Promise<void>
 }
 
 export interface MessageUserData {
@@ -409,18 +351,6 @@ export class Backup {
     }
 }
 
-export class ConsoleInfo {
-    public show(message: string): void {
-        console.log(chalk.greenBright(`[${new Date().toLocaleTimeString('de')} INFO]`), chalk.whiteBright(message))
-    }
-}
-
-export class ConsoleWarning {
-    public show(message: string): void {
-        console.log(chalk.yellowBright(`[${new Date().toLocaleTimeString('de')} WARN] ${message}`))
-    }
-}
-
 export class MemberManager {
     private member: GuildMember
     private guild: Guild
@@ -530,124 +460,6 @@ export class MemberManager {
 
     public isStaff(): boolean {
         return this.member.roles.cache.some(r => r.id == Roles.staff)
-    }
-}
-
-export async function importSelectMenus(client: MyClient): Promise<void> {
-    const subDirs = readdirSync('./SelectMenus')
-    for (const dir of subDirs) {
-        const files = readdirSync(`./SelectMenus/${dir}`)
-        for (const file of files) {
-            const module = await import(`./SelectMenus/${dir}/${file}`)
-            const menu = module.default as SelectMenu
-            if (!menu || !menu.id) {
-                new ConsoleWarning().show(`Fehler bei Select Menu in SelectMenus/${dir}/${file}`)
-                continue
-            }
-
-            client.selectMenus.set(menu.id, menu)
-            new ConsoleInfo().show(`Select Menu "${menu.id}" geladen`)
-        }
-    }
-}
-
-export async function importCommands(client: MyClient): Promise<void> {
-    const cw = new ConsoleWarning()
-    const ci = new ConsoleInfo()
-    const subDirs = readdirSync('./Commands')
-    for (const dir of subDirs) {
-        const files = readdirSync(`./Commands/${dir}`)
-        for (const file of files) {
-            const module = await import(`./Commands/${dir}/${file}`)
-            const command = module.default as SlashCommand
-            if (!command || !command.data || !command.data.name || !command.data.description) {
-                cw.show(`Befehl in Commands/${dir}/${file} ist ungültig`)
-                continue
-            }
-
-            client.commands.set(command.data.name, command)
-            client.apps.push(command)
-            ci.show(`Befehl "/${command.data.name}" geladen`)
-        }
-    }
-}
-
-export async function importButtons(client: MyClient): Promise<void> {
-    const subDirs = readdirSync('./Buttons')
-    for (const dir of subDirs) {
-        const files = readdirSync(`./Buttons/${dir}`)
-        for (const file of files) {
-            const module = await import(`./Buttons/${dir}/${file}`)
-            const button = module.default as Button
-            if (!button || !button.id) {
-                new ConsoleWarning().show(`Fehler bei Button in Buttons/${dir}/${file}`)
-                continue
-            }
-
-            client.buttons.set(button.id, button)
-            new ConsoleInfo().show(`Button "${button.id}" geladen`)
-        }
-    }
-}
-
-export async function importModals(client: MyClient): Promise<void> {
-    const subDirs = readdirSync('./Modals')
-    for (const dir of subDirs) {
-        const files = readdirSync(`./Modals/${dir}`)
-        for (const file of files) {
-            const module = await import(`./Modals/${dir}/${file}`)
-            const modal = module.default as Modal
-            if (!modal || !modal.id) {
-                new ConsoleWarning().show(`Fehler bei Modal in Modals/${dir}/${file}`)
-                continue
-            }
-
-            client.modals.set(modal.id, modal)
-            new ConsoleInfo().show(`Modal "${modal.id}" geladen`)
-        }
-    }
-}
-
-export async function importMenus(client: MyClient): Promise<void> {
-    const subDirs = readdirSync('./ContextMenus')
-    for (const dir of subDirs) {
-        const files = readdirSync(`./ContextMenus/${dir}`)
-        for (const file of files) {
-            const module = await import(`./ContextMenus/${dir}/${file}`)
-            const menu = module.default as ContextMenu<MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction>
-            if (!menu || !menu.data.name || !menu.data.type) {
-                new ConsoleWarning().show(`Fehler bei Context Menu in ContextMenus/${dir}/${file}`)
-                continue
-            }
-
-            client.contextMenus.set(menu.data.name, menu)
-            client.apps.push(menu)
-            new ConsoleInfo().show(`ContextMenu "${menu.data.name}" geladen`)
-        }
-    }
-}
-
-export async function importEvents(client: MyClient): Promise<void> {
-    const subDirs = readdirSync('./Events')
-    for (const dir of subDirs) {
-        const files = readdirSync(`./Events/${dir}`)
-        for (const file of files) {
-            const module = await import(`./Events/${dir}/${file}`)
-            const event = module.default
-            if (!event || !event.name) {
-                new ConsoleWarning().show(`Fehler bei Event in Events/${dir}/${file}`)
-                continue
-            }
-
-            if (event.once) {
-                client.once(event.name, (...args: any[]) => event.execute(...args, client))
-            } else {
-                client.on(event.name, (...args: any[]) => event.execute(...args, client))
-            }
-
-
-            new ConsoleInfo().show(`${event.name}-Event "${file.split('.')[0]}" geladen`)
-        }
     }
 }
 

@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, Colors, TextChannel, Guild } from "discord.js";
-import { Channels, MessageUser, SlashCommand } from "../../contents";
+import { Channels, MessageUser } from "../../contents";
+import { SlashCommand } from 'contents'
 import { readFileSync, writeFileSync } from 'fs'
 
 const command: SlashCommand = {

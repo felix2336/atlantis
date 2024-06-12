@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, PermissionFlagsBits, Poll, PollData, PollLayoutType, SlashCommandBuilder, TextChannel } from 'discord.js'
-import { SlashCommand } from '../../contents'
+import { SlashCommand } from 'contents'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

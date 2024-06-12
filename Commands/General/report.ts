@@ -1,5 +1,5 @@
-import { ChatInputCommandInteraction, ApplicationCommandOptionType, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ComponentType, Colors, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
-import { SlashCommand } from '../../contents'
+import { ChatInputCommandInteraction, EmbedBuilder, Colors, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
+import { SlashCommand } from 'contents'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, Guild, GuildMember, EmbedBuilder, Colors } from 'discord.js'
-import { MemberManager, SlashCommand } from '../../contents'
+import { MemberManager } from '../../contents'
+import { SlashCommand } from 'contents'
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

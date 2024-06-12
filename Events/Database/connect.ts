@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import cfg from '../../System/config.json'
-import { ConsoleInfo } from '../../contents'
+import { ConsoleInfo } from 'contents'
 
 export default {
     name: 'ready',

@@ -1,5 +1,5 @@
 import { ApplicationCommandType, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, PermissionFlagsBits, GuildMember, EmbedBuilder, Colors } from "discord.js";
-import { ContextMenu } from "../../contents";
+import { ContextMenu } from "contents";
 import Warns from "../../Schemas/warns";
 
 const menu: ContextMenu<UserContextMenuCommandInteraction> = {

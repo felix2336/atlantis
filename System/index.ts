@@ -1,8 +1,10 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
-import { MyClient, ConsoleInfo, ConsoleWarning, Err, importSelectMenus, importCommands, importButtons, importModals, importMenus, importEvents } from '../contents';
+import { Err } from '../contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
+
+import { MyClient } from 'contents'
 const client = new MyClient({
     intents: [
         GatewayIntentBits.Guilds,
@@ -26,15 +28,9 @@ const client = new MyClient({
     ],
 });
 const config = await import('./config.json');
-await importCommands(client)
-await importMenus(client);
-await importButtons(client);
-await importModals(client);
-await importSelectMenus(client);
-await importEvents(client)
+await client.loadAll()
 await client.login(config.token)
 client.setMaxListeners(0)
-
 client.on("interactionCreate", async interaction => {
     switch (true) {
         case interaction.isContextMenuCommand():

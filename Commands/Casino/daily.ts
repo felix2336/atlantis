@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, EmbedBuilder, InteractionResponse, SlashCommandBuilder } from 'discord.js';
 import Casino from '../../Schemas/casino';
 import Cooldowns from '../../Schemas/cooldowns';
-import { SlashCommand } from '../../contents';
+import { SlashCommand } from 'contents';
 
 const command: SlashCommand = {
     data: new SlashCommandBuilder()

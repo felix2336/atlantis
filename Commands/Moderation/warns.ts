@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, Colors } from 'discord.js'
 import { readFileSync, writeFileSync } from 'fs'
-import { SlashCommand } from '../../contents'
+import { SlashCommand } from 'contents'
 import Warns from '../../Schemas/warns'
 
 const command: SlashCommand = {

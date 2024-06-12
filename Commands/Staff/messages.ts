@@ -1,5 +1,6 @@
 import { ChatInputCommandInteraction, Client, EmbedBuilder, Colors, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
-import { MessageUser, SlashCommand } from '../../contents';
+import { MessageUser } from '../../contents';
+import { SlashCommand } from 'contents'
 import { readFileSync } from 'fs'
 
 const command: SlashCommand = {

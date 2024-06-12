@@ -1,5 +1,6 @@
 import { EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, SlashCommandBuilder, Collection, TextChannel, Colors,  } from 'discord.js'
-import { Giveaway, SlashCommand, countdown, Channels, Pings } from '../../contents'
+import { Giveaway, countdown, Channels, Pings } from '../../contents'
+import { SlashCommand } from 'contents'
 import { readFileSync, writeFileSync } from 'fs'
 
 const command: SlashCommand = {

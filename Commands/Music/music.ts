@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, GuildMember, Colors } from 'discord.js'
-import { SlashCommand } from '../../contents'
+import { SlashCommand } from 'contents'
 import { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnection, AudioPlayerStatus } from '@discordjs/voice'
 import ytdl from 'ytdl-core-discord'
 import ytsr from 'ytsr'
