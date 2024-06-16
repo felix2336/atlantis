@@ -1,3 +1,6 @@
 12.06.2024 - 15:09:09
 DiscordAPIError[40060]: Interaction has already been acknowledged.
 
+14.06.2024 - 06:37:59
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
