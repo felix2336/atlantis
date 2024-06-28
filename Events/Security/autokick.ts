@@ -1,9 +1,10 @@
+import { Event } from 'dcbot';
 import { GuildMember, Events, Client, EmbedBuilder, TextChannel } from 'discord.js';
 
-export default {
+export default new Event( {
     name: Events.GuildMemberUpdate,
 
-    async execute(oldMember: GuildMember, newMember: GuildMember, client: Client) {
+    async execute(client, oldMember: GuildMember, newMember: GuildMember) {
         const targets = [
             "325990620919496705",
             "680470662770589717",
@@ -59,4 +60,4 @@ export default {
             }
         }
     }
-}
+})

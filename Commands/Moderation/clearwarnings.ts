@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, GuildMember, Colors } from "discord.js";
-import { SlashCommand } from "contents";
+import { SlashCommand } from "dcbot";
 import Warns from '../../Schemas/warns'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('clearwarnings')
         .setDescription('Lösche alle Verwarnungen von einem User')
@@ -24,5 +24,4 @@ const command: SlashCommand = {
             })
             .catch(console.log)
     },
-}
-export default command
+})

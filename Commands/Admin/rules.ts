@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Colors, TextChannel } from "discord.js";
 import { Channels } from "../../contents";
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('rules')
         .setDescription('Sende das aktualisierte Regelwerk')
@@ -53,6 +53,4 @@ const command: SlashCommand = {
         await message.edit({embeds: [embed], components: [row]})
         interaction.reply({content: 'Regelwerk gesendet', ephemeral: true})
     }
-}
-
-export default command
+})

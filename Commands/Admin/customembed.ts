@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('customembed')
         .setDescription('Custom Embed System')
@@ -72,6 +72,4 @@ const command: SlashCommand = {
         //@ts-ignore
         interaction.reply({ embeds: [embed], components: [row, row2] })
     }
-}
-
-export default command
+})

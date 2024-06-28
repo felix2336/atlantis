@@ -1,12 +1,12 @@
-import { Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, TextChannel } from 'discord.js'
-import { Giveaway, Channels } from "../../contents";
-import { MyClient } from 'contents'
+import { Events, EmbedBuilder, TextChannel } from 'discord.js'
+import { Giveaway, Channels, MyClient } from "../../contents";
 import { readFileSync, writeFileSync } from 'fs'
+import { Event } from 'dcbot';
 
-export default {
+export default new Event<MyClient>( {
     name: Events.ClientReady,
 
-    async execute(client: MyClient) {
+    async execute(client) {
         const channel = client.channels.cache.get(Channels.test) as TextChannel
         async function check() {
             const now = Date.now()
@@ -31,4 +31,4 @@ export default {
         await check()
         setInterval(check, 60000)
     }
-}
+})

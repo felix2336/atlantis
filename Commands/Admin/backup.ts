@@ -1,9 +1,9 @@
-import { ChatInputCommandInteraction, Client, ChannelType, SlashCommandBuilder, PermissionFlagsBits, Guild } from 'discord.js'
-import { Backup } from '../../contents'
-import { SlashCommand } from 'contents'
-import {readFileSync} from 'fs'
+import { SlashCommandBuilder, PermissionFlagsBits, Client } from 'discord.js'
+import { Backup, MyClient } from '../../contents'
+import { SlashCommand } from 'dcbot'
+import { readFileSync } from 'fs'
 
-const command: SlashCommand = {
+export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()
         .setName('backup')
         .setDescription('Erstelle oder lade ein Backup')
@@ -39,6 +39,4 @@ const command: SlashCommand = {
             }
         }
     }
-}
-
-export default command
+})

@@ -1,10 +1,11 @@
 import { GuildMember, Client, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, TextChannel, AttachmentBuilder } from 'discord.js'
 import { Channels } from '../../contents'
 import { profileImage } from 'discord-arts'
-export default {
+import { Event } from 'dcbot'
+export default new Event({
     name: 'guildMemberAdd',
 
-    async execute(member: GuildMember) {
+    async execute(client, member: GuildMember) {
         const channel = member.guild.channels.cache.get(Channels.welcome) as TextChannel
 
         const buffer = await profileImage(member.user.id, {
@@ -42,4 +43,4 @@ export default {
             await channel.send({ content: `${member}`, embeds: [embed], components: [row]})
         }
     }
-}
+})

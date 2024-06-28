@@ -1,8 +1,8 @@
 import { EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, Client, TextChannel, GuildMember, Role } from 'discord.js'
 import { Channels } from '../../contents'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('update-stafflist')
         .setDescription('Aktualisiere die Teamliste manuell')
@@ -53,5 +53,4 @@ const command: SlashCommand = {
         await interaction.editReply({content: 'Die Teamliste wurde aktualisiert'})
         // await channel.send({embeds: [mainEmbed]})
     }
-}
-export default command
+})

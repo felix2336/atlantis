@@ -1,7 +1,8 @@
 import { ModalSubmitInteraction, EmbedBuilder, Client, Colors, TextChannel, WebhookClient, GuildMember } from "discord.js";
 import { Channels } from '../../contents'
+import { Modal } from "dcbot";
 
-export default {
+export default new Modal( {
     id: 'confession',
 
     async execute(interaction: ModalSubmitInteraction, client: Client) {
@@ -24,4 +25,4 @@ export default {
         await interaction.reply({content: 'Vielen Dank für deine Beichte. Sie wurde anonym veröffentlicht!', ephemeral: true})
         wh.send({embeds: [whe]})
     }
-}
+})

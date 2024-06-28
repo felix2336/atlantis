@@ -1,9 +1,11 @@
 import { ActionRowBuilder, ButtonInteraction, ComponentType, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js'
+import { MyClient } from '../../contents'
+import { Button } from 'dcbot'
 
-export default {
+export default new Button( {
     id: 'clan-ticket',
 
-    async execute(interaction: ButtonInteraction) {
+    async execute(interaction) {
         const modal = new ModalBuilder({
             title: "Einem Clan beitreten",
             customId: 'clan-entry'
@@ -23,4 +25,4 @@ export default {
 
         await interaction.showModal(modal)
     }
-}
+})

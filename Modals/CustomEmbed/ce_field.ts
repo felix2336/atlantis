@@ -1,6 +1,7 @@
+import { Modal } from "dcbot";
 import { ModalSubmitInteraction } from "discord.js";
 
-export default {
+export default new Modal({
     id: 'ce_field',
 
     async execute(interaction: ModalSubmitInteraction) {
@@ -9,11 +10,11 @@ export default {
         const fieldValue = interaction.fields.getTextInputValue('fieldvalue')
 
         //@ts-ignore
-        if(!interaction.message.embeds[0].data.fields){
+        if (!interaction.message.embeds[0].data.fields) {
             //@ts-ignore
             const embed = interaction.message.embeds[0]
             //@ts-ignore
-            embed.data.fields = [{name: fieldName, value: fieldValue}]
+            embed.data.fields = [{ name: fieldName, value: fieldValue }]
         }
         //@ts-ignore
         if (interaction.message.embeds[0].fields.length >= fieldnr) {
@@ -38,4 +39,4 @@ export default {
             return
         }
     }
-}
+})

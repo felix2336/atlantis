@@ -1,11 +1,15 @@
 import { ActionRowBuilder } from '@discordjs/builders'
+import { Button } from 'dcbot'
 import {ButtonInteraction, ModalBuilder, TextInputBuilder, } from 'discord.js'
 
-export default {
+export default new Button( {
     id: 'ce_footer',
 
     async execute(interaction: ButtonInteraction){
-        if (interaction.user.username != interaction.message.embeds[0].author!.name) return interaction.reply({ content: 'Du darfst an diesem Embed nichts ändern', ephemeral: true })
+        if (interaction.user.username != interaction.message.embeds[0].author!.name) {
+            interaction.reply({ content: 'Du darfst an diesem Embed nichts ändern', ephemeral: true })
+            return
+        } 
 
         const modal = new ModalBuilder({
             title: 'Footer ändern',
@@ -34,4 +38,4 @@ export default {
         modal.addComponents(row, row2)
         await interaction.showModal(modal)
     }
-}
+})

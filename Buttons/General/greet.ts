@@ -1,6 +1,7 @@
+import { Button } from 'dcbot'
 import { ButtonInteraction, Colors, EmbedBuilder } from 'discord.js'
 
-export default {
+export default new Button({
     id: 'greet',
 
     async execute(interaction: ButtonInteraction) {
@@ -10,6 +11,6 @@ export default {
             color: Colors.DarkGrey
         })
 
-        interaction.reply({embeds: [embed]})
+        interaction.reply({ embeds: [embed] })
     }
-}
+})

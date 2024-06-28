@@ -1,9 +1,9 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
 import { Channels } from '../../contents'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 import Warns from '../../Schemas/warns'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('warn')
         .setDescription('Warne einen User')
@@ -11,7 +11,7 @@ const command: SlashCommand = {
         .addStringOption(input => input.setName('reason').setDescription('Der Grund für den Warn').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction) {
         const reason = interaction.options.get('reason', true).value as string
         const member = interaction.options.getMember('user') as GuildMember
         const channel = interaction.guild!.channels.cache.get(Channels.warn) as TextChannel
@@ -59,8 +59,7 @@ const command: SlashCommand = {
         interaction.reply({ content: `Du hast ${member} gewarnt!\nGrund: **${reason}**`, ephemeral: true })
         await member.send({ embeds: [dmEmbed] }).catch(console.log)
     }
-}
-export default command
+})
 
 function generateWarnId(): string {
     const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';

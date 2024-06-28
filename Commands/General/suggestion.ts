@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ChatInputCommandInteraction } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('suggestion')
         .setDescription('Reiche einen Vorschlag ein')
@@ -32,12 +32,10 @@ const command: SlashCommand = {
             style: TextInputStyle.Paragraph,
             customId: 'suggestion'
         })
-        const row1 = new ActionRowBuilder().addComponents([typeInput])
-        const row2 = new ActionRowBuilder().addComponents([suggestionInput])
-        //@ts-ignore
+        const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents([typeInput])
+        const row2 = new ActionRowBuilder<TextInputBuilder>().addComponents([suggestionInput])
         modal.addComponents(row1, row2)
         await interaction.showModal(modal)
     }
 
-}
-export default command
+})

@@ -1,6 +1,7 @@
 import { ModalSubmitInteraction, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, DMChannel } from 'discord.js'
+import { Modal } from 'dcbot'
 
-export default {
+export default new Modal({
     id: 'accept',
 
     async execute(interaction: ModalSubmitInteraction) {
@@ -10,7 +11,10 @@ export default {
 
         const userid = interaction.message!.embeds[0].fields[0].value.split('@')[1].split('>')[0]
         const member = await interaction.guild!.members.fetch(userid)
-        if (!member) return interaction.editReply({ content: 'Der User wurde nicht gefunden!' })
+        if (!member) {
+            interaction.editReply({ content: 'Der User wurde nicht gefunden!' })
+            return
+        }
 
         const embed = new EmbedBuilder({
             title: 'Abmeldung akzeptiert',
@@ -38,11 +42,11 @@ export default {
                 customId: '2',
                 disabled: true
             })])
-        
+
         const emb = interaction.message!.embeds[0]
-        emb.fields.push({name: 'Akzeptiert - Grund:', value: reason})
+        emb.fields.push({ name: 'Akzeptiert - Grund:', value: reason })
         //@ts-ignore
-        await interaction.message!.edit({ embeds: [emb] ,components: [button] })
+        await interaction.message!.edit({ embeds: [emb], components: [button] })
 
     }
-}
+})

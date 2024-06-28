@@ -1,6 +1,7 @@
+import { Modal } from "dcbot";
 import { ModalSubmitInteraction, PermissionFlagsBits } from "discord.js";
 
-export default {
+export default new Modal({
     id: 'ce_description',
 
     async execute(interaction: ModalSubmitInteraction) {
@@ -13,4 +14,4 @@ export default {
         //@ts-ignore
         await interaction.message.edit({ embeds: [embed] })
     }
-}
+})

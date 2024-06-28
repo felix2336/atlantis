@@ -1,8 +1,9 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js'
 import axios from 'axios'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
+import { MyClient } from '../../contents';
 
-const command: SlashCommand = {
+export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()
         .setName('steal-emoji')
         .setDescription('Hole ein Emoji von einem anderen Server auf diesen')
@@ -15,7 +16,10 @@ const command: SlashCommand = {
 
         const emojiName = emoji.split(':')[1]
 
-        if (!id) return interaction.reply({ content: 'Das Emoji konnte nicht geladen werden!', ephemeral: true })
+        if (!id) {
+            interaction.reply({ content: 'Das Emoji konnte nicht geladen werden!', ephemeral: true })
+            return
+        }
 
         if(emoji.startsWith('<') && emoji.endsWith('>')){
             const type = await axios.get(`https://cdn.discordapp.com/emojis/${id}.gif`)
@@ -42,5 +46,4 @@ const command: SlashCommand = {
             })
         }
     }
-}
-export default command
+})

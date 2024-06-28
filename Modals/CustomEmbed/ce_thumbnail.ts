@@ -1,6 +1,7 @@
+import { Modal } from "dcbot";
 import { ModalSubmitInteraction, } from "discord.js";
 
-export default {
+export default new Modal({
     id: 'ce_thumbnail',
 
     async execute(interaction: ModalSubmitInteraction) {
@@ -15,4 +16,4 @@ export default {
         //@ts-ignore
         await interaction.message.edit({ embeds: [embed] })
     }
-}
+})

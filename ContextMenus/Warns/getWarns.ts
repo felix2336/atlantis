@@ -1,13 +1,13 @@
 import { ApplicationCommandType, ContextMenuCommandBuilder, UserContextMenuCommandInteraction, PermissionFlagsBits, GuildMember, EmbedBuilder, Colors } from "discord.js";
-import { ContextMenu } from "contents";
+import { UserContextMenu } from "dcbot";
 import Warns from "../../Schemas/warns";
 
-const menu: ContextMenu<UserContextMenuCommandInteraction> = {
+export default new UserContextMenu( {
     data: new ContextMenuCommandBuilder()
         .setName('Warns')
         .setType(ApplicationCommandType.User),
 
-    async execute(interaction: UserContextMenuCommandInteraction) {
+    async execute(interaction) {
         const member = interaction.options.getMember('user') as GuildMember
 
         await Warns.findOne({ userId: member.user.id })
@@ -31,5 +31,4 @@ const menu: ContextMenu<UserContextMenuCommandInteraction> = {
             })
             .catch(console.log)
     }
-}
-export default menu
+})

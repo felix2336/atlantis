@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, PermissionFlagsBits, Poll, PollData, PollLayoutType, SlashCommandBuilder, TextChannel } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
+import { MyClient } from '../../contents'
 
-const command: SlashCommand = {
+export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()
         .setName('poll')
         .setDescription('Erstelle eine Umfrage')
@@ -33,5 +34,4 @@ const command: SlashCommand = {
         channel.send({poll: poll})
         interaction.reply({content: 'Die Umfrage wurde erfolgreich gepostet', ephemeral: true})
     }
-}
-export default command
+})

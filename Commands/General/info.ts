@@ -1,7 +1,7 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('info')
         .setDescription('Lasse dir Infos zum Bot anzeigen'),
@@ -23,5 +23,4 @@ const command: SlashCommand = {
 
         await interaction.reply({embeds: [embed]})
     }
-}
-export default command
+})

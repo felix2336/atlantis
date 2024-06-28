@@ -1,6 +1,7 @@
+import { Modal } from 'dcbot'
 import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, Client, ActionRowBuilder, Colors, TextChannel } from 'discord.js'
 
-export default {
+export default new Modal({
     id: 'taskmodal',
 
     async execute(interaction: ModalSubmitInteraction) {
@@ -8,7 +9,10 @@ export default {
         const description = interaction.fields.getTextInputValue('taskdescription')
 
         const channel = interaction.guild!.channels.cache.get('1200374840696246302') as TextChannel;
-        if (!channel) return interaction.reply({ content: 'Der Dev Task Channel existiert nicht mehr. Bitte aktualisiere ihn im Code!', ephemeral: true })
+        if (!channel) {
+            interaction.reply({ content: 'Der Dev Task Channel existiert nicht mehr. Bitte aktualisiere ihn im Code!', ephemeral: true })
+            return
+        }
 
         const finishButton = new ButtonBuilder({
             label: 'Erledigt',
@@ -34,4 +38,4 @@ export default {
         await message.pin()
         interaction.reply({ content: 'Die Aufgabe wurde erfolgreich übermittelt', ephemeral: true })
     }
-}
+})

@@ -1,8 +1,8 @@
 import { ChatInputCommandInteraction, Client, EmbedBuilder, ApplicationCommandOptionType, SlashCommandBuilder } from 'discord.js';
 import fs from 'fs';
-import { SlashCommand } from 'contents';
+import { SlashCommand } from 'dcbot';
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('help')
         .setDescription('Führe diesen Befehl aus, wenn du Hilfe brauchst')
@@ -11,8 +11,8 @@ const command: SlashCommand = {
             .setDescription('Lasse dir alle Befehle zum Casino System anzeigen')
         ),
 
-    async execute(interaction: ChatInputCommandInteraction, client: Client) {
-        //@ts-ignore
+    async execute(interaction, client) {
+
         const subcommand = interaction.options.getSubcommand()
 
         switch (subcommand) {
@@ -38,5 +38,4 @@ const command: SlashCommand = {
             }
         }
     }
-}
-export default command
+})

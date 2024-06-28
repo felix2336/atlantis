@@ -1,19 +1,27 @@
 import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Client, TextChannel, Colors, ButtonStyle, GuildMember } from 'discord.js'
 import { Categories, Roles } from '../../contents'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('closerequest')
         .setDescription('Beantrage die Schließung des aktuellen Tickets')
         .addStringOption(input => input.setName('reason').setDescription('Der Grund für die Schließung').setRequired(true)),
 
     async execute(interaction: ChatInputCommandInteraction, client: Client) {
-        if(!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) return interaction.reply({content: 'Du darfst diesen Befehl nicht nutzen!', ephemeral: true})
+        if(!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) {
+            interaction.reply({content: 'Du darfst diesen Befehl nicht nutzen!', ephemeral: true})
+            return
+        }
         const ticketUser = interaction.guild!.members.cache.find(member => member.user.username == (interaction.channel as TextChannel).name.split('-')[1])
-        if(!ticketUser) return interaction.reply({content: 'Der User, der das Ticket erstellt hat, konnte nicht gefunden werden!', ephemeral: true});
+        if(!ticketUser) {
+            interaction.reply({content: 'Der User, der das Ticket erstellt hat, konnte nicht gefunden werden!', ephemeral: true});
+        }
 
-        if((interaction.channel as TextChannel).parentId != Categories.ticket) return interaction.reply({content: 'Dies ist kein Ticket Kanal!', ephemeral: true})
+        if((interaction.channel as TextChannel).parentId != Categories.ticket) {
+            interaction.reply({content: 'Dies ist kein Ticket Kanal!', ephemeral: true})
+            return
+        }
 
         const embed = new EmbedBuilder({
             title: 'Schließ-Anfrage',
@@ -40,6 +48,4 @@ const command: SlashCommand = {
 
         await interaction.reply({content: `${ticketUser}`, embeds: [embed], components: [row]})
     }
-}
-
-export default command
+})

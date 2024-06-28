@@ -1,10 +1,11 @@
 import { Colors, EmbedBuilder, Events, Message } from 'discord.js'
 import { Roles, unbanRequestButton } from '../../contents'
+import { Event } from 'dcbot'
 
-export default {
+export default new Event( {
     name: Events.MessageCreate,
 
-    async execute(message: Message) {
+    async execute(client, message: Message) {
         if (message.author.bot) return;
         if (message.member?.roles.cache.has(Roles.staff)) return;
         const { content } = message
@@ -28,4 +29,4 @@ export default {
             })
         }
     }
-}
+})

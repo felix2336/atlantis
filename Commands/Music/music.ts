@@ -1,10 +1,11 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, GuildMember, Colors } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 import { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnection, AudioPlayerStatus } from '@discordjs/voice'
 import ytdl from 'ytdl-core-discord'
 import ytsr from 'ytsr'
+import { MyClient } from '../../contents'
 
-const command: SlashCommand = {
+export default new SlashCommand<MyClient>( {
     data: new SlashCommandBuilder()
         .setName('music')
         .setDescription('Nutze die Musikfunktion')
@@ -41,9 +42,15 @@ const command: SlashCommand = {
             const member = interaction.member as GuildMember
             const clientMember = await interaction.guild!.members.fetch(client.user!.id)
 
-            if (!member.voice.channel) return interaction.reply({ content: 'Du musst dich in einem Sprachkanal befinden!', ephemeral: true });
+            if (!member.voice.channel) {
+                interaction.reply({ content: 'Du musst dich in einem Sprachkanal befinden!', ephemeral: true });``
+                return 
+            }
             if (clientMember.voice.channel) {
-                if (member.voice.channelId != clientMember.voice.channelId) return interaction.reply({ content: 'Um Musik zu steuern, musst du im selben Sprachkanal sein, wie der Bot!', ephemeral: true })
+                if (member.voice.channelId != clientMember.voice.channelId) {
+                interaction.reply({ content: 'Um Musik zu steuern, musst du im selben Sprachkanal sein, wie der Bot!', ephemeral: true })
+                return
+                }
             }
 
             const sub = interaction.options.getSubcommand()
@@ -58,16 +65,19 @@ const command: SlashCommand = {
                 const search = interaction.options.getString('songinfo', true)
 
                 const song = (await ytsr(search, { limit: 1 })).items[0]
-                if (!song) return interaction.reply({ content: 'Es wurde kein Song gefunden!', ephemeral: true })
+                if (!song) {
+                    interaction.reply({ content: 'Es wurde kein Song gefunden!', ephemeral: true })
+                    return
+                }
                 const songInfo = {
                     //@ts-ignore
                     title: song.title as string,
                     //@ts-ignore
                     url: song.url as string,
                     //@ts-ignore
-                    thumbnail: song.bestThumbnail.url,
+                    thumbnail: song.bestThumbnail.url as string,
                     //@ts-ignore
-                    duration: song.duration
+                    duration: song.duration as string
                 }
 
                 client.queue.push(songInfo)
@@ -102,7 +112,10 @@ const command: SlashCommand = {
                 interaction.reply({ embeds: [embed] });
 
             } else if (sub == 'queue') {
-                if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                if (!clientMember.voice.channel) {
+                    interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                    return
+                }
                 const embed = new EmbedBuilder({
                     title: 'Warteschlange',
                     description: client.queue.map((song, i) => {
@@ -113,7 +126,10 @@ const command: SlashCommand = {
 
                 interaction.reply({ embeds: [embed] })
             } else if (sub == 'skip') {
-                if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                if (!clientMember.voice.channel) {
+                    interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                    return
+                }
 
                 client.queue.shift()
                 if (client.queue.length > 0) {
@@ -138,7 +154,10 @@ const command: SlashCommand = {
                 }
 
             } else if (sub == 'exit') {
-                if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                if (!clientMember.voice.channel) {
+                    interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                    return
+                }
                 client.queue = []
                 connection.destroy()
                 embed
@@ -147,7 +166,10 @@ const command: SlashCommand = {
 
                 interaction.reply({ embeds: [embed] })
             } else if (sub == 'pause') {
-                if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                if (!clientMember.voice.channel) {
+                    interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                    return
+                }
 
                 const paused = client.player.pause(true)
                 if (paused) {
@@ -164,7 +186,10 @@ const command: SlashCommand = {
                     interaction.reply({ embeds: [embed] })
                 }
             } else if (sub == 'resume') {
-                if (!clientMember.voice.channel) return interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                if (!clientMember.voice.channel) {
+                    interaction.reply({ content: 'Ich bin momentan nicht in einem Sprachkanal!', ephemeral: true })
+                    return
+                }
 
                 const resumed = client.player.unpause()
                 if (resumed) {
@@ -186,5 +211,4 @@ const command: SlashCommand = {
             interaction.reply({content: 'Etwas ist schiefgelaufen! Bitte versuche es erneut', ephemeral: true})
         }
     },
-}
-export default command
+})

@@ -1,10 +1,11 @@
 import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ChannelType, OverwriteType, TextChannel, ButtonStyle } from "discord.js";
 import { Categories } from '../../contents'
+import { Modal } from "dcbot";
 
-export default {
+export default new Modal({
     id: 'clan-entry',
 
-    async execute(interaction: ModalSubmitInteraction) {
+    async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
         await interaction.editReply('Ticket wird erstellt...')
         const infos = interaction.fields.getTextInputValue('clan')
@@ -34,4 +35,4 @@ export default {
         await channel.send({content: `${interaction.guild!.roles.everyone}`, embeds: [embed], components: [row]})
         await interaction.editReply(`Ticket erstellt: ${channel}`)
     }
-}
+})

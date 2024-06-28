@@ -1,13 +1,13 @@
 import { ChatInputCommandInteraction, Client, ApplicationCommandOptionType, PermissionFlagsBits, ChannelType, SlashCommandBuilder, GuildTextBasedChannel } from 'discord.js';
-import { SlashCommand } from 'contents';
+import { SlashCommand } from 'dcbot';
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('fullclear')
         .setDescription('Lösche alle Nachrichten in diesem Kanal')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: ChatInputCommandInteraction, client: Client) {
+    async execute(interaction, client) {
         const channel = interaction.channel as GuildTextBasedChannel;
         await interaction.deferReply({ ephemeral: true })
         await interaction.editReply('Vorgang: ``Fetching Messages``')
@@ -27,5 +27,4 @@ const command: SlashCommand = {
 
         await interaction.editReply('Channel cleared!').catch(err => console.log(err))
     }
-}
-export default command
+})

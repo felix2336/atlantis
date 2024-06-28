@@ -1,6 +1,7 @@
 import { ModalSubmitInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Colors, GuildMember, DMChannel } from 'discord.js'
+import { Modal } from 'dcbot'
 
-export default {
+export default new Modal({
     id: 'decline',
 
     async execute(interaction: ModalSubmitInteraction) {
@@ -27,8 +28,8 @@ export default {
                 interaction.editReply({ content: 'Etwas ist schiefgelaufen' })
                 return
             })
-        
-        if(!(dm instanceof DMChannel)) return;
+
+        if (!(dm instanceof DMChannel)) return;
         await dm.send({ embeds: [embed] })
         interaction.editReply({ content: 'Die Abmeldung wurde erfolgreich abgelehnt' })
         const button = new ActionRowBuilder().addComponents([
@@ -45,4 +46,4 @@ export default {
         await interaction.message!.edit({ embeds: [emb], components: [button] })
 
     }
-}
+})

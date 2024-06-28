@@ -1,7 +1,8 @@
 import { ButtonInteraction, GuildMember } from "discord.js";
-import { Button, MemberManager, Selfroles } from "../../contents";
+import { MemberManager, MyClient, Selfroles } from "../../contents";
+import { Button } from "dcbot";
 
-const button: Button = {
+export default new Button<MyClient>({
     id: 'general',
 
     async execute(interaction, client) {
@@ -13,6 +14,5 @@ const button: Button = {
             await Member.addRole(Selfroles.allgemeines)
             await interaction.reply({ content: 'Die Rolle wurde hinzugefügt', ephemeral: true })
         }
-    },
-}
-export default button
+    }
+})

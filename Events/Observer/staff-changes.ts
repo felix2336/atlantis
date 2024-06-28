@@ -1,6 +1,7 @@
 import { Events, Role, GuildMember, Client, EmbedBuilder, TextChannel, RoleMention } from 'discord.js'
 import { Channels } from '../../contents'
-export default {
+import { Event } from 'dcbot'
+export default new Event( {
     name: Events.ClientReady,
 
     async execute(client: Client) {
@@ -50,4 +51,4 @@ export default {
         await check();
         setInterval(check, 3600000)
     }
-}
+})

@@ -1,10 +1,11 @@
 import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, Colors, ChannelType } from 'discord.js'
 import { Categories, Roles, ticketButtons } from '../../contents'
+import { Modal } from 'dcbot'
 
-export default {
+export default new Modal({
     id: 'apply',
 
-    async execute(interaction: ModalSubmitInteraction) {
+    async execute(interaction) {
         const channel = await interaction.guild!.channels.create({
             name: `ticket-${interaction.user.username}`,
             type: ChannelType.GuildText,
@@ -41,4 +42,4 @@ export default {
                 interaction.reply({ content: `Dein Ticket wurde erstellt: ${channel}`, ephemeral: true })
             })
     }
-}
+})

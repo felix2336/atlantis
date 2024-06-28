@@ -1,7 +1,8 @@
 import { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, Role, TextChannel } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
+import { MyClient } from '../../contents'
 
-const command: SlashCommand = {
+export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()
         .setName('staff')
         .setDescription('Gib eine Teamänderung preis')
@@ -152,5 +153,4 @@ const command: SlashCommand = {
             interaction.reply({content: replyMessage, ephemeral: true})
         }
     }
-}
-export default command
+})

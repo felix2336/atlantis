@@ -1,8 +1,9 @@
+import { Event } from 'dcbot'
 import { Client, Events, Guild, VoiceChannel } from 'discord.js'
-export default {
+export default new Event({
     name: Events.ClientReady,
 
-    async execute(client: Client) {
+    async execute(client) {
         async function updateStats() {
             const guild = client.guilds.cache.get('1146113684435898439') as Guild
 
@@ -27,4 +28,4 @@ export default {
         setInterval(updateStats, 300000)
 
     }
-}
+})

@@ -1,9 +1,10 @@
+import { Button } from "dcbot";
 import { ButtonInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder } from "discord.js";
 
-export default {
+export default new Button( {
     id: 'close-with-reason',
 
-    async execute(interaction: ButtonInteraction) {
+    async execute(interaction) {
         const modal = new ModalBuilder({
             title: 'Ticket mit Begründung schließen',
             customId: 'close-with-reason',
@@ -24,4 +25,4 @@ export default {
 
         await interaction.showModal(modal)
     }
-}
+})

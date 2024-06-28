@@ -1,12 +1,13 @@
 import { Events, Message } from "discord.js";
 import { Pings } from "../../contents";
-import { MyClient } from 'contents'
+import { MyClient } from '../../contents'
+import { Event } from "dcbot";
 import Bumps from "../../Schemas/bumps";
 
-export default {
+export default new Event<MyClient>({
     name: Events.MessageCreate,
 
-    async execute(message: Message, client: MyClient) {
+    async execute(client, message: Message) {
         if (!message.interaction) return;
         if (message.interaction.commandName != 'bump') return;
 
@@ -27,4 +28,4 @@ export default {
         }, 7200000)
 
     }
-}
+})

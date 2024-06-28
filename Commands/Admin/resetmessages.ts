@@ -1,9 +1,9 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, Colors, TextChannel, Guild } from "discord.js";
 import { Channels, MessageUser } from "../../contents";
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 import { readFileSync, writeFileSync } from 'fs'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('reset-messages')
         .setDescription('Imitiere das Message Counter Reset Event')
@@ -54,5 +54,4 @@ const command: SlashCommand = {
         await channel.send({ embeds: [embed] })
         interaction.reply({ content: 'Message Leaderboard erfolgreich zurückgesetzt!', ephemeral: true })
     },
-}
-export default command
+})

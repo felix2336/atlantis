@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder, Colors } from "discord.js";
-import { SlashCommand } from "contents";
+import { SlashCommand } from "dcbot";
 import Bumps from '../../Schemas/bumps'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder() 
         .setName('bumps')
         .setDescription('Sehe, wie oft du schon gebumpt hast'),
@@ -19,6 +19,4 @@ const command: SlashCommand = {
 
         interaction.reply({embeds: [embed], ephemeral: true})
     },
-}
-
-export default command
+})

@@ -1,9 +1,9 @@
 import { EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, SlashCommandBuilder, Collection, TextChannel, Colors,  } from 'discord.js'
-import { Giveaway, countdown, Channels, Pings } from '../../contents'
-import { SlashCommand } from 'contents'
+import { Giveaway, countdown, Channels, Pings, MyClient } from '../../contents'
+import { SlashCommand } from 'dcbot'
 import { readFileSync, writeFileSync } from 'fs'
 
-const command: SlashCommand = {
+export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()
         .setName('giveaway')
         .setDescription('Starte ein Giveaway')
@@ -54,5 +54,4 @@ const command: SlashCommand = {
         writeFileSync('./JSON/giveaways.json', JSON.stringify(giveaways, null, 2))
         await interaction.reply({content: ' Das Giveaway wurde erfolgreich erstellt!', ephemeral: true})
     },
-}
-export default command
+})

@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, PermissionFlagsBits, GuildMember, Guild } from "discord.js";
-import { MemberManager } from "../../contents";
-import { SlashCommand } from 'contents'
+import { MemberManager, MyClient } from "../../contents";
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand( {
     data: new SlashCommandBuilder()
         .setName('kick')
         .setDescription('Kicke einen User')
@@ -15,13 +15,21 @@ const command: SlashCommand = {
         const reason = interaction.options.getString('reason', true)
         const mod = interaction.member as GuildMember
 
-        if(member.roles.highest.position >= mod.roles.highest.position) return interaction.reply({content: 'Du kannst diesen User nicht kicken, weil seine höchste Rolle höher oder gleich deiner höchsten Rolle ist', ephemeral: true})
+        if(member.roles.highest.position >= mod.roles.highest.position) {
+            interaction.reply({content: 'Du kannst diesen User nicht kicken, weil seine höchste Rolle höher oder gleich deiner höchsten Rolle ist', ephemeral: true})
+            return
+        }
 
         const Member = new MemberManager(member, guild)
 
         const kick = await Member.kick(mod, reason)
-        if(!kick) return interaction.reply({content: 'Etwas ist schiefgelaufen', ephemeral: true});
-        else return interaction.reply({content: `Du hast ${member.user.username} erfolgreich gekickt`, ephemeral: true})
+        if(!kick) {
+            interaction.reply({content: 'Etwas ist schiefgelaufen', ephemeral: true});
+            return
+        }
+        else {
+            interaction.reply({content: `Du hast ${member.user.username} erfolgreich gekickt`, ephemeral: true})
+            return
+        }
     }
-}
-export default command
+})

@@ -1,14 +1,15 @@
 import mongoose from 'mongoose'
 import cfg from '../../System/config.json'
-import { ConsoleInfo } from 'contents'
+import { MyClient } from '../../contents'
+import { Event } from 'dcbot'
 
-export default {
+export default new Event({
     name: 'ready',
     once: true,
 
-    async execute() {
+    async execute(client: MyClient) {
         await mongoose.connect(cfg.mongourl)
-            .then(() => new ConsoleInfo().show(`Datenbankverbindung hergestellt`))
+            .then(() => client.info('Connected to Database'))
             .catch(err => console.error(err))
     }
-}
+})

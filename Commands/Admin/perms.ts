@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember, Guild, EmbedBuilder, Colors } from 'discord.js'
-import { MemberManager } from '../../contents'
-import { SlashCommand } from 'contents'
+import { MemberManager, MyClient } from '../../contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand ={
+export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()
         .setName('perms')
         .setDescription('Gibt die Berechtigungen eines Mitglieds wieder')
@@ -38,5 +38,4 @@ const command: SlashCommand ={
 
         await interaction.reply({embeds: [embed]})
     }
-}
-export default command
+})

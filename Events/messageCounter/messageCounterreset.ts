@@ -1,8 +1,9 @@
 import { Events, Client, EmbedBuilder, Message, GuildMember, Colors, Guild, TextChannel } from 'discord.js'
 import { MessageUser, Channels } from '../../contents'
 import { readFileSync, writeFileSync } from 'fs'
+import { Event } from 'dcbot'
 
-export default {
+export default new Event( {
     name: Events.ClientReady,
     // name: Events.MessageCreate,
 
@@ -60,4 +61,4 @@ export default {
         await checkAndDelete()
         setInterval(checkAndDelete, 60000)
     }
-}
+})

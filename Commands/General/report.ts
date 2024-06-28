@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, EmbedBuilder, Colors, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('report')
         .setDescription('Melde einen User an das Serverteam')
@@ -10,12 +10,9 @@ const command: SlashCommand = {
         .addAttachmentOption(input => input.setName('image').setDescription('Erlaubte Dateien: png, jpg, jpeg, webp'))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-    async execute(interaction: ChatInputCommandInteraction) {
-        //@ts-ignore
+    async execute(interaction) {
         const user = interaction.options.getUser('user')
-        //@ts-ignore
         const reason = interaction.options.getString('reason')
-        //@ts-ignore
         const attachment = interaction.options.getAttachment('image')
 
         const embed = new EmbedBuilder({
@@ -38,5 +35,4 @@ const command: SlashCommand = {
 
         await interaction.reply({ embeds: [embed] })
     }
-}
-export default command
+})

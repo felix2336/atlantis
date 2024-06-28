@@ -1,9 +1,9 @@
 import { ChatInputCommandInteraction, Client, EmbedBuilder, Colors, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 import { MessageUser } from '../../contents';
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 import { readFileSync } from 'fs'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('messages')
         .setDescription("Lasse dir Nachrichten anzeigen von dir, einem anderen User oder das Leaderboard")
@@ -14,10 +14,13 @@ const command: SlashCommand = {
             .addStringOption(input => input.setName('type').setDescription('Welches Leaderboard möchtest du sehen?').addChoices({ name: 'Heutiges Leaderboard', value: 'daily' }, { name: 'Leaderboard dieser Woche', value: 'weekly' }).setRequired(true))
         ),
 
-    async execute(interaction: ChatInputCommandInteraction, client: Client) {
+    async execute(interaction, client) {
         const DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
         const member = interaction.member as GuildMember
-        if (!member.roles.cache.has('1156298949301379212')) return interaction.reply({ content: 'Du musst im Team sein, um diesen Befehl nutzen zu können', ephemeral: true })
+        if (!member.roles.cache.has('1156298949301379212')){
+            interaction.reply({ content: 'Du musst im Team sein, um diesen Befehl nutzen zu können', ephemeral: true })
+            return
+        }
         //@ts-ignore
         const subcommand = interaction.options.getSubcommand()
         const day = new Date().getDay()
@@ -64,7 +67,10 @@ const command: SlashCommand = {
                             const entry = leaderboard[i]
                             const member = await interaction.guild!.members.fetch(entry.user)
 
-                            if (!member) return interaction.reply({ content: 'Etwas ist schiefgelaufen', ephemeral: true })
+                            if (!member) {
+                                interaction.reply({ content: 'Etwas ist schiefgelaufen', ephemeral: true })
+                                return
+                            }
                             if (member.roles.cache.has('1201848061819891774')) {
                                 message += `\`\`${i + 1}. \`\`⏱️ <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
                             } else {
@@ -90,5 +96,4 @@ const command: SlashCommand = {
             }
         }
     }
-}
-export default command
+})

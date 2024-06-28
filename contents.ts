@@ -1,5 +1,26 @@
-import { Colors, EmbedBuilder, TextChannel, Guild, ChannelType, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, Snowflake, Role } from 'discord.js'
+import { Colors, EmbedBuilder, TextChannel, Guild, ChannelType, ActionRowBuilder, ButtonBuilder, GuildMember, RoleResolvable, Snowflake, Role, ClientOptions } from 'discord.js'
 import { writeFileSync, appendFileSync } from 'fs'
+import { ExtendedClient } from 'dcbot'
+import { AudioPlayer, CreateAudioPlayerOptions, VoiceConnection, createAudioPlayer } from '@discordjs/voice'
+
+export class MyClient extends ExtendedClient {
+    public guild: Guild
+    connection: VoiceConnection
+    queue: {title: string, url: string, thumbnail: string, duration: string}[]
+    player: AudioPlayer
+    
+    constructor(options: ClientOptions) {
+        super(options)
+    }
+
+    public setGuild(guild: Guild) {
+        this.guild = guild
+    }
+
+    public enableAudioPlayer(options?: CreateAudioPlayerOptions) {
+        this.player = createAudioPlayer(options)
+    }
+}
 
 export enum SuggestionType {
     Server = 1,

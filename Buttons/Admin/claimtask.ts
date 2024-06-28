@@ -1,14 +1,21 @@
+import { Button } from 'dcbot'
 import { ButtonInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, GuildMember } from 'discord.js'
 
-export default {
+export default new Button ({
     id: 'taskclaim',
 
     async execute(interaction: ButtonInteraction) {
         const member = interaction.member as GuildMember
-        if (!member.roles.cache.has('1146117778483450048')) return interaction.reply({ content: 'Dazu bist du nicht berechtigt', ephemeral: true })
+        if (!member.roles.cache.has('1146117778483450048')) {
+            interaction.reply({ content: 'Dazu bist du nicht berechtigt', ephemeral: true })
+            return
+        } 
 
         const message = await interaction.message.fetch()
-        if (!message) return interaction.reply({ content: 'Ein unerwarteter Fehler ist aufgetreten', ephemeral: true })
+        if (!message) {
+            interaction.reply({ content: 'Ein unerwarteter Fehler ist aufgetreten', ephemeral: true })
+            return
+        } 
 
         message.components[0].components.pop()
 
@@ -31,4 +38,4 @@ export default {
         await message.edit({ embeds: [embed], components: [row] })
         interaction.reply({ content: 'Du hast diese Aufgabe erfolgreich geclaimt', ephemeral: true })
     }
-}
+})

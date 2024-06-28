@@ -1,7 +1,7 @@
 import { StringSelectMenuBuilder, CommandInteraction, SlashCommandBuilder, Colors, TextChannel, ActionRowBuilder, StringSelectMenuOptionBuilder, EmbedBuilder, PermissionFlagsBits } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('ticket')
         .setDescription('Sende das Ticket Embed in den Channel')
@@ -47,5 +47,4 @@ const command: SlashCommand = {
         await channel.send({embeds: [embed], components: [row]})
         await interaction.reply({content: ':thumbsup:', ephemeral: true})
     }
-}
-export default command
+})

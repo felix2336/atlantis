@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder, PermissionFlagsBits, GuildMember, Colors } from 'discord.js'
 import {profileImage} from 'discord-arts'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('canvas-test')
         .setDescription('Canvas Tests')
@@ -38,5 +38,4 @@ const command: SlashCommand = {
             await interaction.editReply({ content: `${member}`, embeds: [embed] })
         }
     },
-}
-export default command
+})

@@ -1,10 +1,11 @@
 import { StringSelectMenuInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder, ActionRow, AnySelectMenuInteraction } from "discord.js";
-import { SelectMenu } from 'contents'
+import { StringSelectMenu } from 'dcbot'
+import { MyClient } from "../../contents";
 
-const selectMenu: SelectMenu = {
+export default new StringSelectMenu<MyClient>( {
     id: 'ticket',
 
-    async execute(interaction: StringSelectMenuInteraction) {
+    async execute(interaction, client) {
         switch (interaction.values[0]) {
             case 'bewerben': {
                 const modal = new ModalBuilder({
@@ -160,6 +161,4 @@ const selectMenu: SelectMenu = {
             }
         }
     }
-}
-
-export default selectMenu
+})

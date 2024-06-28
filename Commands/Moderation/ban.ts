@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, GuildMember, Guild } from 'discord.js'
-import { MemberManager } from '../../contents'
-import { SlashCommand } from 'contents'
+import { MemberManager, MyClient } from '../../contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()
         .setName('ban')
         .setDescription('Banne einen User')
@@ -20,8 +20,13 @@ const command: SlashCommand = {
         const manager = new MemberManager(target, client.guild)
 
         const ban = await manager.ban(mod, reason, deleteMessageSeconds)
-        if (!ban) return await interaction.editReply('Der Ban ist fehlgeschlagen!');
-        else return await interaction.editReply(`Du hast ${target} erfolgreich gebannt!`)
+        if (!ban) {
+            await interaction.editReply('Der Ban ist fehlgeschlagen!');
+            return
+        }
+        else {
+            await interaction.editReply(`Du hast ${target} erfolgreich gebannt!`)
+            return
+        }
     }
-}
-export default command
+})

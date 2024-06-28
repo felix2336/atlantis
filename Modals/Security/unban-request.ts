@@ -1,10 +1,11 @@
 import { ModalSubmitInteraction, EmbedBuilder, TextChannel } from "discord.js";
 import { Channels } from '../../contents'
+import { Modal } from "dcbot";
 
-export default {
+export default new Modal({
     id: 'unban-request',
 
-    async execute(interaction: ModalSubmitInteraction) {
+    async execute(interaction) {
         const embed = new EmbedBuilder({
             title: 'Entbannungsantrag',
             description: `${interaction.user} (${interaction.user.username}) möchte entbannt werden!`,
@@ -18,4 +19,4 @@ export default {
 
         await channel.send({ embeds: [embed] })
     }
-}
+})

@@ -1,11 +1,15 @@
 import { ButtonInteraction, Client, Colors, EmbedBuilder, TextChannel } from "discord.js";
 import { Channels } from "../../contents";
+import { Button } from "dcbot";
 
-export default {
+export default new Button( {
     id: 'cr_accept',
 
     async execute(interaction: ButtonInteraction, client: Client) {
-        if (interaction.user.username != (interaction.channel as TextChannel).name.split('-')[1]) return interaction.reply({ content: 'Nur der Ersteller des Tickets darf diesen Button drücken!', ephemeral: true });
+        if (interaction.user.username != (interaction.channel as TextChannel).name.split('-')[1]) {
+            interaction.reply({ content: 'Nur der Ersteller des Tickets darf diesen Button drücken!', ephemeral: true });
+            return
+        }
         
         const logChannel = client.channels.cache.get(Channels.ticket_log) as TextChannel
         const username = (interaction.channel as TextChannel).name.split('-')[1]
@@ -28,4 +32,4 @@ export default {
         await member!.send({ embeds: [userEmbed] })
         await interaction.channel!.delete()
     }
-}
+})

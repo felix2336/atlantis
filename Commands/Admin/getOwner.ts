@@ -1,7 +1,7 @@
-import { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
-import { SlashCommand } from 'contents'
+import { PermissionFlagsBits, SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand( {
     data: new SlashCommandBuilder()
         .setName('fetchowner')
         .setDescription('Fetch the owner of this discord Server')
@@ -15,5 +15,4 @@ const command: SlashCommand = {
         })
         await interaction.reply({content: `Owner: ${owner}\nUsername: **${owner.user.username}**\nUserID: **${owner.user.id}**\nDisplay-Name: **${owner.displayName}**\n`,embeds: [embed], ephemeral: true})
     },
-}
-export default command
+})

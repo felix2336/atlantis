@@ -1,11 +1,12 @@
 import { Message, Client, Events, DMChannel, ChannelType } from 'discord.js';
 import { MessageUser, Roles } from '../../contents';
 import { readFileSync, writeFileSync } from 'fs'
+import { Event } from 'dcbot';
 
-export default {
+export default new Event({
     name: Events.MessageCreate,
 
-    async execute(message: Message, client: Client) {
+    async execute(client, message: Message) {
         if (message.author.bot) return;
         if (message.channel.type == ChannelType.DM) return;
         if (!message.member!.roles.cache.has((Roles.staff))) return;
@@ -27,4 +28,4 @@ export default {
         DB.push(User)
         writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2))
     }
-}
+})

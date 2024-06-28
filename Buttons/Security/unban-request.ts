@@ -1,6 +1,7 @@
+import { Button } from 'dcbot'
 import { ActionRowBuilder, ButtonInteraction, ModalBuilder, TextInputBuilder } from 'discord.js'
 
-export default {
+export default new Button({
     id: 'unban-request',
 
     async execute(interaction: ButtonInteraction) {
@@ -30,4 +31,4 @@ export default {
 
         await interaction.showModal(modal)
     }
-}
+})

@@ -1,9 +1,10 @@
-import { ModalSubmitInteraction, ButtonBuilder, ActionRowBuilder, EmbedBuilder, Colors, TextChannel } from 'discord.js'
+import { Modal } from 'dcbot'
+import { ButtonBuilder, ActionRowBuilder, EmbedBuilder, TextChannel } from 'discord.js'
 
-export default {
+export default new Modal({
     id: 'abmeldung',
 
-    async execute(interaction: ModalSubmitInteraction) {
+    async execute(interaction) {
         const reason = interaction.fields.getTextInputValue('reason')
         const zeitraum = interaction.fields.getTextInputValue('zeitraum')
         const bemerkungen = interaction.fields?.getTextInputValue('bemerkungen')
@@ -42,4 +43,4 @@ export default {
         await channel.send({ content: ping, embeds: [embed], components: [row] })
         await interaction.reply({ content: 'Dein Antrag auf Abmeldung wurde übermittelt!', ephemeral: true })
     }
-}
+})

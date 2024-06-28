@@ -1,11 +1,11 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, Guild, GuildMember, EmbedBuilder, Colors } from 'discord.js'
 import { MemberManager } from '../../contents'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('roles')
-        .setDescription('Gibt die Rollen eines MItglieds wieder')
+        .setDescription('Gibt die Rollen eines Mitglieds wieder')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addUserOption(input => input.setName('user').setDescription('Welcher User?').setRequired(true)),
 
@@ -20,9 +20,8 @@ const command: SlashCommand = {
             title: `${user.user.username} hat die folgenden Rollen:`,
             description: `${roles.join('\n')}`,
             color: Colors.Gold,
-            thumbnail: {url: Member.getAvatarUrl() || ''}
+            thumbnail: { url: Member.getAvatarUrl() || '' }
         })
-        interaction.reply({embeds: [embed]})
+        interaction.reply({ embeds: [embed] })
     }
-}
-export default command
+})

@@ -1,11 +1,15 @@
 import { ButtonInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Colors, GuildMember } from "discord.js";
 import { Roles } from "../../contents";
+import { Button } from "dcbot";
 
-export default {
+export default new Button( {
     id: 'close',
 
     async execute(interaction: ButtonInteraction) {
-        if (!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) return interaction.reply({ content: 'Nur Teammitglieder dürfen Tickets schließen', ephemeral: true })
+        if (!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) {
+            interaction.reply({ content: 'Nur Teammitglieder dürfen Tickets schließen', ephemeral: true })
+            return
+        }
         const embed = new EmbedBuilder({
             title: 'Schließung bestätigen',
             description: 'Bitte bestätige mit dem Button unter dieser Nachricht, dass du das Ticket schließen möchtest',
@@ -22,4 +26,4 @@ export default {
 
         await interaction.reply({embeds: [embed], components: [row]})
     }
-}
+})

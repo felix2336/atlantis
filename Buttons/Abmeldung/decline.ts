@@ -1,10 +1,11 @@
+import { Button } from 'dcbot'
 import { ButtonInteraction, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } from 'discord.js'
 const allowed = [
     '773072144304963624',
     '1196808890227118201',
     '1035799257409667102'
 ]
-export default {
+export default new Button({
     id: 'decline',
 
     async execute(interaction: ButtonInteraction) {
@@ -22,12 +23,14 @@ export default {
                 style: TextInputStyle.Paragraph
             })
 
-            const row = new ActionRowBuilder().addComponents(reason)
-            //@ts-ignore
+            const row = new ActionRowBuilder<TextInputBuilder>().addComponents(reason)
             modal.addComponents(row)
 
             await interaction.showModal(modal)
         }
-        else return interaction.reply({content: 'Du darfst keine Abmeldungen ablehnen!', ephemeral: true})
+        else {
+            interaction.reply({ content: 'Du darfst keine Abmeldungen ablehnen!', ephemeral: true })
+            return
+        }
     }
-}
+})

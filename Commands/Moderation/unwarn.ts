@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember } from 'discord.js'
-import {SlashCommand} from 'contents'
+import {SlashCommand} from 'dcbot'
 import Warns from '../../Schemas/warns'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('unwarn')
         .setDescription('Entferne einen Warn von einem User')
@@ -10,7 +10,7 @@ const command: SlashCommand = {
         .addStringOption(input => input.setName('warn-id').setDescription('Die ID des Warns, den du entfernen möchtest').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
-    async execute(interaction: ChatInputCommandInteraction){
+    async execute(interaction){
         const member = interaction.options.getMember('user') as GuildMember
         const id = interaction.options.get('warn-id', true).value as string
 
@@ -26,5 +26,4 @@ const command: SlashCommand = {
             }
         })
     }
-}
-export default command
+})

@@ -1,10 +1,14 @@
+import { Button } from 'dcbot'
 import { ButtonInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder } from 'discord.js'
 
-export default {
+export default new Button({
     id: 'ce_send',
 
     async execute(interaction: ButtonInteraction) {
-        if (interaction.user.username != interaction.message.embeds[0].author!.name) return interaction.reply({ content: 'Du darfst an diesem Embed nichts ändern', ephemeral: true })
+        if (interaction.user.username != interaction.message.embeds[0].author!.name) {
+            interaction.reply({ content: 'Du darfst an diesem Embed nichts ändern', ephemeral: true })
+            return
+        }
 
         const modal = new ModalBuilder({
             title: 'Embed verschicken',
@@ -24,4 +28,4 @@ export default {
         modal.addComponents(row)
         await interaction.showModal(modal)
     }
-}
+})

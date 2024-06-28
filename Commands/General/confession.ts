@@ -1,12 +1,12 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, Client, ModalBuilder, ActionRowBuilder, TextInputBuilder } from 'discord.js'
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('beichte')
         .setDescription('Erstelle eine anonyme Beichte'),
 
-    async execute(interaction: ChatInputCommandInteraction, client: Client) {
+    async execute(interaction, client) {
         const modal = new ModalBuilder({
             title: 'Anonyme Beichte',
             customId: 'confession',
@@ -26,5 +26,4 @@ const command: SlashCommand = {
 
         await interaction.showModal(modal)
     }
-}
-export default command
+})

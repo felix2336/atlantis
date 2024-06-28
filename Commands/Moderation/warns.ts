@@ -1,16 +1,15 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, Colors } from 'discord.js'
-import { readFileSync, writeFileSync } from 'fs'
-import { SlashCommand } from 'contents'
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, GuildMember, Colors } from 'discord.js'
+import { SlashCommand } from 'dcbot'
 import Warns from '../../Schemas/warns'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('warns')
         .setDescription('Lasse dir alle Warns von einem User anzeigen')
         .addUserOption(input => input.setName('user').setDescription('Der User, von dem du die Warns sehen möchtest').setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
 
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction) {
         const member = interaction.options.getMember('user') as GuildMember
 
         await Warns.findOne({userId: member.user.id})
@@ -34,5 +33,4 @@ const command: SlashCommand = {
         })
         .catch(console.log)
     }
-}
-export default command
+})

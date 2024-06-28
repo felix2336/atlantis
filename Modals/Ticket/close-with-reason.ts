@@ -1,10 +1,11 @@
 import { ModalSubmitInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, TextChannel, Client, Colors } from 'discord.js'
 import { Channels } from '../../contents'
+import { Modal } from 'dcbot'
 
-export default {
+export default new Modal({
     id: 'close-with-reason',
 
-    async execute(interaction: ModalSubmitInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
         const logChannel = client.channels.cache.get(Channels.ticket_log) as TextChannel
         const username = (interaction.channel as TextChannel).name.split('-')[1]
@@ -39,4 +40,4 @@ export default {
             await interaction.channel!.delete()
         }, 5000);
     }
-}
+})

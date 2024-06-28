@@ -1,10 +1,9 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
-import { Err } from '../contents';
+import { Err, MyClient } from '../contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
 
-import { MyClient } from 'contents'
 const client = new MyClient({
     intents: [
         GatewayIntentBits.Guilds,
@@ -28,47 +27,52 @@ const client = new MyClient({
     ],
 });
 const config = await import('./config.json');
-await client.loadAll()
-await client.login(config.token)
+
+await client.loadCommands('Commands/Admin')
+// await client.loadCommands('Commands/Casino')
+await client.loadCommands('Commands/General')
+await client.loadCommands('Commands/Moderation')
+await client.loadCommands('Commands/Music')
+await client.loadCommands('Commands/Staff')
+
+await client.loadEvents('Events/Admin')
+await client.loadEvents('Events/Client')
+await client.loadEvents('Events/Database')
+await client.loadEvents('Events/General')
+await client.loadEvents('Events/messageCounter')
+await client.loadEvents('Events/Observer')
+await client.loadEvents('Events/Security')
+
+await client.loadModals('Modals/Abmeldung')
+await client.loadModals('Modals/Admin')
+await client.loadModals('Modals/CustomEmbed')
+await client.loadModals('Modals/General')
+await client.loadModals('Modals/Security')
+await client.loadModals('Modals/Staff')
+await client.loadModals('Modals/Ticket')
+
+await client.loadStringSelectMenus('SelectMenus/Ticket')
+
+await client.loadUserContextMenus('ContextMenus/Messages')
+await client.loadUserContextMenus('ContextMenus/Warns')
+
+await client.loadButtons('Buttons/Abmeldung')
+await client.loadButtons('Buttons/Admin')
+await client.loadButtons('Buttons/CustomEmbed')
+await client.loadButtons('Buttons/General')
+await client.loadButtons('Buttons/Security')
+await client.loadButtons('Buttons/Selfrole')
+await client.loadButtons('Buttons/ticket')
+
+client.logWhenReady()
+client.enableDmLog('1250477524832489564')
+client.handleInteractions()
+client.login(config.token)
 client.setMaxListeners(0)
-client.on("interactionCreate", async interaction => {
-    switch (true) {
-        case interaction.isContextMenuCommand():
-            const menu = client.contextMenus.get(interaction.commandName);
-            if (!menu) return interaction.reply({ content: "Menu not found", ephemeral: true })
-            menu.execute(interaction, client)
-            break;
+client.deployCommands('1146113684435898439')
 
-        case interaction.isChatInputCommand():
-            const command = client.commands.get(interaction.commandName)
-            if (!command) return interaction.reply({ content: "Command not found", ephemeral: true });
-            command.execute(interaction, client)
-            break;
-
-        case interaction.isButton():
-            const button = client.buttons.get(interaction.customId)
-            if (!button) return interaction.reply({ content: 'Button not found', ephemeral: true })
-            button.execute(interaction, client)
-            break;
-
-        case interaction.isModalSubmit():
-            const modal = client.modals.get(interaction.customId)
-            if (!modal) return interaction.reply({ content: 'MOdal not found', ephemeral: true })
-            modal.execute(interaction, client)
-            break;
-
-        case interaction.isStringSelectMenu():
-            const selectMenu = client.selectMenus.get(interaction.customId)
-            if (!selectMenu) return interaction.reply({ content: 'SelectMenu not found', ephemeral: true })
-            selectMenu.execute(interaction, client)
-            break;
-    }
-})
 
 client.on('ready', async () => {
-    for (const [id, guild] of client.guilds.cache) {
-        guild.commands.set(client.apps.map(c => c.data))
-    }
     client.setGuild(client.guilds.cache.get('1146113684435898439')!)
     client.enableAudioPlayer()
     client.player?.on('stateChange', async (oldState, newState) => {

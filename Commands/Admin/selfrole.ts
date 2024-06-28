@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, ButtonBuilder, EmbedBuilder, ActionRowBuilder, PermissionFlagsBits, Colors, TextChannel } from "discord.js";
 import { Channels } from "../../contents";
-import { SlashCommand } from 'contents'
+import { SlashCommand } from 'dcbot'
 
-const command: SlashCommand = {
+export default new SlashCommand({
     data: new SlashCommandBuilder()
         .setName('selfroles')
         .setDescription('Sende die Selfroles in den selfrolechannel')
@@ -302,5 +302,4 @@ const command: SlashCommand = {
             await channel.send({embeds: [embed], components})
         }
     },
-}
-export default command
+})
