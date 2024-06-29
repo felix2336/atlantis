@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, Client, EmbedBuilder, Colors, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
 import { MessageUser } from '../../contents';
 import { SlashCommand } from 'dcbot'
-import { readFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 
 export default new SlashCommand({
     data: new SlashCommandBuilder()
@@ -11,11 +11,11 @@ export default new SlashCommand({
         .addSubcommand(input => input
             .setName('leaderboard')
             .setDescription('Lasse dir das Leaderboard dieser Woche anzeigen')
-            .addStringOption(input => input.setName('type').setDescription('Welches Leaderboard möchtest du sehen?').addChoices({ name: 'Heutiges Leaderboard', value: 'daily' }, { name: 'Leaderboard dieser Woche', value: 'weekly' }).setRequired(true))
+            .addStringOption(input => input.setName('type').setDescription('Welches Leaderboard möchtest du sehen?').addChoices(/*{ name: 'Heutiges Leaderboard', value: 'daily' },*/ { name: 'Leaderboard dieser Woche', value: 'weekly' }).setRequired(true))
         ),
 
     async execute(interaction, client) {
-        const DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
+        let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
         const member = interaction.member as GuildMember
         if (!member.roles.cache.has('1156298949301379212')){
             interaction.reply({ content: 'Du musst im Team sein, um diesen Befehl nutzen zu können', ephemeral: true })
@@ -60,14 +60,24 @@ export default new SlashCommand({
                             leaderboard.push({ user: User.userid, count: User.getTotalMessages() })
                         }
 
-                        const sorted = leaderboard.sort((a, b) => b.count - a.count)
+                        leaderboard.sort((a, b) => b.count - a.count)
                         let message = ''
 
                         for (let i = 0; i < leaderboard.length; i++) {
+                            let member: GuildMember;
                             const entry = leaderboard[i]
-                            const member = await interaction.guild!.members.fetch(entry.user)
+                            // console.log(entry.user)
+                            // continue
+                            try{
+                                member = await interaction.guild!.members.fetch(entry.user)
+                            } catch(e) {
+                                client.warn(entry.user)
+                                DB = DB.filter(e => e.userid != entry.user)
+                                writeFileSync('JSON/messages.json', JSON.stringify(DB, null, 3))
+                                continue
+                            }
 
-                            if (!member) {
+                            if (!(member instanceof GuildMember)) {
                                 interaction.reply({ content: 'Etwas ist schiefgelaufen', ephemeral: true })
                                 return
                             }
