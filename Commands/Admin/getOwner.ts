@@ -1,4 +1,4 @@
-import { PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from 'contents'
 
 const command: SlashCommand = {
@@ -9,7 +9,11 @@ const command: SlashCommand = {
 
     async execute(interaction, client) {
         const owner = await interaction.guild!.fetchOwner()
-        await interaction.reply({content: `Owner: ${owner}\nUsername: **${owner.user.username}**\nUserID: **${owner.user.id}**\nDisplay-Name: **${owner.displayName}**`})
+        const embed = new EmbedBuilder({
+            title: 'JSON',
+            description: `\`\`\`json\n${JSON.stringify((await owner.fetch()).toJSON(), null, 3)}\n\`\`\``
+        })
+        await interaction.reply({content: `Owner: ${owner}\nUsername: **${owner.user.username}**\nUserID: **${owner.user.id}**\nDisplay-Name: **${owner.displayName}**\n`,embeds: [embed], ephemeral: true})
     },
 }
 export default command
