@@ -1,5 +1,5 @@
-import { ChatInputCommandInteraction, PermissionFlagsBits, Poll, PollData, PollLayoutType, SlashCommandBuilder, TextChannel } from 'discord.js'
-import { SlashCommand } from 'dcbot'
+import { ChatInputCommandInteraction, PermissionFlagsBits, PollData, PollLayoutType, SlashCommandBuilder, TextChannel } from 'discord.js'
+import { SlashCommand, Poll } from 'dcbot'
 import { MyClient } from '../../contents'
 
 export default new SlashCommand<MyClient>({
@@ -23,14 +23,14 @@ export default new SlashCommand<MyClient>({
 
         const options = rawOptions.split(',')
 
-        const poll: PollData = {
+        const poll = new Poll({
             allowMultiselect: multiselect,
             question: { text: question },
             answers: [
                 ...options.map((option, index) => ({ text: option.trim(), emoji: emojis[index] })),
             ],
             duration: duration
-        }
+        })
         channel.send({poll: poll})
         interaction.reply({content: 'Die Umfrage wurde erfolgreich gepostet', ephemeral: true})
     }

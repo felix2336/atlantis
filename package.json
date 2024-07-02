@@ -14,7 +14,7 @@
     "@discordjs/voice": "^0.17.0",
     "axios": "^1.6.8",
     "chalk": "^5.3.0",
-    "dcbot": "^1.0.23",
+    "dcbot": "^1.0.24",
     "discord-arts": "^0.6.1",
     "discord.js": "^14.15.3",
     "glob": "^8.1.0",
