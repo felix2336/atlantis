@@ -3,6 +3,7 @@ import fs from 'fs'
 import { Err, MyClient } from '../contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
+import startServer from '../Server/backend';
 
 const client = new MyClient({
     intents: [
@@ -70,6 +71,8 @@ client.handleInteractions()
 client.login(config.token)
 client.setMaxListeners(0)
 client.deployCommands('1146113684435898439')
+
+await startServer()
 
 
 client.on('ready', async () => {
