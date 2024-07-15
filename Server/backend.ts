@@ -2,6 +2,7 @@ import express from 'express'
 import Bumps from '../Schemas/bumps'
 import Casino from '../Schemas/casino'
 import Warns from '../Schemas/warns'
+import ytdl from 'ytdl-core'
 const port = 2200;
 async function startServer() {
     const app = express()
@@ -53,6 +54,23 @@ async function startServer() {
         const { userId, warns } = req.body
         const User = await Warns.create({ userId, warns })
         res.json({ success: true, user: User })
+    })
+
+    app.get('/api/download/:url', async (req, res) => {
+        const url = req.params.url
+        if (!url) {
+            res.json({ success: false, reason: 'No URL' })
+        }
+        try {
+            const info = await ytdl.getInfo(url)
+            const title = info.videoDetails.title
+
+            res.header('Content-Disposition', `attachment; filename="${title}.mp4"`)
+            ytdl(url, {quality: 'highest'}).pipe(res)
+        } catch(e) {
+            console.log('Fehler beim herunterladen:', e.message)
+            res.status(500).send(`Error: ${e.message}`)
+        }
     })
 
     app.listen(port, () => {
