@@ -73,7 +73,7 @@ async function startServer() {
         }
     })
 
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => {
         console.log(`Backend is running on port ${port}.`)
     })
 }
