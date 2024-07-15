@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, models } from 'mongoose'
 
 let Casino = new Schema({
     user: String,
@@ -7,4 +7,6 @@ let Casino = new Schema({
     inventory: {}
 })
 
-export default model('casino', Casino)
+const CasinoModel = models['casino'] || model('casino', Casino)
+
+export default CasinoModel

@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, models } from 'mongoose'
 import { Colors, EmbedBuilder } from 'discord.js'
 
 const WarnSchema = new Schema({
@@ -6,7 +6,7 @@ const WarnSchema = new Schema({
     warns: [{ date: { type: String, required: true }, moderator: { type: String, required: true }, reason: { type: String, required: true }, id: { type: String, required: true } }],
 })
 
-const Warns = model('warns', WarnSchema)
+const Warns = models['warns'] || model('warns', WarnSchema)
 export default Warns
 
 function getWarnEmbed(): EmbedBuilder {

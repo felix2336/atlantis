@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const Bumps = new Schema({
     userId: String,
     bumps: {type: Number, default: 0}
 })
-const BumpModel = model('bumps', Bumps)
+const BumpModel = models['bumps'] || model('bumps', Bumps)
 export default BumpModel

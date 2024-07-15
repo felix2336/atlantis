@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, models } from 'mongoose'
 
 let cooldowns = new Schema({
     user: String,
@@ -8,4 +8,6 @@ let cooldowns = new Schema({
     daily: String
 })
 
-export default model('cooldowns', cooldowns)
+const CooldownModel = models['cooldowns'] || model('cooldowns', cooldowns)
+
+export default CooldownModel
