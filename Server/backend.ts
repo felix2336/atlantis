@@ -56,22 +56,24 @@ async function startServer() {
         res.json({ success: true, user: User })
     })
 
-    app.get('/api/download/:url', async (req, res) => {
-        const url = req.params.url
-        if (!url) {
-            res.json({ success: false, reason: 'No URL' })
-        }
-        try {
-            const info = await ytdl.getInfo(url)
-            const title = info.videoDetails.title
+    app.get('/api/download', async (req, res) => {
+        const url = req.query.url as string;
 
-            res.header('Content-Disposition', `attachment; filename="${title}.mp4"`)
-            ytdl(url, {quality: 'highest'}).pipe(res)
-        } catch(e) {
-            console.log('Fehler beim herunterladen:', e.message)
-            res.status(500).send(`Error: ${e.message}`)
+        if (!url) {
+            return res.json({ success: false, reason: 'No URL' });
         }
-    })
+
+        try {
+            const info = await ytdl.getInfo(url);
+            const title = info.videoDetails.title;
+
+            res.header('Content-Disposition', `attachment; filename="${title}.mp4"`);
+            ytdl(url, { quality: 'highest' }).pipe(res);
+        } catch (e) {
+            console.error('Fehler beim Herunterladen:', e.message);
+            res.status(500).send(`Error: ${e.message}`);
+        }
+    });
 
     app.listen(port, '0.0.0.0', () => {
         console.log(`Backend is running on port ${port}.`)
