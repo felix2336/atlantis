@@ -55,7 +55,9 @@ async function startServer() {
         res.json({ success: true, user: User })
     })
 
-    app.listen(port)
+    app.listen(port, () => {
+        console.log(`Backend is running on port ${port}.`)
+    })
 }
 
 export default startServer
