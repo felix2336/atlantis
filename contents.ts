@@ -11,6 +11,8 @@ export class MyClient extends ExtendedClient {
     
     constructor(options: ClientOptions) {
         super(options)
+	this.queue = []
+	
     }
 
     public setGuild(guild: Guild) {

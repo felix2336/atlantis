@@ -37,6 +37,7 @@ export default new SlashCommand<MyClient>( {
         ),
 
     async execute(interaction, client) {
+	console.log(client)
         try {
             let embed = new EmbedBuilder()
             const member = interaction.member as GuildMember
