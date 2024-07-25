@@ -93,6 +93,7 @@ export class Suggestion {
 }
 
 export enum Channels {
+    try_bans = "1266110288739176528",
     teamliste = "1173357582933573722",
     warn = "1160607902210470009",
     suggestion = "1230234007854120960",
@@ -399,11 +400,11 @@ export class MemberManager {
     }
 
     public async ban(moderator: GuildMember, reason: string, deleteMessageSeconds?: number): Promise<boolean> {
-        await this.member.ban({ reason, deleteMessageSeconds })
-            .catch(e => {
-                console.log(e)
-                return false
-            })
+        try {
+            await this.member.ban({ reason })
+        } catch(error) {
+            return false
+        }
 
         const embed = new EmbedBuilder({
             author: { name: this.guild.name, iconURL: this.guild.iconURL() || '' },

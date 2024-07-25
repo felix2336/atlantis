@@ -1,5 +1,5 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction, GuildMember, Guild, PermissionFlagsBits } from 'discord.js'
-import { MemberManager, MyClient } from '../../contents'
+import { SlashCommandBuilder, ChatInputCommandInteraction, GuildMember, Guild, PermissionFlagsBits, EmbedBuilder, TextChannel } from 'discord.js'
+import { Channels, MemberManager, MyClient } from '../../contents'
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand<MyClient>({
@@ -17,6 +17,18 @@ export default new SlashCommand<MyClient>({
         const deleteMessageSeconds = interaction.options.getNumber('deletemessageseconds') || undefined
         const reason = interaction.options.getString('reason', true)
         const mod = interaction.member as GuildMember
+
+        if (target.roles.highest.position >= mod.roles.highest.position) {
+            interaction.editReply({ content: 'Du kannst diesen User nicht bannen, da er eine höhere Rolle hat als du!'})
+            const embed = new EmbedBuilder({
+                title: 'Versuchter Ban',
+                description: `${mod} (${mod.user.username}) hat versucht ${target} (${target.user.username}) zu bannen!`,
+                footer: { text: 'Tja Pech gehabt... XD' }
+            })
+            const channel = client.channels.cache.get(Channels.test) as TextChannel
+            await channel.send({ embeds: [embed] })
+            return
+        }
 
         const manager = new MemberManager(target, client.guild)
 

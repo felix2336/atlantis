@@ -10,3 +10,9 @@ DiscordAPIError[50027]: Invalid Webhook Token
 25.07.2024 - 11:07:03
 TypeError: Cannot read properties of undefined (reading 'send')
 
+25.07.2024 - 21:06:01
+Error [InteractionAlreadyReplied]: The reply to this interaction has already been sent or deferred.
+
+25.07.2024 - 21:08:49
+Error [InteractionAlreadyReplied]: The reply to this interaction has already been sent or deferred.
+
