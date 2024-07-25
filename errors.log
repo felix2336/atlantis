@@ -1,0 +1,12 @@
+16.07.2024 - 09:02:31
+TypeError: Cannot read properties of null (reading 'send')
+
+19.07.2024 - 07:46:10
+DiscordAPIError[50027]: Invalid Webhook Token
+
+19.07.2024 - 07:47:42
+DiscordAPIError[50027]: Invalid Webhook Token
+
+25.07.2024 - 11:07:03
+TypeError: Cannot read properties of undefined (reading 'send')
+
