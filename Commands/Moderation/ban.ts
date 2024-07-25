@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction, GuildMember, Guild } from 'discord.js'
+import { SlashCommandBuilder, ChatInputCommandInteraction, GuildMember, Guild, PermissionFlagsBits } from 'discord.js'
 import { MemberManager, MyClient } from '../../contents'
 import { SlashCommand } from 'dcbot'
 
@@ -8,7 +8,8 @@ export default new SlashCommand<MyClient>({
         .setDescription('Banne einen User')
         .addUserOption(input => input.setName('user').setDescription('Welchen User?').setRequired(true))
         .addStringOption(input => input.setName('reason').setDescription('Der Grund für den Ban').setRequired(true))
-        .addNumberOption(input => input.setName('deletemessageseconds').setDescription('In welcher Zeit vor dem Ban sollen die Nachrichten gelöscht werden? (in Sekunden)')),
+        .addNumberOption(input => input.setName('deletemessageseconds').setDescription('In welcher Zeit vor dem Ban sollen die Nachrichten gelöscht werden? (in Sekunden)'))
+        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })

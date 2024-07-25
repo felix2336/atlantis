@@ -6,13 +6,12 @@ import { AudioPlayer, CreateAudioPlayerOptions, VoiceConnection, createAudioPlay
 export class MyClient extends ExtendedClient {
     public guild: Guild
     connection: VoiceConnection
-    queue: {title: string, url: string, thumbnail: string, duration: string}[]
+    queue: { title: string, url: string, thumbnail: string, duration: string }[]
     player: AudioPlayer
-    
+
     constructor(options: ClientOptions) {
         super(options)
-	this.queue = []
-	
+        this.queue = []
     }
 
     public setGuild(guild: Guild) {
