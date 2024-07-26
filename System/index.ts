@@ -70,7 +70,7 @@ await client.loadButtons('Buttons/ticket')
 client.logWhenReady()
 client.enableDmLog('1250477524832489564')
 client.handleInteractions()
-client.login(config.token)
+await client.login(config.token)
 client.deployCommands('1146113684435898439')
 
 await startServer()
