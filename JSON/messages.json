@@ -28,48 +28,6 @@
     }
   },
   {
-    "userid": "1035799257409667102",
-    "username": "felix.4099",
-    "totalMessages": 11,
-    "messages": {
-      "monday": 8,
-      "tuesday": 0,
-      "wednesday": 3,
-      "thursday": 0,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "1003033031864500376",
-    "username": "realkingo",
-    "totalMessages": 4,
-    "messages": {
-      "monday": 1,
-      "tuesday": 1,
-      "wednesday": 0,
-      "thursday": 2,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "1204491721119891492",
-    "username": "hxperkatzchen",
-    "totalMessages": 43,
-    "messages": {
-      "monday": 7,
-      "tuesday": 13,
-      "wednesday": 22,
-      "thursday": 1,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
     "userid": "847164343602774097",
     "username": "magnificentsimon",
     "totalMessages": 55,
@@ -84,15 +42,57 @@
     }
   },
   {
+    "userid": "1003033031864500376",
+    "username": "realkingo",
+    "totalMessages": 5,
+    "messages": {
+      "monday": 1,
+      "tuesday": 1,
+      "wednesday": 0,
+      "thursday": 2,
+      "friday": 1,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "1204491721119891492",
+    "username": "hxperkatzchen",
+    "totalMessages": 46,
+    "messages": {
+      "monday": 7,
+      "tuesday": 13,
+      "wednesday": 22,
+      "thursday": 1,
+      "friday": 3,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
     "userid": "773072144304963624",
     "username": "felix2336",
-    "totalMessages": 90,
+    "totalMessages": 108,
     "messages": {
       "monday": 8,
       "tuesday": 51,
       "wednesday": 9,
       "thursday": 22,
-      "friday": 0,
+      "friday": 18,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "1035799257409667102",
+    "username": "felix.4099",
+    "totalMessages": 15,
+    "messages": {
+      "monday": 8,
+      "tuesday": 0,
+      "wednesday": 3,
+      "thursday": 0,
+      "friday": 4,
       "saturday": 0,
       "sunday": 0
     }
