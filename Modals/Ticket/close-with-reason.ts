@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, TextChannel, Client, Colors } from 'discord.js'
+import { ModalSubmitInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, TextChannel, Client, Colors, ForumChannel } from 'discord.js'
 import { Channels } from '../../contents'
 import { Modal } from 'dcbot'
 
@@ -21,6 +21,20 @@ export default new Modal({
             ],
             color: Colors.Green,
             timestamp: new Date
+        })
+
+        const transkripts = client.channels.cache.get(Channels.ticket_transkripts) as ForumChannel
+        const wh = (await transkripts.fetchWebhooks()).first()
+        const transkript = transkripts.threads.cache.find(ch => ch.name == (interaction.channel as TextChannel).name)
+
+        if (!wh) {
+            return
+        }
+
+        await wh.send({
+            username: 'TICKET MASTER',
+            avatarURL: 'https://cdn.discordapp.com/emojis/1229101938977800222.webp?size=96&quality=lossless',
+            content: '# Ticket geschlossen!'
         })
 
         const userEmbed = new EmbedBuilder(logEmbed.data).setAuthor({name: interaction.guild!.name, iconURL: interaction.guild!.iconURL() || ''})

@@ -16,3 +16,18 @@ Error [InteractionAlreadyReplied]: The reply to this interaction has already bee
 25.07.2024 - 21:08:49
 Error [InteractionAlreadyReplied]: The reply to this interaction has already been sent or deferred.
 
+26.07.2024 - 19:21:39
+DiscordAPIError[10062]: Unknown interaction
+
+26.07.2024 - 19:21:46
+DiscordAPIError[220001]: Webhooks posted to forum channels must have a thread_name or thread_id
+
+26.07.2024 - 19:22:28
+TypeError: Cannot read properties of undefined (reading 'send')
+
+26.07.2024 - 19:28:14
+DiscordAPIError[50006]: Cannot send an empty message
+
+26.07.2024 - 19:28:39
+DiscordAPIError[10062]: Unknown interaction
+

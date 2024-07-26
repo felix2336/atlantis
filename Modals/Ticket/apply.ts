@@ -1,13 +1,15 @@
-import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, Colors, ChannelType } from 'discord.js'
-import { Categories, Roles, ticketButtons } from '../../contents'
+import { EmbedBuilder, ChannelType, ForumChannel } from 'discord.js'
+import { Categories, Channels, ticketButtons } from '../../contents'
 import { Modal } from 'dcbot'
 
 export default new Modal({
     id: 'apply',
 
-    async execute(interaction) {
+    async execute(interaction, client) {
+        const transkripts = client.channels.cache.get(Channels.ticket_transkripts) as ForumChannel
+
         const channel = await interaction.guild!.channels.create({
-            name: `ticket-${interaction.user.username}`,
+            name: `bewerbung-${interaction.user.username}`,
             type: ChannelType.GuildText,
             parent: Categories.ticket,
             permissionOverwrites: [
@@ -34,6 +36,11 @@ export default new Modal({
                 { name: 'Onlinezeiten', value: onlinetime }
             ],
             color: 0x0000FF
+        })
+
+        await transkripts.threads.create({
+            name: `bewerbung-${interaction.user.id}`,
+            message: { embeds: [embed1, embed2] }
         })
 
         await channel.send({ content: '@everyone', embeds: [embed1, embed2], components: [ticketButtons] })

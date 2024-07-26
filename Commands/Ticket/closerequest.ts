@@ -13,7 +13,7 @@ export default new SlashCommand({
             interaction.reply({content: 'Du darfst diesen Befehl nicht nutzen!', ephemeral: true})
             return
         }
-        const ticketUser = interaction.guild!.members.cache.find(member => member.user.username == (interaction.channel as TextChannel).name.split('-')[1])
+        const ticketUser = await interaction.guild!.members.fetch((interaction.channel as TextChannel).name.split('-')[1])
         if(!ticketUser) {
             interaction.reply({content: 'Der User, der das Ticket erstellt hat, konnte nicht gefunden werden!', ephemeral: true});
         }

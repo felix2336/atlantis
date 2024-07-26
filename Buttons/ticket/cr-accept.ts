@@ -1,4 +1,4 @@
-import { ButtonInteraction, Client, Colors, EmbedBuilder, TextChannel } from "discord.js";
+import { ButtonInteraction, Client, Colors, EmbedBuilder, ForumChannel, TextChannel } from "discord.js";
 import { Channels } from "../../contents";
 import { Button } from "dcbot";
 
@@ -6,14 +6,30 @@ export default new Button( {
     id: 'cr_accept',
 
     async execute(interaction: ButtonInteraction, client: Client) {
-        if (interaction.user.username != (interaction.channel as TextChannel).name.split('-')[1]) {
+        
+        if (interaction.user.id != (interaction.channel as TextChannel).name.split('-')[1]) {
             interaction.reply({ content: 'Nur der Ersteller des Tickets darf diesen Button drücken!', ephemeral: true });
             return
         }
         
         const logChannel = client.channels.cache.get(Channels.ticket_log) as TextChannel
         const username = (interaction.channel as TextChannel).name.split('-')[1]
-        const member = interaction.guild!.members.cache.find(user => user.user.username == username)
+        const member = await interaction.guild!.members.fetch((interaction.channel as TextChannel).name.split('-')[1])
+        
+        const transkripts = client.channels.cache.get(Channels.ticket_transkripts) as ForumChannel
+        const wh = (await transkripts.fetchWebhooks()).first()
+        const transkript = transkripts.threads.cache.find(ch => ch.name == (interaction.channel as TextChannel).name)
+
+        if (!wh) {
+            return
+        }
+
+        await wh.send({
+            username: 'TICKET MASTER',
+            avatarURL: 'https://cdn.discordapp.com/emojis/1229101938977800222.webp?size=96&quality=lossless',
+            content: '# Ticket geschlossen!',
+            threadId: transkript?.id
+        })
         
         const logEmbed = new EmbedBuilder({
             title: 'Ticket geschlossen',
@@ -29,7 +45,7 @@ export default new Button( {
 
         const userEmbed = new EmbedBuilder(logEmbed.data).setAuthor({ name: interaction.guild!.name, iconURL: interaction.guild!.iconURL() || '' })
         await logChannel.send({ embeds: [logEmbed] })
-        await member!.send({ embeds: [userEmbed] })
+        await member!.send({ embeds: [userEmbed] }).catch(console.log)
         await interaction.channel!.delete()
     }
 })

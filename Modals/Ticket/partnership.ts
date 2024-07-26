@@ -1,11 +1,13 @@
-import { ModalSubmitInteraction, EmbedBuilder, Client, ChannelType } from "discord.js";
-import { Categories, Roles, ticketButtons } from "../../contents";
+import { ModalSubmitInteraction, EmbedBuilder, Client, ChannelType, ForumChannel } from "discord.js";
+import { Categories, Channels, Roles, ticketButtons } from "../../contents";
 import { Modal } from "dcbot";
 
 export default new Modal({
     id: 'partnerschaft',
 
-    async execute(interaction) {
+    async execute(interaction, client) {
+        const transkripts = client.channels.cache.get(Channels.ticket_transkripts) as ForumChannel
+
         const channel = await interaction.guild!.channels.create({
             name: `ticket-${interaction.user.username}`,
             type: ChannelType.GuildText,
@@ -30,6 +32,11 @@ export default new Modal({
                 {name: 'Anzahl der Mitglieder', value: memberCount}
             ],
             color: 0x0000FF
+        })
+
+        await transkripts.threads.create({
+            name: `partner-${interaction.user.id}`,
+            message: { embeds: [embed, embed2] }
         })
 
         await channel.send({content: '@everyone', embeds: [embed, embed2], components: [ticketButtons]}).then((async message => {

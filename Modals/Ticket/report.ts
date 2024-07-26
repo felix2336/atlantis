@@ -1,13 +1,15 @@
-import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, Colors, ChannelType, APIEmbedField } from 'discord.js'
-import { Categories, Roles, ticketButtons } from '../../contents'
+import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, Colors, ChannelType, APIEmbedField, ForumChannel } from 'discord.js'
+import { Categories, Channels, Roles, ticketButtons } from '../../contents'
 import { Modal } from 'dcbot'
 
 export default new Modal({
     id: 'report',
 
-    async execute(interaction) {
+    async execute(interaction, client) {
+        const transkripts = client.channels.cache.get(Channels.ticket_transkripts) as ForumChannel
+
         const channel = await interaction.guild!.channels.create({
-            name: `ticket-${interaction.user.username}`,
+            name: `report-${interaction.user.id}`,
             type: ChannelType.GuildText,
             parent: Categories.ticket,
             permissionOverwrites: [
@@ -27,6 +29,11 @@ export default new Modal({
                 { name: 'Beweise?', value: interaction.fields.getTextInputValue('evidence') }
             ],
             color: 0x0000FF
+        })
+
+        await transkripts.threads.create({
+            name: `report-${interaction.user.id}`,
+            message: { embeds: [embed1, embed2] }
         })
 
         await channel.send({ content: '@everyone', embeds: [embed1, embed2], components: [ticketButtons] })

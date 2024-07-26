@@ -5,7 +5,7 @@ export default new Button({
     id: 'cr_decline',
 
     async execute(interaction: ButtonInteraction) {
-        if(interaction.user.username != (interaction.channel as TextChannel).name.split('-')[1]) {
+        if(interaction.user.id != (interaction.channel as TextChannel).name.split('-')[1]) {
             interaction.reply({content: 'Nur der Ersteller des Tickets darf diesen Button drücken!', ephemeral: true});
             return
         } 
