@@ -31,3 +31,90 @@ DiscordAPIError[50006]: Cannot send an empty message
 26.07.2024 - 19:28:39
 DiscordAPIError[10062]: Unknown interaction
 
+28.07.2024 - 21:20:12
+ConnectTimeoutError: Connect Timeout Error
+
+29.07.2024 - 04:17:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:17:09
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:22:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:27:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:32:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:37:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:42:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:47:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:52:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 04:57:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:02:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:07:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:12:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:17:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:17:09
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:22:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:27:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:32:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:37:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:42:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:47:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:52:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 05:57:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 06:02:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 06:07:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 06:12:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 06:17:02
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+
+29.07.2024 - 06:17:09
+Error [GuildMembersTimeout]: Members didn't arrive in time.
+

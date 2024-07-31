@@ -16,10 +16,10 @@
   {
     "userid": "731990066158895175",
     "username": "mikerandom",
-    "totalMessages": 43,
+    "totalMessages": 0,
     "messages": {
       "monday": 0,
-      "tuesday": 43,
+      "tuesday": 0,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
@@ -30,12 +30,12 @@
   {
     "userid": "847164343602774097",
     "username": "magnificentsimon",
-    "totalMessages": 55,
+    "totalMessages": 29,
     "messages": {
-      "monday": 12,
-      "tuesday": 23,
-      "wednesday": 10,
-      "thursday": 10,
+      "monday": 3,
+      "tuesday": 0,
+      "wednesday": 26,
+      "thursday": 0,
       "friday": 0,
       "saturday": 0,
       "sunday": 0
@@ -44,13 +44,13 @@
   {
     "userid": "1003033031864500376",
     "username": "realkingo",
-    "totalMessages": 5,
+    "totalMessages": 1,
     "messages": {
-      "monday": 1,
-      "tuesday": 1,
-      "wednesday": 0,
-      "thursday": 2,
-      "friday": 1,
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 1,
+      "thursday": 0,
+      "friday": 0,
       "saturday": 0,
       "sunday": 0
     }
@@ -58,13 +58,27 @@
   {
     "userid": "1204491721119891492",
     "username": "hxperkatzchen",
-    "totalMessages": 46,
+    "totalMessages": 9,
     "messages": {
-      "monday": 7,
-      "tuesday": 13,
-      "wednesday": 22,
-      "thursday": 1,
-      "friday": 3,
+      "monday": 1,
+      "tuesday": 0,
+      "wednesday": 8,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
+    "userid": "1035799257409667102",
+    "username": "lotte.4099",
+    "totalMessages": 3,
+    "messages": {
+      "monday": 0,
+      "tuesday": 0,
+      "wednesday": 3,
+      "thursday": 0,
+      "friday": 0,
       "saturday": 0,
       "sunday": 0
     }
@@ -72,14 +86,14 @@
   {
     "userid": "773072144304963624",
     "username": "felix2336",
-    "totalMessages": 117,
+    "totalMessages": 59,
     "messages": {
-      "monday": 8,
-      "tuesday": 51,
-      "wednesday": 9,
-      "thursday": 22,
-      "friday": 25,
-      "saturday": 2,
+      "monday": 0,
+      "tuesday": 1,
+      "wednesday": 58,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
       "sunday": 0
     }
   }
