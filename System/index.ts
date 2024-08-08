@@ -93,11 +93,11 @@ client.on('ready', async () => {
     })
 })
 
-client.on('ready', () => {
-    client.user!.setPresence({
-        status: 'invisible'
-    })
-})
+// client.on('ready', () => {
+    // client.user!.setPresence({
+        // status: 'invisible'
+    // })
+// })
 
 client.on('error', (err: Error) => {
     Err(err)
