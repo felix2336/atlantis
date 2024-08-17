@@ -14,12 +14,26 @@
     }
   },
   {
+    "userid": "1204491721119891492",
+    "username": "hxperkatzchen",
+    "totalMessages": 7,
+    "messages": {
+      "monday": 7,
+      "tuesday": 0,
+      "wednesday": 0,
+      "thursday": 0,
+      "friday": 0,
+      "saturday": 0,
+      "sunday": 0
+    }
+  },
+  {
     "userid": "731990066158895175",
     "username": "mikerandom",
-    "totalMessages": 0,
+    "totalMessages": 1,
     "messages": {
       "monday": 0,
-      "tuesday": 0,
+      "tuesday": 1,
       "wednesday": 0,
       "thursday": 0,
       "friday": 0,
@@ -30,12 +44,12 @@
   {
     "userid": "847164343602774097",
     "username": "magnificentsimon",
-    "totalMessages": 29,
+    "totalMessages": 10,
     "messages": {
-      "monday": 3,
-      "tuesday": 0,
-      "wednesday": 26,
-      "thursday": 0,
+      "monday": 2,
+      "tuesday": 2,
+      "wednesday": 0,
+      "thursday": 6,
       "friday": 0,
       "saturday": 0,
       "sunday": 0
@@ -44,27 +58,13 @@
   {
     "userid": "1003033031864500376",
     "username": "realkingo",
-    "totalMessages": 1,
+    "totalMessages": 6,
     "messages": {
       "monday": 0,
       "tuesday": 0,
-      "wednesday": 1,
+      "wednesday": 0,
       "thursday": 0,
-      "friday": 0,
-      "saturday": 0,
-      "sunday": 0
-    }
-  },
-  {
-    "userid": "1204491721119891492",
-    "username": "hxperkatzchen",
-    "totalMessages": 9,
-    "messages": {
-      "monday": 1,
-      "tuesday": 0,
-      "wednesday": 8,
-      "thursday": 0,
-      "friday": 0,
+      "friday": 6,
       "saturday": 0,
       "sunday": 0
     }
@@ -72,28 +72,28 @@
   {
     "userid": "1035799257409667102",
     "username": "lotte.4099",
-    "totalMessages": 3,
+    "totalMessages": 15,
     "messages": {
-      "monday": 0,
+      "monday": 13,
       "tuesday": 0,
-      "wednesday": 3,
-      "thursday": 0,
+      "wednesday": 0,
+      "thursday": 1,
       "friday": 0,
-      "saturday": 0,
+      "saturday": 1,
       "sunday": 0
     }
   },
   {
     "userid": "773072144304963624",
     "username": "felix2336",
-    "totalMessages": 59,
+    "totalMessages": 97,
     "messages": {
-      "monday": 0,
-      "tuesday": 1,
-      "wednesday": 58,
-      "thursday": 0,
-      "friday": 0,
-      "saturday": 0,
+      "monday": 17,
+      "tuesday": 7,
+      "wednesday": 41,
+      "thursday": 14,
+      "friday": 13,
+      "saturday": 5,
       "sunday": 0
     }
   }
