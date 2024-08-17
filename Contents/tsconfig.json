@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "rootDir": "./src",
+        "moduleResolution": "node10",
+        "declaration": true,
+        "declarationDir": "dist/typings",
+        "outDir": "dist",
+        "strict": true,
+        "skipLibCheck": true
+    },
+    "include": ["src"]
+}
