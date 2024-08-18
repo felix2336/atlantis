@@ -1,5 +1,5 @@
 import { EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, SlashCommandBuilder, Collection, TextChannel, Colors,  } from 'discord.js'
-import { Giveaway, countdown, Channels, Pings, MyClient } from '../../contents'
+import { Giveaway, countdown, Channels, Pings, MyClient } from 'contents'
 import { SlashCommand } from 'dcbot'
 import { readFileSync, writeFileSync } from 'fs'
 
@@ -39,7 +39,7 @@ export default new SlashCommand<MyClient>({
             ]
         })
 
-        const channel = client.guild.channels.cache.get(Channels.test) as TextChannel
+        const channel = client.guild!.channels.cache.get(Channels.test) as TextChannel
 
         const message = await channel.send({embeds: [embed], content: Pings.giveaway, components: [row]})
 

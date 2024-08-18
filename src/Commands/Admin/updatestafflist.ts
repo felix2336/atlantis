@@ -1,5 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, Client, TextChannel, GuildMember, Role } from 'discord.js'
-import { Channels } from '../../contents'
+import { Channels } from 'contents'
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand({

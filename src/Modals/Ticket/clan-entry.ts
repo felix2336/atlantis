@@ -1,5 +1,5 @@
 import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ChannelType, OverwriteType, TextChannel, ButtonStyle } from "discord.js";
-import { Categories } from '../../contents'
+import { Categories } from 'contents'
 import { Modal } from "dcbot";
 
 export default new Modal({

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, Colors, TextChannel, Guild } from "discord.js";
-import { Channels, MessageUser } from "../../contents";
+import { Channels, MessageUser } from "contents";
 import { SlashCommand } from 'dcbot'
 import { readFileSync, writeFileSync } from 'fs'
 

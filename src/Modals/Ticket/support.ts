@@ -1,5 +1,5 @@
 import { EmbedBuilder, ChannelType, ForumChannel, WebhookClient } from 'discord.js'
-import { Categories, Channels, MyClient, Roles, ticketButtons } from '../../../contents'
+import { Categories, Channels, MyClient, Roles, ticketButtons } from 'contents'
 import { Modal } from 'dcbot'
 
 export default new Modal<MyClient>({

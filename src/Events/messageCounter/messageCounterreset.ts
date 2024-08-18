@@ -1,5 +1,5 @@
 import { Events, Client, EmbedBuilder, Message, GuildMember, Colors, Guild, TextChannel } from 'discord.js'
-import { MessageUser, Channels } from '../../contents'
+import { MessageUser, Channels } from 'contents'
 import { readFileSync, writeFileSync } from 'fs'
 import { Event } from 'dcbot'
 

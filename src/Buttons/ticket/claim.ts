@@ -1,5 +1,5 @@
 import { ButtonInteraction, Colors, EmbedBuilder, GuildMember } from "discord.js";
-import { Roles } from "../../contents";
+import { Roles } from "contents";
 import { Button } from "dcbot";
 
 export default new Button({

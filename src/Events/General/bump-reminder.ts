@@ -1,6 +1,6 @@
 import { Events, Message } from "discord.js";
-import { Pings } from "../../contents";
-import { MyClient } from '../../contents'
+import { Pings } from "contents";
+import { MyClient } from 'contents'
 import { Event } from "dcbot";
 import Bumps from "../../Schemas/bumps";
 

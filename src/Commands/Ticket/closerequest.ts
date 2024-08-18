@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Client, TextChannel, Colors, ButtonStyle, GuildMember } from 'discord.js'
-import { Categories, Roles } from '../../contents'
+import { Categories, Roles } from 'contents'
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand({

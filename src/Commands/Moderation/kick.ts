@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, PermissionFlagsBits, GuildMember, Guild } from "discord.js";
-import { MemberManager, MyClient } from "../../contents";
+import { MemberManager, MyClient } from "contents";
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand( {

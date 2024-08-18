@@ -1,5 +1,5 @@
 import { ContextMenuCommandBuilder, UserContextMenuCommandInteraction, ApplicationCommandType, PermissionFlagsBits, GuildMember, CacheType } from 'discord.js'
-import { MessageUser } from '../../contents';
+import { MessageUser } from 'contents';
 import { UserContextMenu } from 'dcbot'
 import { readFileSync } from 'fs'
 

@@ -1,5 +1,5 @@
 import { Events, Role, GuildMember, Client, EmbedBuilder, TextChannel, RoleMention } from 'discord.js'
-import { Channels } from '../../contents'
+import { Channels } from 'contents'
 import { Event } from 'dcbot'
 export default new Event( {
     name: Events.ClientReady,

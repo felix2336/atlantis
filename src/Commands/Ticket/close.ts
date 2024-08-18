@@ -1,6 +1,6 @@
 import { SlashCommand } from 'dcbot'
 import { ChannelType, Colors, EmbedBuilder, SlashCommandBuilder, TextChannel } from 'discord.js'
-import { Categories, Channels } from '../../contents'
+import { Categories, Channels } from 'contents'
 
 export default new SlashCommand({
     data: new SlashCommandBuilder()

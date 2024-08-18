@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember, Guild, EmbedBuilder, Colors } from 'discord.js'
-import { MemberManager, MyClient } from '../../contents'
+import { MemberManager, MyClient } from 'contents'
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand<MyClient>({
@@ -15,7 +15,7 @@ export default new SlashCommand<MyClient>({
         const guild = client.guild
         const search = interaction.options.getString('search', false)
 
-        const Member = new MemberManager(user, guild)
+        const Member = new MemberManager(user, guild!)
 
         const perms = Member.getPermissions()
 

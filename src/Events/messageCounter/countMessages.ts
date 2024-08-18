@@ -1,5 +1,5 @@
 import { Message, Client, Events, DMChannel, ChannelType } from 'discord.js';
-import { MessageUser, Roles } from '../../contents';
+import { MessageUser, Roles } from 'contents';
 import { readFileSync, writeFileSync } from 'fs'
 import { Event } from 'dcbot';
 

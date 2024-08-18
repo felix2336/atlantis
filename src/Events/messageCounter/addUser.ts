@@ -1,6 +1,6 @@
 import { GuildMember, Events, Message } from 'discord.js';
 import { readFileSync, writeFileSync } from 'fs'
-import { MessageUser, Roles } from '../../contents';
+import { MessageUser, Roles } from 'contents';
 import { Event } from 'dcbot';
 
 export default new Event( {

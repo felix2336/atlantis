@@ -1,5 +1,5 @@
 import { ButtonInteraction, EmbedBuilder } from "discord.js";
-import { Giveaway } from "../../contents";
+import { Giveaway } from "contents";
 import { Button } from 'dcbot'
 import { readFileSync, writeFileSync } from 'fs'
 

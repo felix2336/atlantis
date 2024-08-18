@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonInteraction, ComponentType, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js'
-import { MyClient } from '../../contents'
+import { MyClient } from 'contents'
 import { Button } from 'dcbot'
 
 export default new Button( {

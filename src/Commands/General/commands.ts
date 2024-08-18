@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder, Colors, AutoModerationActionExecution } from 'discord.js'
 import { SlashCommand } from 'dcbot'
-import { MyClient } from '../../contents'
+import { MyClient } from 'contents'
 
 export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()

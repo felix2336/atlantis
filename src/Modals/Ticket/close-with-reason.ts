@@ -1,5 +1,5 @@
 import { ModalSubmitInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, TextChannel, Client, Colors, ForumChannel } from 'discord.js'
-import { Channels } from '../../contents'
+import { Channels } from 'contents'
 import { Modal } from 'dcbot'
 
 export default new Modal({

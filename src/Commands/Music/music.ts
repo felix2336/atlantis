@@ -3,7 +3,7 @@ import { SlashCommand } from 'dcbot'
 import { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnection, AudioPlayerStatus } from '@discordjs/voice'
 import ytdl from 'ytdl-core-discord'
 import ytsr from 'ytsr'
-import { MyClient } from '../../contents'
+import { MyClient } from 'contents'
 
 export default new SlashCommand<MyClient>( {
     data: new SlashCommandBuilder()

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, GuildMember, Guild, PermissionFlagsBits, EmbedBuilder, TextChannel } from 'discord.js'
-import { Channels, MemberManager, MyClient } from '../../contents'
+import { Channels, MemberManager, MyClient } from 'contents'
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand<MyClient>({
@@ -17,6 +17,7 @@ export default new SlashCommand<MyClient>({
         const deleteMessageSeconds = interaction.options.getNumber('deletemessageseconds') || undefined
         const reason = interaction.options.getString('reason', true)
         const mod = interaction.member as GuildMember
+        const guild = interaction.guild!
 
         if (target.roles.highest.position >= mod.roles.highest.position) {
             interaction.editReply({ content: 'Du kannst diesen User nicht bannen, da er eine höhere Rolle hat als du!'})
@@ -30,7 +31,7 @@ export default new SlashCommand<MyClient>({
             return
         }
 
-        const manager = new MemberManager(target, client.guild)
+        const manager = new MemberManager(target, guild)
 
         const ban = await manager.ban(mod, reason, deleteMessageSeconds)
         if (!ban) {

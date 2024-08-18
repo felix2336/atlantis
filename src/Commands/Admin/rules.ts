@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Colors, TextChannel } from "discord.js";
-import { Channels } from "../../contents";
+import { Channels } from "contents";
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand({

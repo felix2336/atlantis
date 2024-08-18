@@ -1,5 +1,5 @@
 import { GuildMember, Client, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, TextChannel, AttachmentBuilder } from 'discord.js'
-import { Channels } from '../../contents'
+import { Channels } from 'contents'
 import { profileImage } from 'discord-arts'
 import { Event } from 'dcbot'
 export default new Event({

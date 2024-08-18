@@ -1,5 +1,5 @@
 import { ButtonInteraction, Guild, GuildMember } from "discord.js";
-import { Roles, MemberManager } from "../../contents";
+import { Roles, MemberManager } from "contents";
 import { Button } from "dcbot";
 
 export default new Button( {

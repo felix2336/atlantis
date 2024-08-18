@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, PermissionFlagsBits, Client } from 'discord.js'
-import { Backup, MyClient } from '../../contents'
+import { Backup, MyClient } from 'contents'
 import { SlashCommand } from 'dcbot'
 import { readFileSync } from 'fs'
 
@@ -18,7 +18,7 @@ export default new SlashCommand<MyClient>({
         ),
 
     async execute(interaction, client) {
-        const guild = client.guild
+        const guild = client.guild!
         const subcommand = interaction.options.getSubcommand()
 
 

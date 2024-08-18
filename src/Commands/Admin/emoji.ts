@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js'
 import axios from 'axios'
 import { SlashCommand } from 'dcbot'
-import { MyClient } from '../../contents';
+import { MyClient } from 'contents';
 
 export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()

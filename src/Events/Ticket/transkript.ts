@@ -1,5 +1,5 @@
 import { Event } from 'dcbot'
-import { Categories, Channels } from '../../contents'
+import { Categories, Channels } from 'contents'
 import { Events, ForumChannel, Message, TextBasedChannel, TextChannel } from 'discord.js'
 
 export default new Event({

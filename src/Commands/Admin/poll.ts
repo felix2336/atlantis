@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, PermissionFlagsBits, PollData, PollLayoutType, SlashCommandBuilder, TextChannel } from 'discord.js'
 import { SlashCommand, Poll } from 'dcbot'
-import { MyClient } from '../../contents'
+import { MyClient } from 'contents'
 
 export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()

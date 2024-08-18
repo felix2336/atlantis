@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import cfg from '../../System/config.json'
-import { MyClient } from '../../contents'
+import { MyClient } from 'contents'
 import { Event } from 'dcbot'
 
 export default new Event({

@@ -1,6 +1,6 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
-import { Err, MyClient } from '../../contents';
+import {MyClient } from 'contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
 
@@ -28,43 +28,43 @@ const client = new MyClient({
 });
 const config = await import('./config.json');
 
-await client.loadCommands('Commands/Admin')
+await client.loadCommands('src/Commands/Admin')
 // await client.loadCommands('Commands/Casino')
-await client.loadCommands('Commands/General')
-await client.loadCommands('Commands/Moderation')
-await client.loadCommands('Commands/Music')
-await client.loadCommands('Commands/Staff')
-await client.loadCommands('Commands/Ticket')
+await client.loadCommands('src/Commands/General')
+await client.loadCommands('src/Commands/Moderation')
+await client.loadCommands('src/Commands/Music')
+await client.loadCommands('src/Commands/Staff')
+await client.loadCommands('src/Commands/Ticket')
 
-await client.loadEvents('Events/Admin')
-await client.loadEvents('Events/Client')
-await client.loadEvents('Events/Database')
-await client.loadEvents('Events/General')
-await client.loadEvents('Events/messageCounter')
-await client.loadEvents('Events/Observer')
-await client.loadEvents('Events/Security')
-await client.loadEvents('Events/Ticket')
+await client.loadEvents('src/Events/Admin')
+await client.loadEvents('src/Events/Client')
+await client.loadEvents('src/Events/Database')
+await client.loadEvents('src/Events/General')
+await client.loadEvents('src/Events/messageCounter')
+await client.loadEvents('src/Events/Observer')
+await client.loadEvents('src/Events/Security')
+await client.loadEvents('src/Events/Ticket')
 
-await client.loadModals('Modals/Abmeldung')
-await client.loadModals('Modals/Admin')
-await client.loadModals('Modals/CustomEmbed')
-await client.loadModals('Modals/General')
-await client.loadModals('Modals/Security')
-await client.loadModals('Modals/Staff')
-await client.loadModals('Modals/Ticket')
+await client.loadModals('src/Modals/Abmeldung')
+await client.loadModals('src/Modals/Admin')
+await client.loadModals('src/Modals/CustomEmbed')
+await client.loadModals('src/Modals/General')
+await client.loadModals('src/Modals/Security')
+await client.loadModals('src/Modals/Staff')
+await client.loadModals('src/Modals/Ticket')
 
-await client.loadStringSelectMenus('SelectMenus/Ticket')
+await client.loadStringSelectMenus('src/SelectMenus/Ticket')
 
-await client.loadUserContextMenus('ContextMenus/Messages')
-await client.loadUserContextMenus('ContextMenus/Warns')
+await client.loadUserContextMenus('src/ContextMenus/Messages')
+await client.loadUserContextMenus('src/ContextMenus/Warns')
 
-await client.loadButtons('Buttons/Abmeldung')
-await client.loadButtons('Buttons/Admin')
-await client.loadButtons('Buttons/CustomEmbed')
-await client.loadButtons('Buttons/General')
-await client.loadButtons('Buttons/Security')
-await client.loadButtons('Buttons/Selfrole')
-await client.loadButtons('Buttons/ticket')
+await client.loadButtons('src/Buttons/Abmeldung')
+await client.loadButtons('src/Buttons/Admin')
+await client.loadButtons('src/Buttons/CustomEmbed')
+await client.loadButtons('src/Buttons/General')
+await client.loadButtons('src/Buttons/Security')
+await client.loadButtons('src/Buttons/Selfrole')
+await client.loadButtons('src/Buttons/ticket')
 
 client.logWhenReady()
 client.enableDmLog('1250477524832489564')
@@ -99,11 +99,11 @@ client.on('ready', async () => {
 // })
 
 client.on('error', (err: Error) => {
-    Err(err)
+    client.logger.error(err.name)
 })
 
 process.on('uncaughtException', (err) => {
-    Err(err)
+    client.logger.error(err.name)
 })
 
 export default client;

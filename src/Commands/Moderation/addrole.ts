@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, Role, GuildMember, Guild, Client, PermissionFlagsBits } from 'discord.js'
-import { MemberManager, MyClient } from '../../contents'
+import { MemberManager, MyClient } from 'contents'
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand<MyClient>({
@@ -14,7 +14,7 @@ export default new SlashCommand<MyClient>({
         const user = interaction.options.getMember('user') as GuildMember
         const member = interaction.member as GuildMember
         const role = interaction.options.getRole('role', true) as Role
-        const guild = client.guild
+        const guild = client.guild!
 
         if (member.roles.highest.position <= role.position) {
             interaction.reply({ content: 'Du darfst diese Rolle nicht vergeben!', ephemeral: true });

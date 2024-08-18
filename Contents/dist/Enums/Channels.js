@@ -20,4 +20,5 @@ var Channels;
     Channels["giveaway"] = "1173357225721462804";
     Channels["selfrole"] = "1148123116590071828";
     Channels["ticket_transkripts"] = "1266433871201833121";
+    Channels["birthdays"] = "1178073046444163102";
 })(Channels || (exports.Channels = Channels = {}));

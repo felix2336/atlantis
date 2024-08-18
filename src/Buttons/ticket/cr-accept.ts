@@ -1,5 +1,5 @@
 import { ButtonInteraction, Client, Colors, EmbedBuilder, ForumChannel, TextChannel } from "discord.js";
-import { Channels } from "../../contents";
+import { Channels } from "contents";
 import { Button } from "dcbot";
 
 export default new Button( {

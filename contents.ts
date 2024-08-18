@@ -486,9 +486,7 @@ export class MemberManager {
     }
 }
 
-export function countdown(ms: number) {
-    return `<t:${Math.floor(ms / 1000)}:R>`
-}
+
 
 export function Err(err: Error): void {
     const writeString = `${new Date().toLocaleDateString('ru')} - ${new Date().toLocaleTimeString('de')}\n${err}\n\n`

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, TextChannel, Colors } from 'discord.js'
-import { Channels } from '../../contents'
+import { Channels } from 'contents'
 import { SlashCommand } from 'dcbot'
 import Warns from '../../Schemas/warns'
 

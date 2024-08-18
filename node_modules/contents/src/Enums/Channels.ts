@@ -15,5 +15,6 @@ export enum Channels {
     test = "1178073046444163102",
     giveaway = "1173357225721462804",
     selfrole = "1148123116590071828",
-    ticket_transkripts = "1266433871201833121"
+    ticket_transkripts = "1266433871201833121",
+    birthdays = "1178073046444163102"
 }

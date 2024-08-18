@@ -1,5 +1,5 @@
 import { Colors, EmbedBuilder, Events, Message } from 'discord.js'
-import { Roles, unbanRequestButton } from '../../contents'
+import { Roles, unbanRequestButton } from 'contents'
 import { Event } from 'dcbot'
 
 export default new Event( {

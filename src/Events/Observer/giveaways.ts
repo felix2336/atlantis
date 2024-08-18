@@ -1,5 +1,5 @@
 import { Events, EmbedBuilder, TextChannel } from 'discord.js'
-import { Giveaway, Channels, MyClient } from "../../contents";
+import { Giveaway, Channels, MyClient } from "contents";
 import { readFileSync, writeFileSync } from 'fs'
 import { Event } from 'dcbot';
 

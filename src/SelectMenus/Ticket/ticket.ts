@@ -1,6 +1,6 @@
 import { StringSelectMenuInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder, ActionRow, AnySelectMenuInteraction } from "discord.js";
 import { StringSelectMenu } from 'dcbot'
-import { MyClient } from "../../contents";
+import { MyClient } from "contents";
 
 export default new StringSelectMenu<MyClient>( {
     id: 'ticket',

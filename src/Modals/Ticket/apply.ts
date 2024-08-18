@@ -1,5 +1,5 @@
 import { EmbedBuilder, ChannelType, ForumChannel } from 'discord.js'
-import { Categories, Channels, ticketButtons } from '../../contents'
+import { Categories, Channels, ticketButtons } from 'contents'
 import { Modal } from 'dcbot'
 
 export default new Modal({

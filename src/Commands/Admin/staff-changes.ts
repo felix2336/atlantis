@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, Role, TextChannel } from 'discord.js'
 import { SlashCommand } from 'dcbot'
-import { MyClient } from '../../contents'
+import { MyClient } from 'contents'
 
 export default new SlashCommand<MyClient>({
     data: new SlashCommandBuilder()
