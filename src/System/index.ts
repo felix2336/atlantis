@@ -1,6 +1,6 @@
 import { Collection, GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
-import {MyClient } from 'contents';
+import { MyClient } from 'contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
 
@@ -93,17 +93,17 @@ client.on('ready', async () => {
 })
 
 // client.on('ready', () => {
-    // client.user!.setPresence({
-        // status: 'invisible'
-    // })
+// client.user!.setPresence({
+// status: 'invisible'
+// })
 // })
 
-client.on('error', (err: Error) => {
-    client.logger.error(err.name)
-})
+// client.on('error', (err: Error) => {
+//     client.logger.error(err.name)
+// })
 
-process.on('uncaughtException', (err) => {
-    client.logger.error(err.name)
-})
+// process.on('uncaughtException', (err) => {
+//     client.logger.error(err.name)
+// })
 
 export default client;
