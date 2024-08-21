@@ -22,6 +22,7 @@ __exportStar(require("./Classes/MemberManager"), exports);
 __exportStar(require("./Classes/MessageUser"), exports);
 __exportStar(require("./Classes/MyClient"), exports);
 __exportStar(require("./Classes/Suggestion"), exports);
+__exportStar(require("./Enums/APIRoutes"), exports);
 __exportStar(require("./Enums/Categories"), exports);
 __exportStar(require("./Enums/Channels"), exports);
 __exportStar(require("./Enums/Pings"), exports);
