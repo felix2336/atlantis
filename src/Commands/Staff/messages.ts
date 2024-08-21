@@ -2,6 +2,7 @@ import { ChatInputCommandInteraction, Client, EmbedBuilder, Colors, GuildMember,
 import { MessageUser } from 'contents';
 import { SlashCommand } from 'dcbot'
 import { readFileSync, writeFileSync } from 'fs'
+import Messages from '../../Schemas/messages';
 
 export default new SlashCommand({
     data: new SlashCommandBuilder()
@@ -17,7 +18,7 @@ export default new SlashCommand({
     async execute(interaction, client) {
         let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
         const member = interaction.member as GuildMember
-        if (!member.roles.cache.has('1156298949301379212')){
+        if (!member.roles.cache.has('1156298949301379212')) {
             interaction.reply({ content: 'Du musst im Team sein, um diesen Befehl nutzen zu können', ephemeral: true })
             return
         }
@@ -53,34 +54,20 @@ export default new SlashCommand({
                         break;
                     }
                     case 'weekly': {
-                        const leaderboard: any[] = []
-
-                        for (const UserData of DB) {
-                            const User = new MessageUser().assignData(UserData)
-                            leaderboard.push({ user: User.userid, count: User.getTotalMessages() })
+                        await interaction.deferReply()
+                        let DB = await Messages.find()
+                        const leaderboard: { user: string, count: number }[] = []
+                        for (const User of DB) {
+                            leaderboard.push({ user: User.userId, count: User.messagesSent })
                         }
 
                         leaderboard.sort((a, b) => b.count - a.count)
                         let message = ''
 
                         for (let i = 0; i < leaderboard.length; i++) {
-                            let member: GuildMember;
                             const entry = leaderboard[i]
-                            // console.log(entry.user)
-                            // continue
-                            try{
-                                member = await interaction.guild!.members.fetch(entry.user)
-                            } catch(e) {
-                                client.warn(entry.user)
-                                DB = DB.filter(e => e.userid != entry.user)
-                                writeFileSync('JSON/messages.json', JSON.stringify(DB, null, 3))
-                                continue
-                            }
+                            const member = await interaction.guild!.members.fetch(entry.user)
 
-                            if (!(member instanceof GuildMember)) {
-                                interaction.reply({ content: 'Etwas ist schiefgelaufen', ephemeral: true })
-                                return
-                            }
                             if (member.roles.cache.has('1201848061819891774')) {
                                 message += `\`\`${i + 1}. \`\`⏱️ <@${entry.user}> **• ${entry.count}** Nachrichten gesendet.\n`
                             } else {
@@ -99,7 +86,8 @@ export default new SlashCommand({
                             description: message,
                             color: Colors.Aqua
                         })
-                        interaction.reply({ embeds: [embed] })
+
+                        await interaction.editReply({ embeds: [embed] })
                     }
                 }
                 break;

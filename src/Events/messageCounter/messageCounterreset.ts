@@ -2,8 +2,9 @@ import { Events, Client, EmbedBuilder, Message, GuildMember, Colors, Guild, Text
 import { MessageUser, Channels } from 'contents'
 import { readFileSync, writeFileSync } from 'fs'
 import { Event } from 'dcbot'
+import Messages from '../../Schemas/messages'
 
-export default new Event( {
+export default new Event({
     name: Events.ClientReady,
     // name: Events.MessageCreate,
 
@@ -16,19 +17,13 @@ export default new Event( {
         const checkAndDelete = async () => {
             const date = new Date()
             if (date.getDay() == 0 && date.getHours() == 23 && date.getMinutes() == 59) {
-                let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
+                let DB = await Messages.find()
                 const leaderboard: { user: string, count: number }[] = []
-
-                for (const UserData of DB) {
-                    const User = new MessageUser().assignData(UserData)
-                    leaderboard.push({ user: User.userid!, count: User.getTotalMessages() })
-                    User.resetMessages()
-                    DB = DB.filter(u => u.userid != User.userid)
-                    DB.push(User)
-                    writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2), 'utf8')
+                for (const User of DB) {
+                    leaderboard.push({ user: User.userId, count: User.messagesSent })
                 }
 
-                const sorted = leaderboard.sort((a, b) => b.count - a.count)
+                leaderboard.sort((a, b) => b.count - a.count)
                 let message = ''
 
                 for (let i = 0; i < leaderboard.length; i++) {

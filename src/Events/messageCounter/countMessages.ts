@@ -1,6 +1,7 @@
 import { Message, Client, Events, DMChannel, ChannelType } from 'discord.js';
 import { MessageUser, Roles } from 'contents';
 import { readFileSync, writeFileSync } from 'fs'
+import Messages from '../../Schemas/messages'
 import { Event } from 'dcbot';
 
 export default new Event({
@@ -13,19 +14,31 @@ export default new Event({
         if (message.channel.parentId == '1156996872657977394') return;
         if (message.channel.parentId == '1180678820085370940') return;
 
-        let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
+        const DBUser = await Messages.findOne({ userId: message.author.id })
 
-        const UserData = DB.find(u => u.userid == message.author.id)
-        let User: MessageUser;
-        if (!UserData) {
-            User = new MessageUser({userid: message.author.id, username: message.author.username})
+        if (!DBUser) {
+            await Messages.create({
+                userId: message.author.id,
+                messagesSent: 1,
+            })
         } else {
-            User = new MessageUser().assignData(UserData)
+            DBUser.messagesSent++
+            await DBUser.save()
         }
-        const day = new Date().getDay()
-        User.addMessage(day)
-        DB = DB.filter(u => u.userid != message.author.id)
-        DB.push(User)
-        writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2))
+
+        // let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
+
+        // const UserData = DB.find(u => u.userid == message.author.id)
+        // let User: MessageUser;
+        // if (!UserData) {
+        //     User = new MessageUser({userid: message.author.id, username: message.author.username})
+        // } else {
+        //     User = new MessageUser().assignData(UserData)
+        // }
+        // const day = new Date().getDay()
+        // User.addMessage(day)
+        // DB = DB.filter(u => u.userid != message.author.id)
+        // DB.push(User)
+        // writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2))
     }
 })
