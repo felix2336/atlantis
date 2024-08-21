@@ -1,6 +1,7 @@
 import { SlashCommand } from 'dcbot'
 import { SlashCommandBuilder } from 'discord.js'
 import axios from 'axios'
+import { APIRoutes } from 'contents'
 
 export default new SlashCommand({
     data: new SlashCommandBuilder()
@@ -8,7 +9,7 @@ export default new SlashCommand({
         .setDescription('Gibt einen random Fakt aus'),
 
     async execute(interaction, client) {
-        await axios.get('http://localhost:3000/api/randomfact/get')
+        await axios.get(APIRoutes.randomfact)
             .then(res => {
                 interaction.reply(res.data.fact)
             })
