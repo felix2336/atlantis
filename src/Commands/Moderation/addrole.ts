@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction, Role, GuildMember, Guild, Client, PermissionFlagsBits } from 'discord.js'
+import { SlashCommandBuilder, Role, GuildMember, PermissionFlagsBits } from 'discord.js'
 import { MemberManager, MyClient } from 'contents'
 import { SlashCommand } from 'dcbot'
 
@@ -10,7 +10,7 @@ export default new SlashCommand<MyClient>({
         .addUserOption(input => input.setName('user').setDescription('Welcher User?').setRequired(true))
         .addRoleOption(input => input.setName('role').setDescription('Welche Rolle?').setRequired(true)),
 
-    async execute(interaction: ChatInputCommandInteraction, client) {
+    async execute(interaction, client) {
         const user = interaction.options.getMember('user') as GuildMember
         const member = interaction.member as GuildMember
         const role = interaction.options.getRole('role', true) as Role
@@ -20,7 +20,7 @@ export default new SlashCommand<MyClient>({
             interaction.reply({ content: 'Du darfst diese Rolle nicht vergeben!', ephemeral: true });
             return
         }
-        if (guild.members.cache.get(client.user!.id)!.roles.highest.position <= role.position){
+        if (guild.members.me!.roles.highest.position <= role.position){
             interaction.reply({ content: 'Der Bot darf die Rolle nicht vergeben!', ephemeral: true });
             return
         } 
