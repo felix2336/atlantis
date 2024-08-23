@@ -9,7 +9,7 @@ export default new Modal({
         const transkripts = client.channels.cache.get(Channels.ticket_transkripts) as ForumChannel
 
         const channel = await interaction.guild!.channels.create({
-            name: `ticket-${interaction.user.username}`,
+            name: `ticket-${interaction.user.id}`,
             type: ChannelType.GuildText,
             parent: Categories.ticket,
             permissionOverwrites: [

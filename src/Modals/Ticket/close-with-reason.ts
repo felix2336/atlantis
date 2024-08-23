@@ -8,8 +8,8 @@ export default new Modal({
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
         const logChannel = client.channels.cache.get(Channels.ticket_log) as TextChannel
-        const username = (interaction.channel as TextChannel).name.split('-')[1]
-        const member = interaction.guild!.members.cache.find(user => user.user.username == username)
+        const userid = (interaction.channel as TextChannel).name.split('-')[1]
+        const member = interaction.guild!.members.cache.get(userid)
 
         const logEmbed = new EmbedBuilder({
             title: 'Ticket geschlossen',
