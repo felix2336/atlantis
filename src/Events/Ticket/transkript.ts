@@ -1,6 +1,6 @@
 import { Event } from 'dcbot'
 import { Categories, Channels } from 'contents'
-import { Events, ForumChannel, Message, TextBasedChannel, TextChannel } from 'discord.js'
+import { Attachment, Events, ForumChannel, Message, TextBasedChannel, TextChannel } from 'discord.js'
 
 export default new Event({
     name: Events.MessageCreate,
@@ -17,7 +17,13 @@ export default new Event({
             return
         }
 
+        const attachments: Attachment[] = []
+        for(const [_, attachment] of message.attachments) {
+            attachments.push(attachment)
+        }
+
         await wh.send({
+            files: attachments,
             content: message.content,
             threadId: transkript!.id,
             username: message.author.username,
