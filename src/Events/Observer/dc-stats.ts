@@ -12,7 +12,7 @@ export default new Event({
             const totalMembersChannel = guild.channels.cache.get('1173321127582498846') as VoiceChannel
             const boostChannel = guild.channels.cache.get('1173321542927650906') as VoiceChannel
 
-            const humanMembers = (await guild.members.fetch()).filter(m => !m.user.bot).size
+            const humanMembers = guild.members.cache.filter(m => !m.user.bot).size
             const botCount = (guild.members.cache.filter(member => member.user.bot)).size
             const totalMembers = guild.memberCount
             const boosts = guild.premiumSubscriptionCount
