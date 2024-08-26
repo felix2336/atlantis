@@ -1,6 +1,4 @@
-import { Message, Client, Events, DMChannel, ChannelType } from 'discord.js';
-import { MessageUser, Roles } from 'contents';
-import { readFileSync, writeFileSync } from 'fs'
+import { Message, Events, ChannelType } from 'discord.js';
 import Messages from '../../Schemas/messages'
 import { Event } from 'dcbot';
 
@@ -24,20 +22,5 @@ export default new Event({
             DBUser.messagesSent++
             await DBUser.save()
         }
-
-        // let DB = JSON.parse(readFileSync('./JSON/messages.json', 'utf8')) as MessageUser[]
-
-        // const UserData = DB.find(u => u.userid == message.author.id)
-        // let User: MessageUser;
-        // if (!UserData) {
-        //     User = new MessageUser({userid: message.author.id, username: message.author.username})
-        // } else {
-        //     User = new MessageUser().assignData(UserData)
-        // }
-        // const day = new Date().getDay()
-        // User.addMessage(day)
-        // DB = DB.filter(u => u.userid != message.author.id)
-        // DB.push(User)
-        // writeFileSync('./JSON/messages.json', JSON.stringify(DB, null, 2))
     }
 })
