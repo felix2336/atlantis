@@ -32,7 +32,7 @@ export default new Modal({
         if (!(dm instanceof DMChannel)) return;
         await dm.send({ embeds: [embed] })
         interaction.editReply({ content: 'Die Abmeldung wurde erfolgreich abgelehnt' })
-        const button = new ActionRowBuilder<ButtonBuilder>().addComponents([
+        const button = new ActionRowBuilder().addComponents([
             new ButtonBuilder({
                 label: 'Abgelehnt',
                 style: 4,
@@ -42,6 +42,7 @@ export default new Modal({
 
         const emb = interaction.message!.embeds[0]
         emb.fields.push({ name: 'Abgelehnt - Grund:', value: reason })
+        //@ts-ignore
         await interaction.message!.edit({ embeds: [emb], components: [button] })
 
     }

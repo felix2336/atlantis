@@ -1,4 +1,4 @@
-import { TextChannel } from "discord.js";
+import { Client, ModalSubmitInteraction, TextChannel } from "discord.js";
 import { Channels, Suggestion } from "contents";
 import { Modal } from "dcbot";
 

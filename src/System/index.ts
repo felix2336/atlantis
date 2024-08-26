@@ -1,4 +1,5 @@
-import { GatewayIntentBits, Partials } from 'discord.js'
+import { Collection, GatewayIntentBits, Partials } from 'discord.js'
+import fs from 'fs'
 import { MyClient } from 'contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
@@ -71,6 +72,9 @@ client.handleInteractions()
 await client.login(config.token)
 client.deployCommands('1146113684435898439')
 
+// await startServer()
+
+
 client.on('ready', async () => {
     client.setGuild(client.guilds.cache.get('1146113684435898439')!)
     client.enableAudioPlayer()
@@ -87,6 +91,12 @@ client.on('ready', async () => {
         }
     })
 })
+
+// client.on('ready', () => {
+// client.user!.setPresence({
+// status: 'invisible'
+// })
+// })
 
 client.on('error', (err: Error) => {
     client.logger.error(err.name)

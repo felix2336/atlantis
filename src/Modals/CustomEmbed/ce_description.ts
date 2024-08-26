@@ -1,14 +1,17 @@
 import { Modal } from "dcbot";
-import { EmbedBuilder } from "discord.js";
+import { ModalSubmitInteraction, PermissionFlagsBits } from "discord.js";
 
 export default new Modal({
     id: 'ce_description',
 
-    async execute(interaction) {
+    async execute(interaction: ModalSubmitInteraction) {
         const description = interaction.fields.getTextInputValue('description')
-        const embed = EmbedBuilder.from(interaction.message!.embeds[0])
+        //@ts-ignore
+        const embed = interaction.message.embeds[0]
+        //@ts-ignore
         embed.data.description = description
         interaction.reply({ content: 'Die Beschreibung wurde erfolgreich geändert', ephemeral: true })
-        await interaction.deferUpdate().then(response => response.edit({ embeds: [embed] }))
+        //@ts-ignore
+        await interaction.message.edit({ embeds: [embed] })
     }
 })

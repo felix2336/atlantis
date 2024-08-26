@@ -1,5 +1,5 @@
 import { Modal } from 'dcbot'
-import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, ActionRowBuilder, Colors, TextChannel } from 'discord.js'
+import { ModalSubmitInteraction, EmbedBuilder, ButtonBuilder, Client, ActionRowBuilder, Colors, TextChannel } from 'discord.js'
 
 export default new Modal({
     id: 'taskmodal',
