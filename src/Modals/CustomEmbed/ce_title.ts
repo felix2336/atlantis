@@ -1,17 +1,14 @@
 import { Modal } from "dcbot";
-import { ModalSubmitInteraction, PermissionFlagsBits } from "discord.js";
+import { EmbedBuilder, ModalSubmitInteraction, PermissionFlagsBits } from "discord.js";
 
 export default new Modal({
     id: 'ce_title',
 
     async execute(interaction: ModalSubmitInteraction) {
         const title = interaction.fields.getTextInputValue('title')
-        //@ts-ignore
-        const embed = interaction.message.embeds[0]
-        //@ts-ignore
+        const embed = EmbedBuilder.from(interaction.message!.embeds[0])
         embed.data.title = title
         interaction.reply({ content: 'Der Titel wurde erfolgreich geändert', ephemeral: true })
-        //@ts-ignore
-        await interaction.message.edit({ embeds: [embed] })
+        await interaction.deferUpdate().then(response => response.edit({ embeds: [embed] }))
     }
 })

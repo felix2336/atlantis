@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction, EmbedBuilder, TextChannel } from "discord.js";
+import { EmbedBuilder, TextChannel } from "discord.js";
 import { Channels } from 'contents'
 import { Modal } from "dcbot";
 
