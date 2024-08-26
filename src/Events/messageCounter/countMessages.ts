@@ -10,7 +10,6 @@ export default new Event({
     async execute(client, message: Message) {
         if (message.author.bot) return;
         if (message.channel.type == ChannelType.DM) return;
-        if (!message.member!.roles.cache.has((Roles.staff))) return;
         if (message.channel.parentId == '1156996872657977394') return;
         if (message.channel.parentId == '1180678820085370940') return;
 
