@@ -12,12 +12,16 @@ export default new SlashCommand({
         await interaction.deferReply({ ephemeral: true })
         await interaction.editReply('Vorgang: ``Fetching Messages``')
         let messagesToDelete = await channel.messages.fetch({ limit: 100 })
-        
-        
+
+
         while (messagesToDelete.size > 0) {
             await interaction.editReply(`Vorgang: \`\`Deleting ${messagesToDelete.size} Messages\`\``)
             const promise = messagesToDelete.map(message => {
-                if (message.deletable) return message.delete().catch(err => console.log(err))
+                if (message.deletable) {
+                    setTimeout(() => {
+                        return message.delete().catch(err => console.log(err))
+                    }, 1500)
+                }
             })
 
             await Promise.all(promise)
