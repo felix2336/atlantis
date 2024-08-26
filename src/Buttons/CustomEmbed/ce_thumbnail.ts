@@ -5,13 +5,12 @@ export default new Button({
     id: 'ce_thumbnail',
 
     async execute(interaction: ButtonInteraction) {
-        //@ts-ignore
-        if (interaction.user.username != interaction.message.embeds[0].author.name) {
+        if (interaction.user.username != interaction.message.embeds[0].author!.name) {
             interaction.reply({ content: 'Du darfst an diesem Embed nichts ändern', ephemeral: true })
             return
         }
 
-        
+
         const modal = new ModalBuilder({
             customId: 'ce_thumbnail',
             title: 'Beschreibung ändern'

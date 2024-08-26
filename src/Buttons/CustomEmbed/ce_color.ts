@@ -5,8 +5,7 @@ export default new Button({
     id: 'ce_color',
 
     async execute(interaction: ButtonInteraction) {
-        //@ts-ignore
-        if (interaction.user.username != interaction.message.embeds[0].author.name) {
+        if (interaction.user.username != interaction.message.embeds[0].author!.name) {
             interaction.reply({ content: 'Du darfst an diesem Embed nichts ändern', ephemeral: true })
             return
         }
@@ -25,8 +24,7 @@ export default new Button({
             style: 1
         })
 
-        const row = new ActionRowBuilder().addComponents(title)
-        //@ts-ignore
+        const row = new ActionRowBuilder<TextInputBuilder>().addComponents(title)
         modal.addComponents(row)
 
         await interaction.showModal(modal)

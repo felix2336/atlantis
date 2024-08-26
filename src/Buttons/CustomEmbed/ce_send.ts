@@ -22,9 +22,8 @@ export default new Button({
             style: 1
         })
 
-        const row = new ActionRowBuilder().addComponents(channel)
+        const row = new ActionRowBuilder<TextInputBuilder>().addComponents(channel)
 
-        //@ts-ignore
         modal.addComponents(row)
         await interaction.showModal(modal)
     }

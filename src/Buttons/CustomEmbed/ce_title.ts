@@ -4,12 +4,11 @@ import { ButtonInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder } f
 export default new Button({
     id: 'ce_title',
 
-    async execute(interaction: ButtonInteraction){
-        //@ts-ignore
-        if (interaction.user.username != interaction.message.embeds[0].author.name) {
+    async execute(interaction: ButtonInteraction) {
+        if (interaction.user.username != interaction.message.embeds[0].author!.name) {
             interaction.reply({ content: 'Du darfst an diesem Embed nichts ändern', ephemeral: true })
             return
-        } 
+        }
 
         const modal = new ModalBuilder({
             customId: 'ce_title',
@@ -25,8 +24,7 @@ export default new Button({
             style: 1
         })
 
-        const row = new ActionRowBuilder().addComponents(title)
-        //@ts-ignore
+        const row = new ActionRowBuilder<TextInputBuilder>().addComponents(title)
         modal.addComponents(row)
 
         await interaction.showModal(modal)

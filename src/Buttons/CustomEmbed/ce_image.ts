@@ -1,15 +1,14 @@
 import { Button } from 'dcbot'
 import { ButtonInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder } from 'discord.js'
 
-export default new Button( {
+export default new Button({
     id: 'ce_image',
 
     async execute(interaction: ButtonInteraction) {
-        //@ts-ignore
-        if (interaction.user.username != interaction.message.embeds[0].author.name) {
+        if (interaction.user.username != interaction.message.embeds[0].author!.name) {
             interaction.reply({ content: 'Du darfst an diesem Embed nichts ändern', ephemeral: true })
             return
-        } 
+        }
 
         const modal = new ModalBuilder({
             customId: 'ce_image',
@@ -24,8 +23,7 @@ export default new Button( {
             style: 2
         })
 
-        const row = new ActionRowBuilder().addComponents(image)
-        //@ts-ignore
+        const row = new ActionRowBuilder<TextInputBuilder>().addComponents(image)
         modal.addComponents(row)
 
         await interaction.showModal(modal)
