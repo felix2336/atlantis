@@ -25,21 +25,23 @@ export default new SlashCommand({
                         interaction.reply({ embeds: [embed] })
                         return
                     }
-                    else if (stderr) {
+                    else if (stdout) {
                         const embed = new EmbedBuilder({
-                            title: `OUTPUT ERROR`,
+                            title: `SUCCESS`,
                             description: stderr,
-                            color: Colors.Orange
-                        })
-                        interaction.reply({ embeds: [embed] })
-                    }
-                    else {
-                        const embed = new EmbedBuilder({
-                            title: 'SUCCESS',
-                            description: stdout,
                             color: Colors.Green
                         })
                         interaction.reply({ embeds: [embed] })
+                    }
+                    else if (stderr) {
+                        const embed = new EmbedBuilder({
+                            title: 'OUTPUT ERROR',
+                            description: stdout,
+                            color: Colors.Orange
+                        })
+                        interaction.reply({ embeds: [embed] })
+                    } else {
+                        interaction.reply({ content: 'Ein Fehler ist aufgetreten', ephemeral: true })
                     }
                 })
             }
