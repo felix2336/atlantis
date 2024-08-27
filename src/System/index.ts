@@ -26,45 +26,33 @@ const client = new MyClient({
         Partials.GuildScheduledEvent,
     ],
 });
+
 const config = await import('./config.json');
 
-await client.loadCommands('src/Commands/Admin')
-// await client.loadCommands('Commands/Casino')
-await client.loadCommands('src/Commands/General')
-await client.loadCommands('src/Commands/Moderation')
-await client.loadCommands('src/Commands/Music')
-await client.loadCommands('src/Commands/Staff')
-await client.loadCommands('src/Commands/Ticket')
+fs.readdirSync('src/Commands').forEach((folder) => {
+    client.loadCommands(`src/Commands/${folder}`);
+});
 
-await client.loadEvents('src/Events/Admin')
-await client.loadEvents('src/Events/Client')
-await client.loadEvents('src/Events/Database')
-await client.loadEvents('src/Events/General')
-await client.loadEvents('src/Events/messageCounter')
-await client.loadEvents('src/Events/Observer')
-await client.loadEvents('src/Events/Security')
-await client.loadEvents('src/Events/Ticket')
 
-await client.loadModals('src/Modals/Abmeldung')
-await client.loadModals('src/Modals/Admin')
-await client.loadModals('src/Modals/CustomEmbed')
-await client.loadModals('src/Modals/General')
-await client.loadModals('src/Modals/Security')
-await client.loadModals('src/Modals/Staff')
-await client.loadModals('src/Modals/Ticket')
+fs.readdirSync('src/Events').forEach((folder) => {
+    client.loadEvents(`src/Events/${folder}`);
+});
+
+
+fs.readdirSync('src/Modals').forEach((folder) => {
+    client.loadModals(`src/Modals/${folder}`);
+});
+
 
 await client.loadStringSelectMenus('src/SelectMenus/Ticket')
 
 await client.loadUserContextMenus('src/ContextMenus/Messages')
 await client.loadUserContextMenus('src/ContextMenus/Warns')
 
-await client.loadButtons('src/Buttons/Abmeldung')
-await client.loadButtons('src/Buttons/Admin')
-await client.loadButtons('src/Buttons/CustomEmbed')
-await client.loadButtons('src/Buttons/General')
-await client.loadButtons('src/Buttons/Security')
-await client.loadButtons('src/Buttons/Selfrole')
-await client.loadButtons('src/Buttons/ticket')
+fs.readdirSync('src/Buttons').forEach((folder) => {
+    client.loadButtons(`src/Buttons/${folder}`);
+});
+
 
 client.logWhenReady()
 client.enableDmLog('1250477524832489564')
