@@ -15,30 +15,29 @@ export default new SlashCommand({
         const reason = interaction.options.get('reason', true).value as string
         const member = interaction.options.getMember('user') as GuildMember
         const channel = interaction.guild!.channels.cache.get(Channels.warn) as TextChannel
-        await Warns.findOne({userId: member.user.id})
-        .then(async User => {
-            if(User) {
-                User.warns.push({
-                    date: new Date().toLocaleDateString('ru'),
-                    id: generateWarnId(),
-                    moderator: interaction.user.username,
-                    reason: reason
-                })
-                await User.save()
-            } else {
-                await Warns.create({
-                    userId: member.user.id,
-                    warns: [
-                        {
+        await Warns.findOne({ userId: member.user.id })
+            .then(async User => {
+                if (User) {
+                    User.warns.push({
+                        date: new Date().toLocaleDateString('ru'),
+                        id: generateWarnId(),
+                        moderator: interaction.user.username,
+                        reason: reason
+                    })
+                    await User.save()
+                } else {
+                    const User = new Warns({
+                        userId: member.user.id,
+                        warns: [{
                             date: new Date().toLocaleDateString('ru'),
                             id: generateWarnId(),
                             moderator: interaction.user.username,
                             reason: reason
-                        }
-                    ]
-                })
-            }
-        })
+                        }]
+                    })
+                    await User.save()
+                }
+            })
 
         const embed = new EmbedBuilder({
             title: 'User gewarnt',

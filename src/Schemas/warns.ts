@@ -6,7 +6,7 @@ const WarnSchema = new Schema({
     warns: [{ date: { type: String, required: true }, moderator: { type: String, required: true }, reason: { type: String, required: true }, id: { type: String, required: true } }],
 })
 
-const Warns = mongoose.models['warns'] || model('warns', WarnSchema)
+const Warns = model('warns', WarnSchema)
 export default Warns
 
 function getWarnEmbed(): EmbedBuilder {
