@@ -1,4 +1,4 @@
-import { StringSelectMenuInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder } from "discord.js";
+import { ModalBuilder, TextInputBuilder, ActionRowBuilder } from "discord.js";
 import { StringSelectMenu } from 'dcbot'
 import { MyClient } from "contents";
 
