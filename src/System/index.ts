@@ -3,6 +3,7 @@ import fs from 'fs'
 import { MyClient } from 'contents';
 import ytdl from 'ytdl-core-discord';
 import { createAudioResource } from '@discordjs/voice';
+import { CommandStartedEvent } from 'mongodb';
 
 const client = new MyClient({
     intents: [
@@ -29,21 +30,20 @@ const client = new MyClient({
 
 const config = await import('./config.json');
 
-fs.readdirSync('src/Commands').forEach(async (folder) => {
-    if (folder == 'Music') return;
-    await client.loadCommands(`src/Commands/${folder}`);
-});
+const commandFolders = fs.readdirSync('src/Commands').filter(folder => folder != 'Music')
+for (const folder of commandFolders) {
+    await client.loadCommands(`src/Commands/${folder}`)
+}
 
+const eventFolders = fs.readdirSync('src/Events')
+for (const folder of eventFolders) {
+    await client.loadEvents(`src/Events/${folder}`)
+}
 
-fs.readdirSync('src/Events').forEach(async (folder) => {
-    await client.loadEvents(`src/Events/${folder}`);
-});
-
-
-fs.readdirSync('src/Modals').forEach(async (folder) => {
-    await client.loadModals(`src/Modals/${folder}`);
-});
-
+const modalFolders = fs.readdirSync('src/Modals')
+for (const folder of modalFolders) {
+    await client.loadModals(`src/Modals/${folder}`)
+}
 
 await client.loadStringSelectMenus('src/SelectMenus/Ticket')
 
