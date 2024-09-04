@@ -29,18 +29,19 @@ const client = new MyClient({
 
 const config = await import('./config.json');
 
-fs.readdirSync('src/Commands').forEach((folder) => {
-    client.loadCommands(`src/Commands/${folder}`);
+fs.readdirSync('src/Commands').forEach(async (folder) => {
+    if (folder == 'Music') return;
+    await client.loadCommands(`src/Commands/${folder}`);
 });
 
 
-fs.readdirSync('src/Events').forEach((folder) => {
-    client.loadEvents(`src/Events/${folder}`);
+fs.readdirSync('src/Events').forEach(async (folder) => {
+    await client.loadEvents(`src/Events/${folder}`);
 });
 
 
-fs.readdirSync('src/Modals').forEach((folder) => {
-    client.loadModals(`src/Modals/${folder}`);
+fs.readdirSync('src/Modals').forEach(async (folder) => {
+    await client.loadModals(`src/Modals/${folder}`);
 });
 
 
