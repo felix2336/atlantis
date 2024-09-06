@@ -11,7 +11,7 @@ export declare class MyClient extends ExtendedClient {
         duration: string;
     }[];
     player?: AudioPlayer;
-    constructor(options: ClientOptions);
+    constructor(options: ClientOptions, devId: string);
     setGuild(guild: Guild): void;
     enableAudioPlayer(options?: CreateAudioPlayerOptions): void;
 }

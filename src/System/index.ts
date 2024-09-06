@@ -26,7 +26,7 @@ const client = new MyClient({
         Partials.User,
         Partials.GuildScheduledEvent,
     ],
-});
+}, '773072144304963624');
 
 const config = await import('./config.json');
 

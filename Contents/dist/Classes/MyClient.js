@@ -4,8 +4,8 @@ exports.MyClient = void 0;
 const dcbot_1 = require("dcbot");
 const voice_1 = require("@discordjs/voice");
 class MyClient extends dcbot_1.ExtendedClient {
-    constructor(options) {
-        super(options);
+    constructor(options, devId) {
+        super(options, devId);
         this.queue = [];
     }
     setGuild(guild) {
