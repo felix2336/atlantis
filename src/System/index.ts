@@ -86,12 +86,12 @@ client.on('ready', async () => {
 // })
 // })
 
-client.on('error', (err: Error) => {
-    client.logger.error(err.message)
-})
+// client.on('error', (err: Error) => {
+//     client.logger.error(err.message)
+// })
 
-process.on('uncaughtException', (err) => {
-    client.logger.error(err.message)
-})
+// process.on('uncaughtException', (err) => {
+//     client.logger.error(err.message)
+// })
 
 export default client;

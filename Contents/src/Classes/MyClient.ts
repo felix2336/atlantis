@@ -7,8 +7,8 @@ export class MyClient extends ExtendedClient {
     queue: { title: string, url: string, thumbnail: string, duration: string }[]
     player?: AudioPlayer
 
-    constructor(options: ClientOptions) {
-        super(options)
+    constructor(options: ClientOptions, devId: string) {
+        super(options, devId)
         this.queue = []
     }
 
@@ -18,5 +18,6 @@ export class MyClient extends ExtendedClient {
 
     public enableAudioPlayer(options?: CreateAudioPlayerOptions) {
         this.player = createAudioPlayer(options)
+        this.logger.info("Musikplayer aktiviert")
     }
 }

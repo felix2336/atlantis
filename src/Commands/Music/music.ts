@@ -4,6 +4,7 @@ import { joinVoiceChannel, createAudioPlayer, createAudioResource, VoiceConnecti
 import ytdl from 'ytdl-core-discord'
 import ytsr from 'ytsr'
 import { MyClient } from 'contents'
+import wrapper from 'libsodium-wrappers'
 
 export default new SlashCommand<MyClient>( {
     data: new SlashCommandBuilder()
@@ -37,7 +38,6 @@ export default new SlashCommand<MyClient>( {
         ),
 
     async execute(interaction, client) {
-	console.log(client)
         try {
             let embed = new EmbedBuilder()
             const member = interaction.member as GuildMember
@@ -85,10 +85,9 @@ export default new SlashCommand<MyClient>( {
 
                 if (client.queue.length == 1) {
                     try {
-                        const stream = await ytdl(client.queue[0].url)
-                        const resource = createAudioResource(stream)
-                        client.player.play(resource)
-                        connection.subscribe(client.player)
+                        const resource = createAudioResource('Videos/test.mp4')
+                        client.player!.play(resource)
+                        connection.subscribe(client.player!)
                         embed
                             .setDescription(`Ich habe **[${songInfo.title}](${songInfo.url})** erfolgreich zur Warteschlange hinzugefügt!`)
                             //@ts-ignore
@@ -97,6 +96,7 @@ export default new SlashCommand<MyClient>( {
                             .setFooter({ text: `Länge: ${song.duration}` })
                             .setColor(Colors.Gold)
                     } catch (e) {
+                        console.log(e)
                         embed.setDescription(`Ein Fehler ist aufgetreten!`)
                         interaction.reply({ embeds: [embed] })
                         return;
@@ -136,7 +136,7 @@ export default new SlashCommand<MyClient>( {
                 if (client.queue.length > 0) {
                     const nextStream = await ytdl(client.queue[0].url)
                     const nextResource = createAudioResource(nextStream)
-                    client.player.play(nextResource);
+                    client.player!.play(nextResource);
                     embed
                         .setDescription(`Ich spiele jetzt **[${client.queue[0].title}](${client.queue[0].url})**`)
                         .setColor(Colors.Gold)
@@ -172,7 +172,7 @@ export default new SlashCommand<MyClient>( {
                     return
                 }
 
-                const paused = client.player.pause(true)
+                const paused = client.player!.pause(true)
                 if (paused) {
                     embed
                         .setColor(Colors.Gold)
@@ -192,7 +192,7 @@ export default new SlashCommand<MyClient>( {
                     return
                 }
 
-                const resumed = client.player.unpause()
+                const resumed = client.player!.unpause()
                 if (resumed) {
                     embed
                         .setColor(Colors.Gold)

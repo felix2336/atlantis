@@ -13,6 +13,7 @@ class MyClient extends dcbot_1.ExtendedClient {
     }
     enableAudioPlayer(options) {
         this.player = (0, voice_1.createAudioPlayer)(options);
+        this.logger.info("Musikplayer aktiviert");
     }
 }
 exports.MyClient = MyClient;
