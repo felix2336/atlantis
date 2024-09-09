@@ -3,7 +3,7 @@ import { Giveaway, Channels, MyClient } from "contents";
 import { readFileSync, writeFileSync } from 'fs'
 import { Event } from 'dcbot';
 
-export default new Event<MyClient>( {
+export default new Event<MyClient>({
     name: Events.ClientReady,
 
     async execute(client) {
@@ -28,7 +28,7 @@ export default new Event<MyClient>( {
                 }
             }
         }
-        await check()
+        await check().catch(client.logger.error)
         setInterval(check, 60000)
     }
 })
