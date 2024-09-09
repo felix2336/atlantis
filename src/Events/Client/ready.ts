@@ -7,7 +7,7 @@ export default new Event({
     once: true,
 
     async execute(client) {
-        client.user!.setActivity({ type: ActivityType.Competing, name: 'Atlantis Lounge' })
+        client.user!.setActivity({ type: ActivityType.Competing, name: 'Gaming Universe' })
         await client.guilds.cache.get('1146113684435898439')!.members.fetch()
     }
 })
