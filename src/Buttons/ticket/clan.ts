@@ -1,8 +1,7 @@
-import { ActionRowBuilder, ButtonInteraction, ComponentType, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js'
-import { MyClient } from 'contents'
+import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js'
 import { Button } from 'dcbot'
 
-export default new Button( {
+export default new Button({
     id: 'clan-ticket',
 
     async execute(interaction) {

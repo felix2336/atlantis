@@ -1,4 +1,4 @@
-import { ButtonInteraction, Colors, EmbedBuilder, GuildMember } from "discord.js";
+import { Colors, EmbedBuilder, GuildMember } from "discord.js";
 import { Roles } from "contents";
 import { Button } from "dcbot";
 
@@ -6,8 +6,8 @@ export default new Button({
     id: 'claim',
 
     async execute(interaction) {
-        if(!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) {
-            interaction.reply({content: 'Nur Teammitglieder können Tickets claimen', ephemeral: true})
+        if (!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) {
+            interaction.reply({ content: 'Nur Teammitglieder können Tickets claimen', ephemeral: true })
             return
         }
         const embed = new EmbedBuilder({
@@ -17,7 +17,7 @@ export default new Button({
         })
         const components = interaction.message.components[0]
         components.components.pop()
-        await interaction.message.edit({components: [components]})
-        await interaction.reply({embeds: [embed]})
+        await interaction.message.edit({ components: [components] })
+        await interaction.reply({ embeds: [embed] })
     }
 })

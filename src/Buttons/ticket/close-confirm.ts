@@ -1,6 +1,6 @@
 import { Channels } from "contents";
 import { Button } from "dcbot";
-import { ButtonInteraction, ForumChannel, TextChannel } from "discord.js";
+import { ForumChannel, TextChannel } from "discord.js";
 
 export default new Button({
     id: 'close-confirm',

@@ -1,14 +1,14 @@
 import { Button } from "dcbot";
-import { ButtonInteraction, Colors, EmbedBuilder, TextChannel } from "discord.js";
+import { Colors, EmbedBuilder, TextChannel } from "discord.js";
 
 export default new Button({
     id: 'cr_decline',
 
-    async execute(interaction: ButtonInteraction) {
-        if(interaction.user.id != (interaction.channel as TextChannel).name.split('-')[1]) {
-            interaction.reply({content: 'Nur der Ersteller des Tickets darf diesen Button drücken!', ephemeral: true});
+    async execute(interaction) {
+        if (interaction.user.id != (interaction.channel as TextChannel).name.split('-')[1]) {
+            interaction.reply({ content: 'Nur der Ersteller des Tickets darf diesen Button drücken!', ephemeral: true });
             return
-        } 
+        }
 
         const embed = new EmbedBuilder({
             title: 'Schließ-Anfrage',
@@ -16,7 +16,7 @@ export default new Button({
             color: Colors.Red
         })
 
-        await interaction.message.edit({content: '', embeds: [embed], components: []})
-        await interaction.reply({content: 'Du hast die Schließ-Anfrage abgelehnt!', ephemeral: true})
+        await interaction.message.edit({ content: '', embeds: [embed], components: [] })
+        await interaction.reply({ content: 'Du hast die Schließ-Anfrage abgelehnt!', ephemeral: true })
     }
 })

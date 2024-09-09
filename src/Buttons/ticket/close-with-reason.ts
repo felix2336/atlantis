@@ -1,7 +1,7 @@
 import { Button } from "dcbot";
-import { ButtonInteraction, ModalBuilder, TextInputBuilder, ActionRowBuilder } from "discord.js";
+import { ModalBuilder, TextInputBuilder, ActionRowBuilder } from "discord.js";
 
-export default new Button( {
+export default new Button({
     id: 'close-with-reason',
 
     async execute(interaction) {

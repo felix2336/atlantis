@@ -1,12 +1,12 @@
 import { Button } from "dcbot";
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, PermissionFlagsBits } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } from "discord.js";
 
 export default new Button({
     id: 'clanticket-close',
 
-    async execute(interaction){
-        if(!interaction.memberPermissions!.has(PermissionFlagsBits.Administrator)) {
-            interaction.reply({content: 'Du darfst dieses Ticket nicht schließen', ephemeral: true})
+    async execute(interaction) {
+        if (!interaction.memberPermissions!.has(PermissionFlagsBits.Administrator)) {
+            interaction.reply({ content: 'Du darfst dieses Ticket nicht schließen', ephemeral: true })
             return
         }
         const row = new ActionRowBuilder<ButtonBuilder>({
@@ -24,6 +24,6 @@ export default new Button({
             ]
         })
 
-        await interaction.reply({content: 'Sicher, dass du das Ticket schließen möchtest?', components: [row]})
+        await interaction.reply({ content: 'Sicher, dass du das Ticket schließen möchtest?', components: [row] })
     }
 })

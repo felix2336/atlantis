@@ -1,4 +1,4 @@
-import { ButtonInteraction, Client, Colors, EmbedBuilder, ForumChannel, TextChannel } from "discord.js";
+import { Colors, EmbedBuilder, ForumChannel, TextChannel } from "discord.js";
 import { Channels } from "contents";
 import { Button } from "dcbot";
 

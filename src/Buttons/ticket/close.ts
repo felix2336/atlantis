@@ -1,11 +1,11 @@
-import { ButtonInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Colors, GuildMember } from "discord.js";
+import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Colors, GuildMember } from "discord.js";
 import { Roles } from "contents";
 import { Button } from "dcbot";
 
-export default new Button( {
+export default new Button({
     id: 'close',
 
-    async execute(interaction: ButtonInteraction) {
+    async execute(interaction) {
         if (!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) {
             interaction.reply({ content: 'Nur Teammitglieder dürfen Tickets schließen', ephemeral: true })
             return
@@ -24,6 +24,6 @@ export default new Button( {
             })
         ])
 
-        await interaction.reply({embeds: [embed], components: [row]})
+        await interaction.reply({ embeds: [embed], components: [row] })
     }
 })
