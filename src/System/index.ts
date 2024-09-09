@@ -1,9 +1,6 @@
-import { Collection, GatewayIntentBits, Partials } from 'discord.js'
+import { GatewayIntentBits, Partials } from 'discord.js'
 import fs from 'fs'
 import { MyClient } from 'contents';
-import ytdl from 'ytdl-core-discord';
-import { createAudioResource } from '@discordjs/voice';
-import { CommandStartedEvent } from 'mongodb';
 
 const client = new MyClient({
     intents: [
@@ -74,7 +71,7 @@ client.on('ready', async () => {
 // })
 // })
 
-// client.on('error', (err: Error) => {
+// client.on('error', (err) => {
 //     client.logger.error(err.message)
 // })
 

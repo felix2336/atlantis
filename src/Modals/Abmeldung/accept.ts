@@ -35,7 +35,7 @@ export default new Modal({
         if (!(dm instanceof DMChannel)) return;
         await dm.send({ embeds: [embed] })
         await interaction.editReply({ content: 'Die Abmeldung wurde erfolgreich genehmigt' })
-        const button = new ActionRowBuilder().addComponents([
+        const button = new ActionRowBuilder<ButtonBuilder>().addComponents([
             new ButtonBuilder({
                 label: 'Genehmigt',
                 style: 3,
@@ -45,7 +45,6 @@ export default new Modal({
 
         const emb = interaction.message!.embeds[0]
         emb.fields.push({ name: 'Akzeptiert - Grund:', value: reason })
-        //@ts-ignore
         await interaction.message!.edit({ embeds: [emb], components: [button] })
 
     }
