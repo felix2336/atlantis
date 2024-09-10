@@ -9,7 +9,7 @@ export default new Event({
 
     async execute(client: MyClient) {
         await mongoose.connect(cfg.mongourl)
-            .then(() => client.info('Connected to Database'))
+            .then(() => client.logger.info('Connected to Database'))
             .catch(err => console.error(err))
     }
 })

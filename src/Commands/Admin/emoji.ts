@@ -21,29 +21,29 @@ export default new SlashCommand<MyClient>({
             return
         }
 
-        if(emoji.startsWith('<') && emoji.endsWith('>')){
+        if (emoji.startsWith('<') && emoji.endsWith('>')) {
             const type = await axios.get(`https://cdn.discordapp.com/emojis/${id}.gif`)
-            .then(image => {
-                if(image) return 'gif'
-                else return 'png'
-            })
-            .catch(err => {
-                return 'png'
-            })
+                .then(image => {
+                    if (image) return 'gif'
+                    else return 'png'
+                })
+                .catch(err => {
+                    return 'png'
+                })
 
             const emojiurl = `https://cdn.discordapp.com/emojis/${id}.${type}?quality=lossless`
 
-            await client.guild.emojis.create({
+            await client.guild!.emojis.create({
                 attachment: `${emojiurl}`,
                 name: emojiName
             })
-            .then(emoji => {
-                return interaction.reply({content: `Das Emoji \`${emoji.name}\`: ${emoji} wurde erfolgreich hinzugefügt!`, ephemeral: true})
-            })
-            .catch(err => {
-                console.log(err)
-                return interaction.reply({content: 'Das EMoji konnte nicht hinzugefügt werden!', ephemeral: true})
-            })
+                .then(emoji => {
+                    return interaction.reply({ content: `Das Emoji \`${emoji.name}\`: ${emoji} wurde erfolgreich hinzugefügt!`, ephemeral: true })
+                })
+                .catch(err => {
+                    console.log(err)
+                    return interaction.reply({ content: 'Das EMoji konnte nicht hinzugefügt werden!', ephemeral: true })
+                })
         }
     }
 })

@@ -1,3 +1,4 @@
+import { MyClient } from "contents";
 import { SlashCommand } from "dcbot";
 import { SlashCommandBuilder } from "discord.js";
 

@@ -23,7 +23,7 @@ export default new Modal({
             color: 0xe62731
         })
 
-        const row = new ActionRowBuilder().addComponents([
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
             new ButtonBuilder({
                 label: 'Akzeptieren',
                 style: 3,
@@ -39,7 +39,6 @@ export default new Modal({
         ])
         // const ping = 'PINGS'
         const ping = '<@&1170957646942191688> <@&1181259236408311828>'
-        //@ts-ignore
         await channel.send({ content: ping, embeds: [embed], components: [row] })
         await interaction.reply({ content: 'Dein Antrag auf Abmeldung wurde übermittelt!', ephemeral: true })
     }

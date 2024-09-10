@@ -1,8 +1,8 @@
-import { Colors, EmbedBuilder, Events, Message } from 'discord.js'
-import { Roles, unbanRequestButton } from 'contents'
+import { ActionRowBuilder, ButtonBuilder, Colors, EmbedBuilder, Events, Message } from 'discord.js'
+import { Roles, UnbanRequestButton } from 'contents'
 import { Event } from 'dcbot'
 
-export default new Event( {
+export default new Event({
     name: Events.MessageCreate,
 
     async execute(client, message: Message) {
@@ -23,10 +23,10 @@ export default new Event( {
             })
 
 
-            await message.member!.send({ embeds: [embed], components: [unbanRequestButton] })
-            .catch(err => {
-                console.log(err)
-            })
+            await message.member!.send({ embeds: [embed], components: [new ActionRowBuilder<ButtonBuilder>().addComponents(UnbanRequestButton)] })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     }
 })
