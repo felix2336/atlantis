@@ -9,7 +9,9 @@ export default new SlashCommand({
         .addStringOption(input => input.setName('input').setDescription('Gib hier den Satz ein, den die Kuh sagen soll').setRequired(true)),
 
     async execute(interaction, client) {
-        const input = interaction.options.getString('input', true);
+        let input = interaction.options.getString('input', true);
+        input = input.replace(')', '\)')
+
         exec(`cowsay ${input}`, async (error, stdout, stderr) => {
             if(error) {
                 client.logger.error(error.message)
