@@ -18,9 +18,7 @@ export default new SlashCommand({
             await interaction.editReply(`Vorgang: \`\`Deleting ${messagesToDelete.size} Messages\`\``)
             const promise = messagesToDelete.map(message => {
                 if (message.deletable) {
-                    setTimeout(() => {
-                        return message.delete().catch(err => console.log(err))
-                    }, 1500)
+                    return message.delete().catch(err => console.log(err))
                 }
             })
 

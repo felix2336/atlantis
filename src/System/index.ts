@@ -44,7 +44,7 @@ for (const folder of modalFolders) {
 
 await client.loadStringSelectMenus('src/SelectMenus/Ticket')
 
-await client.loadUserContextMenus('src/ContextMenus/Messages')
+await client.loadMessageContextMenus('src/ContextMenus/Messages')
 await client.loadUserContextMenus('src/ContextMenus/Warns')
 
 fs.readdirSync('src/Buttons').forEach((folder) => {
