@@ -21,7 +21,7 @@ export default new SlashCommand({
             if(stdout) {
                 const embed = new EmbedBuilder({
                     title: 'Glückskeks',
-                    description: '***Du öffnest einen Glückskeks und erhältst folgende Nachricht:***\n' + stdout,
+                    description: '***Du öffnest einen Glückskeks und erhältst folgende Nachricht:***\n\n' + stdout,
                     color: Colors.Green
                 })
                 await interaction.reply({embeds: [embed]})
