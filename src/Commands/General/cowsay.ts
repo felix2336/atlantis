@@ -12,9 +12,10 @@ export default new SlashCommand({
         const input = interaction.options.getString('input', true);
         exec(`cowsay ${input}`, async (error, stdout, stderr) => {
             if(error) {
+                client.logger.error(error.message)
                 const embed = new EmbedBuilder({
                     title: 'Fehler',
-                    description: 'Ein Fehler ist aufgetreten. Bitte wende dich an einen Administrator',
+                    description: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut oder wende dich an einen Administrator',
                     color: Colors.DarkRed
                 })
                 await interaction.reply({embeds: [embed]})
