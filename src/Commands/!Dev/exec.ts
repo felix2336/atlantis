@@ -10,13 +10,14 @@ export default new SlashCommand({
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     devOnly: true,
     async execute(interaction, client) {
+        await interaction.deferReply({ephemeral: true})
         const command = interaction.options.getString('command')
         exec(command, async (error, stdout, stderr) => {
             if(error) {
-                await interaction.reply({content: `Folgender Fehler ist aufgetreten: \n\n${error.message}`, ephemeral: true})
+                await interaction.editReply({content: `Folgender Fehler ist aufgetreten: \n\n${error.message}`})
             }
             if(stdout) {
-                await interaction.reply({content: `\`\`\`\n${stdout}\`\`\``, ephemeral: true})
+                await interaction.editReply({content: `\`\`\`\n${stdout}\`\`\``})
             }
         })
     }
