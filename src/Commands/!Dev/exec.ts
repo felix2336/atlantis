@@ -16,7 +16,7 @@ export default new SlashCommand({
                 await interaction.reply({content: `Folgender Fehler ist aufgetreten: \n\n${error.message}`, ephemeral: true})
             }
             if(stdout) {
-                await interaction.reply({content: `${stdout}`, ephemeral: true})
+                await interaction.reply({content: `\`\`\`\n${stdout}\`\`\``, ephemeral: true})
             }
         })
     }
