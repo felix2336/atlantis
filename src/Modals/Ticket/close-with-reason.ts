@@ -14,7 +14,7 @@ export default new Modal({
         const logEmbed = new EmbedBuilder({
             title: 'Ticket geschlossen',
             fields: [
-                { name: 'Ersteller', value: `${member}`, inline: true },
+                { name: 'Ersteller', value: `<@${userid}>`, inline: true },
                 { name: 'Geschlossen von', value: `${interaction.member}`, inline: true },
                 { name: 'Erstellungsdatum', value: `${interaction.channel?.createdAt?.toLocaleDateString()}`, inline: false },
                 { name: 'Grund der Schließung', value: interaction.fields.getTextInputValue('reason') }
@@ -40,18 +40,22 @@ export default new Modal({
 
         await transkript.setName(`${transkript.name}-closed`).catch(client.logger.error)
 
-        const userEmbed = new EmbedBuilder(logEmbed.data).setAuthor({ name: interaction.guild!.name, iconURL: interaction.guild!.iconURL() || '' })
+        if (member) {
+            const userEmbed = new EmbedBuilder(logEmbed.data).setAuthor({ name: interaction.guild!.name, iconURL: interaction.guild!.iconURL() || '' })
+
+            await member.send({ embeds: [userEmbed] })
+                .catch(async err => {
+                    await interaction.editReply('Die DM Nachricht konnte nicht zugestellt werden!')
+                })
+                .then(async () => {
+                    await interaction.editReply('Der Ersteller des Tickets wurde über die Schließung informiert!')
+                })
+                .finally(async () => {
+                    await interaction.channel!.send({ content: 'Dieses Ticket wird in 5 Sekunden gelöscht!' })
+                })
+        }
+
         await logChannel.send({ embeds: [logEmbed] })
-        await member!.send({ embeds: [userEmbed] })
-            .catch(async err => {
-                await interaction.editReply('Die DM Nachricht konnte nicht zugestellt werden!')
-            })
-            .then(async () => {
-                await interaction.editReply('Der Ersteller des Tickets wurde über die Schließung informiert!')
-            })
-            .finally(async () => {
-                await interaction.channel!.send({ content: 'Dieses Ticket wird in 5 Sekunden gelöscht!' })
-            })
 
         setTimeout(async () => {
             await interaction.channel!.delete()
