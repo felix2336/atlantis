@@ -1,6 +1,6 @@
 import { SlashCommand } from "dcbot";
 import { SlashCommandBuilder, EmbedBuilder, Colors } from "discord.js";
-import {exec} from 'child_process'
+import { exec } from 'child_process'
 
 export default new SlashCommand({
     data: new SlashCommandBuilder()
@@ -12,23 +12,23 @@ export default new SlashCommand({
         let input = interaction.options.getString('input', true);
         input = input.replace(')', '\)')
 
-        exec(`cowsay ${input}`, async (error, stdout, stderr) => {
-            if(error) {
+        exec(`cowsay "${input}"`, async (error, stdout, stderr) => {
+            if (error) {
                 client.logger.error(error.message)
                 const embed = new EmbedBuilder({
                     title: 'Fehler',
                     description: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut oder wende dich an einen Administrator',
                     color: Colors.DarkRed
                 })
-                await interaction.reply({embeds: [embed]})
+                await interaction.reply({ embeds: [embed] })
             }
-            if(stdout) {
+            if (stdout) {
                 const embed = new EmbedBuilder({
                     title: 'Kuh sagt',
                     description: `\`\`\`\n${stdout}\n\`\`\``,
                     color: Colors.Green
                 })
-                await interaction.reply({embeds: [embed]})
+                await interaction.reply({ embeds: [embed] })
             }
         })
     },
