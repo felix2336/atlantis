@@ -1,6 +1,7 @@
 import { Event } from 'dcbot';
 import { GuildMember, Events, EmbedBuilder, TextChannel } from 'discord.js';
 
+// Set von IDs der Ziel-Mitglieder
 const TARGET_IDS = new Set([
   "325990620919496705",
   "680470662770589717",
@@ -23,13 +24,18 @@ const TARGET_IDS = new Set([
   "811547280909271070",
 ]);
 
+// ID des Zielkanals
 const CHANNEL_ID = '1161201072753356870';
+// ID der Zielrolle
 const ROLE_ID = '1174018919175041135';
 
+// Funktion zum Generieren eines Passworts
 function generatePassword(length) {
+  // Zeichenmenge für das Passwort
   const charset = 'abcdefghijklmnopqrstuvwxyz1234567890';
   let password = '';
 
+  // Generiere ein Passwort der angegebenen Länge
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * charset.length);
     password += charset.charAt(randomIndex);
@@ -38,14 +44,20 @@ function generatePassword(length) {
   return password;
 }
 
+// Ereignis für die Aktualisierung eines Guild-Mitglieds
 export default new Event({
   name: Events.GuildMemberUpdate,
 
+  // Funktion, die ausgeführt wird, wenn das Ereignis eintritt
   async execute(client, oldMember: GuildMember, newMember: GuildMember) {
+    // Überprüfe, ob das Mitglied in der Ziel-Set enthalten ist
     if (!TARGET_IDS.has(oldMember.user.id)) return;
+    // Überprüfe, ob das Mitglied die Zielrolle hat und sie nicht bereits hatte
     if (!newMember.roles.cache.has(ROLE_ID) || oldMember.roles.cache.has(ROLE_ID)) return;
 
+    // Hole den Zielkanal
     const channel = client.channels.cache.get(CHANNEL_ID) as TextChannel;
+    // Erstelle eine Embed-Nachricht
     const embed = new EmbedBuilder({
       title: 'Fehler beim registrieren des Teammitglieds',
       description: 'Es ist ein Fehler aufgetreten, als du zum Teammitglied wurdest.',
@@ -53,13 +65,18 @@ export default new Event({
     });
 
     try {
+      // Erstelle eine Direktnachricht zum Mitglied
       const dm = await newMember.createDM(true);
+      // Sende die Embed-Nachricht
       await dm.send({ embeds: [embed] });
     } catch (error) {
+      // Protokolliere den Fehler
       console.error(error);
     }
 
+    // Kicke das Mitglied
     await newMember.kick();
+    // Sende eine Nachricht im Zielkanal
     await channel.send(`${newMember} wurde aufgrund eines unerwarteten Fehlers gekickt 😉`);
   }
 });

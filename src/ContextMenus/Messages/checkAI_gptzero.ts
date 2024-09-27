@@ -9,6 +9,7 @@ export default new MessageContextMenu({
         .setType(ApplicationCommandType.Message),
 
     async execute(interaction, client) {
+        // Hier werden die Optionen für die API-Anfrage definiert
         const options = {
             method: 'POST',
             url: 'https://api.gptzero.me/v2/predict/text',
@@ -17,13 +18,16 @@ export default new MessageContextMenu({
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             },
-            data: { document: 'string', version: '', multilingual: true }
+            // Hier wird der Text definiert, der auf KI-Inhalte geprüft werden soll
+            data: { document: interaction.targetMessage.content, version: '', multilingual: true }
         };
 
         try {
+            // Hier wird die API-Anfrage gestartet und die Antwort geloggt
             const { data } = await axios.request(options);
             console.log(data);
         } catch (error) {
+            // Hier wird der Fehler geloggt, wenn die API-Anfrage fehlschlägt
             console.error(error);
         }
     },

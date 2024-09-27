@@ -3,32 +3,40 @@ import { Categories, Roles } from 'contents'
 import { SlashCommand } from 'dcbot'
 
 export default new SlashCommand({
+    // Daten für den Befehl
     data: new SlashCommandBuilder()
         .setName('closerequest')
         .setDescription('Beantrage die Schließung des aktuellen Tickets')
         .addStringOption(input => input.setName('reason').setDescription('Der Grund für die Schließung').setRequired(true)),
 
+    // Funktion, die ausgeführt wird, wenn der Befehl aufgerufen wird
     async execute(interaction: ChatInputCommandInteraction, client: Client) {
-        if(!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) {
-            interaction.reply({content: 'Du darfst diesen Befehl nicht nutzen!', ephemeral: true})
+        // Überprüfe, ob der Benutzer die erforderliche Rolle hat
+        if (!(interaction.member as GuildMember).roles.cache.has(Roles.staff)) {
+            interaction.reply({ content: 'Du darfst diesen Befehl nicht nutzen!', ephemeral: true })
             return
         }
+
+        // Hole den Benutzer, der das Ticket erstellt hat
         const ticketUser = await interaction.guild!.members.fetch((interaction.channel as TextChannel).name.split('-')[1])
-        if(!ticketUser) {
-            interaction.reply({content: 'Der User, der das Ticket erstellt hat, konnte nicht gefunden werden!', ephemeral: true});
+        if (!ticketUser) {
+            interaction.reply({ content: 'Der User, der das Ticket erstellt hat, konnte nicht gefunden werden!', ephemeral: true });
         }
 
-        if((interaction.channel as TextChannel).parentId != Categories.ticket) {
-            interaction.reply({content: 'Dies ist kein Ticket Kanal!', ephemeral: true})
+        // Überprüfe, ob der Kanal ein Ticket-Kanal ist
+        if ((interaction.channel as TextChannel).parentId != Categories.ticket) {
+            interaction.reply({ content: 'Dies ist kein Ticket Kanal!', ephemeral: true })
             return
         }
 
+        // Erstelle eine Embed-Nachricht für die Schließ-Anfrage
         const embed = new EmbedBuilder({
             title: 'Schließ-Anfrage',
             description: `${interaction.member} hat das Schließen dieses Tickets angefordert! Grund:\n\`\`\`\n${interaction.options.getString('reason', true)}\n\`\`\`\nBitte akzeptiere oder verweigere mit den unten stehenden Buttons!`,
             color: Colors.Green
         })
 
+        // Erstelle eine Reihe mit Buttons für die Schließ-Anfrage
         const row = new ActionRowBuilder<ButtonBuilder>({
             components: [
                 new ButtonBuilder({
@@ -46,6 +54,7 @@ export default new SlashCommand({
             ]
         })
 
-        await interaction.reply({content: `${ticketUser}`, embeds: [embed], components: [row]})
+        // Sende die Schließ-Anfrage an den Benutzer, der das Ticket erstellt hat
+        await interaction.reply({ content: `${ticketUser}`, embeds: [embed], components: [row] })
     }
 })
