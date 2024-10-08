@@ -35,7 +35,7 @@ export default new Modal({
             username: 'TICKET MASTER',
             avatarURL: 'https://cdn.discordapp.com/emojis/1229101938977800222.webp?size=96&quality=lossless',
             threadId: transkript.id,
-            content: '# Ticket geschlossen!'
+            embeds: [logEmbed]
         })
 
         await transkript.setName(`${transkript.name}-closed`).catch(client.logger.error)

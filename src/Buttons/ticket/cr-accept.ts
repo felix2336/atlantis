@@ -24,15 +24,6 @@ export default new Button({
             return
         }
 
-        await wh.send({
-            username: 'TICKET MASTER',
-            avatarURL: 'https://cdn.discordapp.com/emojis/1229101938977800222.webp?size=96&quality=lossless',
-            content: '# Ticket geschlossen!',
-            threadId: transkript?.id
-        })
-
-        await transkript.setName(`${transkript.name}-closed`).catch(client.logger.error)
-
         const logEmbed = new EmbedBuilder({
             title: 'Ticket geschlossen',
             fields: [
@@ -44,6 +35,16 @@ export default new Button({
             color: Colors.Green,
             timestamp: new Date
         })
+
+        await wh.send({
+            username: 'TICKET MASTER',
+            avatarURL: 'https://cdn.discordapp.com/emojis/1229101938977800222.webp?size=96&quality=lossless',
+            threadId: transkript?.id,
+            embeds: [logEmbed]
+        })
+
+        await transkript.setName(`${transkript.name}-closed`).catch(client.logger.error)
+
 
         const userEmbed = new EmbedBuilder(logEmbed.data).setAuthor({ name: interaction.guild!.name, iconURL: interaction.guild!.iconURL() || '' })
         await logChannel.send({ embeds: [logEmbed] })
