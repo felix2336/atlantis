@@ -32,6 +32,7 @@
     "mongoose": "^7.6.10",
     "nodejs": "^0.0.0",
     "util": "^0.12.5",
+    "utils": "^1.2.9",
     "ytdl-core": "^4.11.5",
     "ytdl-core-discord": "^1.1.0",
     "ytsr": "^3.8.4"
