@@ -1,15 +1,17 @@
 import { GuildMember, Client, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, TextChannel, AttachmentBuilder } from 'discord.js'
-import { Channels } from 'contents'
+import { Channels, Roles } from 'contents'
+import { ms } from 'utils'
 import { profileImage } from 'discord-arts'
 import { Event } from 'dcbot'
 export default new Event({
     name: 'guildMemberAdd',
 
     async execute(client, member: GuildMember) {
+        //* Greeting
         const channel = member.guild.channels.cache.get(Channels.welcome) as TextChannel
 
         const buffer = await profileImage(member.user.id, {
-            customDate: new Date().toLocaleDateString('ru'),
+            customDate: new Date().toLocaleDateString('de'),
             badgesFrame: true,
             customTag: 'Willkommen',
             presenceStatus: member.presence?.status,
@@ -35,12 +37,27 @@ export default new Event({
             })
         ])
 
-        if(buffer instanceof Buffer) {
+        if (buffer instanceof Buffer) {
             const attachment = new AttachmentBuilder(buffer, { name: 'image.png' })
             embed.setImage('attachment://image.png')
             await channel.send({ content: `${member}`, embeds: [embed], components: [row], files: [attachment] })
         } else {
-            await channel.send({ content: `${member}`, embeds: [embed], components: [row]})
+            await channel.send({ content: `${member}`, embeds: [embed], components: [row] })
         }
+
+        //* Verify checking 
+        setTimeout(async () => {
+            if (!member.roles.cache.has(Roles.community)) {
+                const embed = new EmbedBuilder({
+                    title: 'Du wurdest automatisch gekickt!',
+                    description: 'Du wurdest automatisch gekickt, weil du dich nicht innerhalb von 24 Stunden verifiziert hast!',
+                    color: Colors.Red,
+                    timestamp: new Date
+                })
+
+                await member.send({ embeds: [embed] }).catch(console.log)
+                await member.kick('Nicht verifiziert nach 24 Stunden')
+            }
+        }, ms('1d'))
     }
 })
