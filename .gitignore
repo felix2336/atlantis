@@ -8,3 +8,4 @@ test2.js
 src/img
 test.ts
 verdaccio
+package-lock.json
