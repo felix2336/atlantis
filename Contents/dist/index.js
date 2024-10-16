@@ -33,3 +33,4 @@ __exportStar(require("./Interfaces/Giveaway"), exports);
 __exportStar(require("./Interfaces/MessageUserData"), exports);
 __exportStar(require("./Interfaces/SuggestionData"), exports);
 __exportStar(require("./Functions/Countdown"), exports);
+__exportStar(require("./Functions/Time"), exports);

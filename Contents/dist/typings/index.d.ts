@@ -17,3 +17,4 @@ export * from './Interfaces/Giveaway';
 export * from './Interfaces/MessageUserData';
 export * from './Interfaces/SuggestionData';
 export * from './Functions/Countdown';
+export * from './Functions/Time';
